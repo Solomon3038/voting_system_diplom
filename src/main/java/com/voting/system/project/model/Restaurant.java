@@ -2,6 +2,7 @@ package com.voting.system.project.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -11,8 +12,10 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Getter
-@Table(name = "restaurants")
+@ToString(callSuper = true, exclude = "menus")
+@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "name_unique_idx")})
 public class Restaurant extends AbstractNamedEntity {
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("id DESC")
     private Set<Menu> menus;
