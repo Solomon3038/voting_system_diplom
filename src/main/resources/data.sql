@@ -10,10 +10,11 @@ VALUES ('ROLE_USER', 1),
        ('ROLE_ADMIN', 3),
        ('ROLE_ADMIN', 4);
 
-INSERT INTO RESTAURANTS (id, name)
-VALUES (1, 'Manhattan-skybar'),
-       (2, 'Gastro'),
-       (3, 'Vinograd');
+INSERT INTO RESTAURANTS (id, name, address)
+VALUES (1, 'Manhattan-skybar', 'вулиця Соборна, 112, Рівне, Рівненська область, 33000'),
+       (2, 'Gastro', 'проспект Миру, 10, Рівне, Рівненська область, 33013'),
+       (3, 'Vinograd', 'вулиця Видумка, 2 Б, Рівне, Рівненська область, 33023'),
+       (4, 'Closed', 'вулиця Грушевського, 120, Рівне, Рівненська область, 33000');
 
 INSERT INTO MENUS (id, registered, restaurant_id)
 VALUES (1, '2020-01-01', 1),
@@ -24,7 +25,7 @@ INSERT INTO MENUS (id, restaurant_id)
 VALUES (4, 1),
        (5, 2),
        (6, 3);
--- ID starts with 16
+
 INSERT INTO DISHES (id, name, price, menu_id)
 VALUES (1, 'Шатобріан', 99, 1),
        (2, 'Червоний борщ', 38, 1),
@@ -41,4 +42,3 @@ VALUES (1, 'Шатобріан', 99, 1),
        (13, 'Салат цезар', 110.50, 6),
        (14, 'Хінкалі з баранини', 97, 6),
        (15, 'Курча тапака', 70, 6);
--- ID starts with 32

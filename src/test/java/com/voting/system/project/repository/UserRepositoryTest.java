@@ -22,7 +22,7 @@ class UserRepositoryTest extends ProjectApplicationTests {
 
     @Test
     void findByIdNotExist() {
-        User userNotExist = userRepository.findUserById(USER_ID_NOT_EXIST);
+        User userNotExist = userRepository.findUserById(NOT_EXIST_ID);
         Assertions.assertNull(userNotExist);
     }
 }

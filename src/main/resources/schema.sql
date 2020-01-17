@@ -7,7 +7,9 @@ drop table if exists users;
 create table restaurants
 (
     ID   INTEGER auto_increment primary key,
-    NAME VARCHAR(100) not null constraint NAME_UNIQUE_IDX unique
+    NAME VARCHAR(100) not null,
+    ADDRESS VARCHAR(100) not null,
+    constraint NAME_ADDRESS_UNIQUE_IDX unique (NAME, ADDRESS)
 );
 
 create table menus
@@ -26,14 +28,15 @@ create table dishes
     PRICE   BIGINT       not null,
     MENU_ID INTEGER      not null,
     constraint USERS_UNIQUE_EMAIL_IDX unique (NAME, MENU_ID),
-    constraint FK_MENU_ID  foreign key (MENU_ID) references MENUS (ID)
+    constraint FK_MENU_ID foreign key (MENU_ID) references MENUS (ID)
 );
 
 create table users
 (
     ID         INTEGER auto_increment primary key,
     NAME       VARCHAR(100)            not null,
-    EMAIL      VARCHAR(100)            not null constraint UK_EMAIL unique,
+    EMAIL      VARCHAR(100)            not null
+        constraint UK_EMAIL unique,
     PASSWORD   VARCHAR(100)            not null,
     REGISTERED TIMESTAMP default NOW() not null
 );

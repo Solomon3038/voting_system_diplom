@@ -1,7 +1,6 @@
 package com.voting.system.project;
 
 import com.voting.system.project.model.*;
-import org.assertj.core.api.Assertions;
 
 import java.util.HashMap;
 import java.util.List;
