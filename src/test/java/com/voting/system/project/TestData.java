@@ -12,8 +12,8 @@ public class TestData {
     public static final int NOT_EXIST_ID = -1;
     public static final int USER_ID_1 = 1;
     public static final int USER_ID_2 = USER_ID_1 + 1;
-    public static final int USER_ID_3 = USER_ID_2 + 1;
-    public static final int USER_ID_4 = USER_ID_3 + 1;
+    public static final int ADMIN_ID_1 = USER_ID_2 + 1;
+    public static final int ADMIN_ID_2 = ADMIN_ID_1 + 1;
 
     public static final int RESTAURANT_ID_1 = 1;
     public static final int RESTAURANT_ID_2 = RESTAURANT_ID_1 + 1;
@@ -45,8 +45,8 @@ public class TestData {
 
     public static final User USER_1 = new User(USER_ID_1, "User One", "user.one@ukr.net", "password", Role.ROLE_USER);
     public static final User USER_2 = new User(USER_ID_2, "User Two", "user.two@ukr.net", "password", Role.ROLE_USER);
-    public static final User ADMIN_1 = new User(USER_ID_3, "Admin One", "admin.one@gmail.com", "admin", Role.ROLE_ADMIN);
-    public static final User ADMIN_2 = new User(USER_ID_4, "Admin Two", "admin.two@gmail.com", "admin", Role.ROLE_ADMIN);
+    public static final User ADMIN_1 = new User(ADMIN_ID_1, "Admin One", "admin.one@gmail.com", "admin", Role.ROLE_ADMIN);
+    public static final User ADMIN_2 = new User(ADMIN_ID_2, "Admin Two", "admin.two@gmail.com", "admin", Role.ROLE_ADMIN);
 
     public static final Restaurant RESTAURANT_1 = new Restaurant(RESTAURANT_ID_1, "Manhattan-skybar", "вулиця Соборна, 112, Рівне, Рівненська область, 33000");
     public static final Restaurant RESTAURANT_2 = new Restaurant(RESTAURANT_ID_2, "Gastro", "проспект Миру, 10, Рівне, Рівненська область, 33013");
@@ -98,7 +98,7 @@ public class TestData {
         RESTAURANT_3.setMenus(new HashSet<>(Arrays.asList(MENU_3_NOW, MENU_3)));
     }
 
-    public static Restaurant getNewRestaurant() {
+    public static Restaurant getNewRestaurantWithMenuAndDishes() {
         Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
         Menu menu = new Menu(null, restaurant);
         Dish dish1 = new Dish(null, "dish 1", 10_00, menu);
@@ -106,5 +106,9 @@ public class TestData {
         menu.setDishes(new HashSet<>(Arrays.asList(dish1, dish2)));
         restaurant.setMenu(menu);
         return restaurant;
+    }
+
+    public static Restaurant getNewRestaurant() {
+       return new Restaurant(null, "New Restaurant", "new Address");
     }
 }

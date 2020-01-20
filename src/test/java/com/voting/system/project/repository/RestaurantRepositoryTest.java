@@ -34,20 +34,6 @@ class RestaurantRepositoryTest extends ProjectApplicationTests {
     }
 
     @Test
-    void findByIdWithMenus() {
-        Restaurant restaurantWithMenus = restaurantRepository.findByIdWithMenus(RESTAURANT_ID_1);
-        assertMatch(restaurantWithMenus, RESTAURANT_1);
-        checkEntityFieldLoadingType(Restaurant.class, "menus", false);
-        assertMatch(restaurantWithMenus.getMenus(), MENU_1_NOW, MENU_1);
-    }
-
-    @Test
-    void findByIdNotExistWithMenus() {
-        Restaurant restaurantNotExist = restaurantRepository.findByIdWithMenus(NOT_EXIST_ID);
-        Assertions.assertNull(restaurantNotExist);
-    }
-
-    @Test
     void findAll() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
         assertMatch(restaurants, RESTAURANTS);
@@ -59,7 +45,6 @@ class RestaurantRepositoryTest extends ProjectApplicationTests {
         List<Restaurant> restaurantsWithMenu = restaurantRepository.findAllWithMenusOnCurrentDate();
         assertMatch(restaurantsWithMenu, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
         checkEntityFieldLoadingType(Restaurant.class, "menus", false);
-
         List<Menu> menus = restaurantsWithMenu.stream()
                 .map(Restaurant::getMenus)
                 .flatMap(Set::stream)
@@ -69,27 +54,22 @@ class RestaurantRepositoryTest extends ProjectApplicationTests {
     }
 
     @Test
-    void save() {
-        Restaurant saved = restaurantRepository.save(getNewRestaurant());
-        Restaurant newRestaurant = getNewRestaurant();
+    void saveWithMenusAndDishes() {
+        Restaurant saved = restaurantRepository.save(getNewRestaurantWithMenuAndDishes());
+        Restaurant newRestaurant = getNewRestaurantWithMenuAndDishes();
         int id = saved.getId();
         newRestaurant.setId(id);
         int menuId = saved.getMenus().iterator().next().getId();
         newRestaurant.getMenus().iterator().next().setId(menuId);
-        Restaurant restaurant = restaurantRepository.findByIdWithMenus(id);
-        assertMatch(newRestaurant, restaurant);
-        assertMatch(newRestaurant.getMenus(), restaurant.getMenus());
+        assertMatch(newRestaurant, saved);
+        assertMatch(newRestaurant.getMenus(), saved.getMenus());
     }
 
     @Test
-    void saveExist() {
-    }
-
-    @Test
-    void saveWithMenus() {
-    }
-
-    @Test
-    void saveWithMenusExist() {
+    void save() {
+        Restaurant saved = restaurantRepository.save(getNewRestaurant());
+        Restaurant newRestaurant = getNewRestaurant();
+        newRestaurant.setId(saved.getId());
+        assertMatch(newRestaurant, saved);
     }
 }
