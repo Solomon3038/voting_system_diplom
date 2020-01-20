@@ -3,10 +3,7 @@ package com.voting.system.project;
 import com.voting.system.project.model.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class TestData {
     public static final int NOT_EXIST_ID = -1;
@@ -109,6 +106,10 @@ public class TestData {
     }
 
     public static Restaurant getNewRestaurant() {
-       return new Restaurant(null, "New Restaurant", "new Address");
+        return new Restaurant(null, "New Restaurant", "new Address");
+    }
+
+    public static Restaurant getUpdatedRestaurant(Restaurant restaurant) {
+        return new Restaurant(restaurant.getId(), "Update Restaurant", restaurant.getAddress());
     }
 }

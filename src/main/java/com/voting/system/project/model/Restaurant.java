@@ -40,7 +40,7 @@ public class Restaurant extends AbstractNamedEntity {
     }
 
     public void setMenus(Set<Menu> menus) {
-        this.menus = CollectionUtils.isEmpty(menus) ? new HashSet<>() : Set.copyOf(menus);
+        this.menus = CollectionUtils.isEmpty(menus) ? new HashSet<>() : new HashSet<>(menus);
     }
 
     public void setMenu(@NotNull Menu menu) {

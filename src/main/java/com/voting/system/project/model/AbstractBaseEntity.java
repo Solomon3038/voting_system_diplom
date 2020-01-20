@@ -14,6 +14,7 @@ import javax.persistence.*;
 public abstract class AbstractBaseEntity implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     protected Integer id;
 
     @Override

@@ -16,10 +16,10 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString(callSuper = true, exclude = {"restaurant", "dishes"})
-@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"registered", "id"}, name = "menus_unique_registered_idx")})
+@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"registered", "restaurant_id"}, name = "menus_unique_registered_idx")})
 public class Menu extends AbstractBaseEntity {
 
-    @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "registered", nullable = false, columnDefinition = "date default now()")
     @NotNull
     private LocalDate registered = LocalDate.now();
 
@@ -43,6 +43,13 @@ public class Menu extends AbstractBaseEntity {
     }
 
     public void setDishes(Set<Dish> dishes) {
-        this.dishes = CollectionUtils.isEmpty(dishes) ? new HashSet<>() : Set.copyOf(dishes);
+        this.dishes = CollectionUtils.isEmpty(dishes) ? new HashSet<>() : new HashSet<>(dishes);
+    }
+
+    public void setDish(@NotNull Dish dish) {
+        if(dishes == null) {
+            dishes = new HashSet<>();
+        }
+        dishes.add(dish);
     }
 }
