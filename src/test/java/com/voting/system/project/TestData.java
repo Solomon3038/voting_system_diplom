@@ -81,7 +81,12 @@ public class TestData {
 
     public static final List<Restaurant> RESTAURANTS_WITH_MENU_ON_CURRENT_DATE = List.of(RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
     public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_4_NO_MENU, RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
+
     public static final List<Menu> MENUS_NOW = List.of(MENU_1_NOW, MENU_2_NOW, MENU_3_NOW);
+    public static final List<Menu> RESTAURANT_1_MENUS = List.of(MENU_1_NOW, MENU_1);
+
+    public static final List<Dish> RESTAURANT_1_MENU_1_DISHES = List.of(DISH_1_3, DISH_1_2, DISH_1_1);
+    public static final List<Dish> RESTAURANT_1_MENU_1_NOW_DISHES = List.of(DISH_1_3_NOW, DISH_1_2_NOW, DISH_1_1_NOW);
 
     static {
         MENU_1.setDishes(new HashSet<>(Arrays.asList(DISH_1_1, DISH_1_2, DISH_1_3)));
@@ -111,5 +116,12 @@ public class TestData {
 
     public static Restaurant getUpdatedRestaurant(Restaurant restaurant) {
         return new Restaurant(restaurant.getId(), "Update Restaurant", restaurant.getAddress());
+    }
+
+    public static Menu getNewMenuWithDishes() {
+        Menu menu = new Menu(null, RESTAURANT_4_NO_MENU);
+        Dish dish = new Dish(null, "dish 1", 10_00, menu);
+        menu.setDishes(new HashSet<>(Collections.singletonList(dish)));
+        return menu;
     }
 }

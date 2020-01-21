@@ -16,8 +16,8 @@ class UserRepositoryTest extends ProjectApplicationTests {
 
     @Test
     void findById() {
-        User firstAdmin = userRepository.findUserById(ADMIN_ID_1);
-        assertMatch(firstAdmin, ADMIN_1);
+        User actual = userRepository.findUserById(ADMIN_ID_1);
+        assertMatch(actual, ADMIN_1);
     }
 
     @Test

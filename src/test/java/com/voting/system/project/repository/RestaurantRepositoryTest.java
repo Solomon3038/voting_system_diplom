@@ -56,27 +56,27 @@ class RestaurantRepositoryTest extends ProjectApplicationTests {
     @Test
     void saveWithMenusAndDishes() {
         Restaurant saved = restaurantRepository.save(getNewRestaurantWithMenuAndDishes());
-        Restaurant actual = getNewRestaurantWithMenuAndDishes();
+        Restaurant expected = getNewRestaurantWithMenuAndDishes();
         int id = saved.getId();
-        actual.setId(id);
+        expected.setId(id);
         int menuId = saved.getMenus().iterator().next().getId();
-        actual.getMenus().iterator().next().setId(menuId);
-        assertMatch(actual, saved);
-        assertMatch(actual.getMenus(), saved.getMenus());
+        expected.getMenus().iterator().next().setId(menuId);
+        assertMatch(saved, expected);
+        assertMatch(saved.getMenus(), expected.getMenus());
     }
 
     @Test
     void save() {
         Restaurant saved = restaurantRepository.save(getNewRestaurant());
-        Restaurant actual = getNewRestaurant();
-        actual.setId(saved.getId());
-        assertMatch(actual, saved);
+        Restaurant expected = getNewRestaurant();
+        expected.setId(saved.getId());
+        assertMatch(saved, expected);
     }
 
     @Test
     void update() {
         Restaurant updated = restaurantRepository.save(getUpdatedRestaurant(RESTAURANT_1));
-        Restaurant actual = getUpdatedRestaurant(RESTAURANT_1);
-        assertMatch(actual, updated);
+        Restaurant expected = getUpdatedRestaurant(RESTAURANT_1);
+        assertMatch(updated, expected);
     }
 }
