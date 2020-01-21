@@ -1,6 +1,7 @@
 package com.voting.system.project;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
@@ -14,7 +15,8 @@ import javax.persistence.PersistenceUnitUtil;
 @DataJpaTest
 @Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"}, config = @SqlConfig(encoding = "UTF-8"))
 @Transactional
-public abstract class ProjectApplicationTests {
+@ExtendWith(TimingExtension.class)
+public abstract class AbstractProjectApplicationTests {
 
     @Autowired
     protected EntityManager em;

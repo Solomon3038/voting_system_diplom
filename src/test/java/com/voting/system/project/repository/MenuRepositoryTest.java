@@ -1,6 +1,6 @@
 package com.voting.system.project.repository;
 
-import com.voting.system.project.ProjectApplicationTests;
+import com.voting.system.project.AbstractProjectApplicationTests;
 import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +15,7 @@ import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestData.getNewMenuWithDishes;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
 
-class MenuRepositoryTest extends ProjectApplicationTests {
+class MenuRepositoryTest extends AbstractProjectApplicationTests {
 
     @Autowired
     private MenuRepository menuRepository;

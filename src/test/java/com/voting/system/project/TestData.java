@@ -3,7 +3,10 @@ package com.voting.system.project;
 import com.voting.system.project.model.*;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 public class TestData {
     public static final int NOT_EXIST_ID = -1;
@@ -39,6 +42,8 @@ public class TestData {
     public static final int DISH_ID_13 = DISH_ID_12 + 1;
     public static final int DISH_ID_14 = DISH_ID_13 + 1;
     public static final int DISH_ID_15 = DISH_ID_14 + 1;
+
+    public static final int VOTE_ID_1 = 1;
 
     public static final User USER_1 = new User(USER_ID_1, "User One", "user.one@ukr.net", "password", Role.ROLE_USER);
     public static final User USER_2 = new User(USER_ID_2, "User Two", "user.two@ukr.net", "password", Role.ROLE_USER);
@@ -78,6 +83,8 @@ public class TestData {
     public static final Dish DISH_3_1_NOW = new Dish(DISH_ID_13, "Салат цезар", 110_50, MENU_3_NOW);
     public static final Dish DISH_3_2_NOW = new Dish(DISH_ID_14, "Хінкалі з баранини", 97_00, MENU_3_NOW);
     public static final Dish DISH_3_3_NOW = new Dish(DISH_ID_15, "Курча тапака", 70_00, MENU_3_NOW);
+
+    public static final Vote VOTE_USER_2 = new Vote(VOTE_ID_1, RESTAURANT_1, USER_2);
 
     public static final List<Restaurant> RESTAURANTS_WITH_MENU_ON_CURRENT_DATE = List.of(RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
     public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_4_NO_MENU, RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
@@ -123,5 +130,13 @@ public class TestData {
         Dish dish = new Dish(null, "dish 1", 10_00, menu);
         menu.setDishes(new HashSet<>(Collections.singletonList(dish)));
         return menu;
+    }
+
+    public static Vote getNewVote() {
+        return new Vote(null, RESTAURANT_2, USER_1);
+    }
+
+    public static Vote getUpdatedVote(Vote vote) {
+        return new Vote(vote.getId(), RESTAURANT_3, vote.getUser());
     }
 }
