@@ -56,10 +56,34 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void createWithNull() {
+    void createNullError() {
     }
 
     @Test
-    void createWithNotEmptyMenus() {
+    void createWithNotEmptyMenusError() {
+    }
+
+    @Test
+    void createWithMenuAndDishes() {
+    }
+
+    @Test
+    void createWithMenuAndDishesNullError() {
+    }
+
+    @Test
+    void createWithMenuAndDishesNullMenusError() {
+    }
+
+    @Test
+    void createWithMenuAndDishesNotOneMenuError() {
+    }
+
+    @Test
+    void createWithMenuAndDishesNullDishesError() {
+    }
+
+    @Test
+    void createWithMenuAndDishesEmptyDishesError() {
     }
 }
