@@ -1,22 +1,16 @@
-package com.voting.system.project;
+package com.voting.system.project.repository;
 
+import com.voting.system.project.AbstractTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnitUtil;
 
 //https://www.baeldung.com/spring-boot-testing
 @DataJpaTest
-@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"}, config = @SqlConfig(encoding = "UTF-8"))
-@Transactional
-@ExtendWith(TimingExtension.class)
-public abstract class AbstractProjectApplicationTests {
+abstract class AbstractRepositoryTest extends AbstractTest {
 
     @Autowired
     protected EntityManager em;

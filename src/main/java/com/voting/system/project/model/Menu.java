@@ -30,7 +30,7 @@ public class Menu extends AbstractBaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu", cascade = CascadeType.PERSIST)
     @OrderBy("id DESC")
-    private Set<Dish> dishes;
+    private Set<Dish> dishes = new HashSet<>();
 
     public Menu(Integer id, Restaurant restaurant) {
         super(id);

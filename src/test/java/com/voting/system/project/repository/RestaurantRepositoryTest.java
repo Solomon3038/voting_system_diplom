@@ -1,6 +1,5 @@
 package com.voting.system.project.repository;
 
-import com.voting.system.project.AbstractProjectApplicationTests;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
 
-class RestaurantRepositoryTest extends AbstractProjectApplicationTests {
+class RestaurantRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private RestaurantRepository restaurantRepository;

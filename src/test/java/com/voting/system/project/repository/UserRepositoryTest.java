@@ -1,6 +1,5 @@
 package com.voting.system.project.repository;
 
-import com.voting.system.project.AbstractProjectApplicationTests;
 import com.voting.system.project.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.*;
 
-class UserRepositoryTest extends AbstractProjectApplicationTests {
+class UserRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
