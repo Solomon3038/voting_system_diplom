@@ -16,4 +16,9 @@ class ServiceConfiguration {
     public RestaurantService restaurantServiceBean() {
         return new RestaurantService();
     }
+
+    @Bean
+    public MenuService menuServiceBean() {
+        return new MenuService();
+    }
 }

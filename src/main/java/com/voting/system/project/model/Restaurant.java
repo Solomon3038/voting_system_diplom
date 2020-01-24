@@ -44,7 +44,7 @@ public class Restaurant extends AbstractNamedEntity {
     }
 
     public void setMenu(@NotNull Menu menu) {
-        if(menus == null) {
+        if (menus == null) {
             menus = new HashSet<>();
         }
         menus.add(menu);

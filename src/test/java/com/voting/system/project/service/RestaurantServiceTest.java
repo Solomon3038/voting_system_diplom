@@ -1,5 +1,6 @@
 package com.voting.system.project.service;
 
+import com.voting.system.project.RestaurantTest;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.util.exception.NotExistException;
@@ -7,15 +8,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
 
-class RestaurantServiceTest extends AbstractServiceTest {
+class RestaurantServiceTest extends AbstractServiceTest implements RestaurantTest {
 
     @Autowired
     private RestaurantService restaurantService;
@@ -38,46 +36,40 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void getAllWithMenusOnCurrentDate() {
         final List<Restaurant> actual = restaurantService.getAllWithMenusOnCurrentDate();
-        assertMatch(actual, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
-        List<Menu> menus = actual.stream()
-                .map(Restaurant::getMenus)
-                .flatMap(Set::stream)
-                .sorted(Comparator.comparing(Menu::getId))
-                .collect(Collectors.toList());
-        assertMatch(menus, MENUS_NOW);
+        checkAllWithMenusOnCurrentDate(actual);
     }
 
     @Test
     void create() {
-        Restaurant saved = restaurantService.create(getNewRestaurant());
-        Restaurant expected = getNewRestaurant();
-        expected.setId(saved.getId());
-        assertMatch(saved, expected);
+        Restaurant saved = restaurantService.createOrUpdate(getNewRestaurant());
+        checkSave(saved);
+    }
+
+    @Test
+    void update() {
+        restaurantService.createOrUpdate(getUpdatedRestaurant(RESTAURANT_1));
+        Restaurant updated = restaurantService.get(RESTAURANT_ID_1);
+        checkUpdate(updated);
     }
 
     @Test
     void createNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.create(null));
+                () -> restaurantService.createOrUpdate(null));
         Assertions.assertEquals("restaurant must not be null", exception.getMessage());
     }
 
     @Test
     void createWithNotEmptyMenusError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.create(getNewRestaurantWithMenuAndDishes()));
+                () -> restaurantService.createOrUpdate(getNewRestaurantWithMenuAndDishes()));
         Assertions.assertEquals("list of menus must be empty", exception.getMessage());
     }
 
     @Test
     void createWithMenuAndDishes() {
         Restaurant saved = restaurantService.createWithMenuAndDishes(getNewRestaurantWithMenuAndDishes());
-        Restaurant expected = getNewRestaurantWithMenuAndDishes();
-        expected.setId(saved.getId());
-        int menuId = saved.getMenus().iterator().next().getId();
-        expected.getMenus().iterator().next().setId(menuId);
-        assertMatch(saved, expected);
-        assertMatch(saved.getMenus(), expected.getMenus());
+        checkSaveWithMenusAndDishes(saved);
     }
 
     @Test

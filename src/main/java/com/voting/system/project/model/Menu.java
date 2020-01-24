@@ -47,7 +47,7 @@ public class Menu extends AbstractBaseEntity {
     }
 
     public void setDish(@NotNull Dish dish) {
-        if(dishes == null) {
+        if (dishes == null) {
             dishes = new HashSet<>();
         }
         dishes.add(dish);
