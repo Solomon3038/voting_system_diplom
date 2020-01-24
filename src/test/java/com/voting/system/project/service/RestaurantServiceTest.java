@@ -57,33 +57,59 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void createNullError() {
+        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.create(null));
+        Assertions.assertEquals("restaurant must not be null", exception.getMessage());
     }
 
     @Test
     void createWithNotEmptyMenusError() {
+        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.create(getNewRestaurantWithMenuAndDishes()));
+        Assertions.assertEquals("list of menus must be empty", exception.getMessage());
     }
 
     @Test
     void createWithMenuAndDishes() {
+        Restaurant saved = restaurantService.createWithMenuAndDishes(getNewRestaurantWithMenuAndDishes());
+        Restaurant expected = getNewRestaurantWithMenuAndDishes();
+        expected.setId(saved.getId());
+        int menuId = saved.getMenus().iterator().next().getId();
+        expected.getMenus().iterator().next().setId(menuId);
+        assertMatch(saved, expected);
+        assertMatch(saved.getMenus(), expected.getMenus());
     }
 
     @Test
     void createWithMenuAndDishesNullError() {
+        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.createWithMenuAndDishes(null));
+        Assertions.assertEquals("restaurant must not be null", exception.getMessage());
     }
 
     @Test
-    void createWithMenuAndDishesNullMenusError() {
+    void createWithMenuAndDishesEmptyMenusError() {
+        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.createWithMenuAndDishes(getNewRestaurant()));
+        Assertions.assertEquals("restaurant must have one menu", exception.getMessage());
     }
 
     @Test
     void createWithMenuAndDishesNotOneMenuError() {
-    }
-
-    @Test
-    void createWithMenuAndDishesNullDishesError() {
+        Restaurant restaurant = getNewRestaurantWithMenuAndDishes();
+        restaurant.setMenu(new Menu(null, restaurant));
+        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.createWithMenuAndDishes(restaurant));
+        Assertions.assertEquals("restaurant must have one menu", exception.getMessage());
     }
 
     @Test
     void createWithMenuAndDishesEmptyDishesError() {
+        Restaurant restaurant = getNewRestaurantWithMenuAndDishes();
+        final Menu menu = restaurant.getMenus().iterator().next();
+        menu.setDishes(null);
+        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.createWithMenuAndDishes(restaurant));
+        Assertions.assertEquals("dishes must not be empty", exception.getMessage());
     }
 }

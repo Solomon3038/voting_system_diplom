@@ -42,11 +42,9 @@ public class RestaurantService {
         Assert.notNull(restaurant, "restaurant must not be null");
 
         final Set<Menu> menus = restaurant.getMenus();
-        Assert.notNull(menus, "menus must not be null");
         Assert.isTrue(menus.size() == 1, "restaurant must have one menu");
 
         final Set<Dish> dishes = menus.iterator().next().getDishes();
-        Assert.notNull(dishes, "dishes must not be null");
         Assert.isTrue(!dishes.isEmpty(), "dishes must not be empty");
 
         return restaurantRepository.save(restaurant);
