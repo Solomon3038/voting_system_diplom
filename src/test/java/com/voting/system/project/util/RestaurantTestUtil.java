@@ -1,4 +1,4 @@
-package com.voting.system.project;
+package com.voting.system.project.util;
 
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
 
-public interface RestaurantTest {
+public class RestaurantTestUtil {
 
-    default void checkAllWithMenusOnCurrentDate(List<Restaurant> actual) {
+    public static void checkAllWithMenusOnCurrentDate(List<Restaurant> actual) {
         assertMatch(actual, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
         List<Menu> menus = actual.stream()
                 .map(Restaurant::getMenus)
@@ -23,7 +23,7 @@ public interface RestaurantTest {
         assertMatch(menus, MENUS_NOW);
     }
 
-    default void checkSaveWithMenusAndDishes(Restaurant saved) {
+    public static void checkSaveWithMenusAndDishes(Restaurant saved) {
         Restaurant expected = getNewRestaurantWithMenuAndDishes();
         int id = saved.getId();
         expected.setId(id);
@@ -33,13 +33,13 @@ public interface RestaurantTest {
         assertMatch(saved.getMenus(), expected.getMenus());
     }
 
-    default void checkSave(Restaurant saved) {
+    public static void checkSave(Restaurant saved) {
         Restaurant expected = getNewRestaurant();
         expected.setId(saved.getId());
         assertMatch(saved, expected);
     }
 
-    default void checkUpdate(Restaurant updated) {
+    public static void checkUpdate(Restaurant updated) {
         Restaurant expected = getUpdatedRestaurant(RESTAURANT_1);
         assertMatch(updated, expected);
     }

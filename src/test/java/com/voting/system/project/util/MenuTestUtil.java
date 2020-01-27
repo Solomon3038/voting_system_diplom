@@ -1,4 +1,4 @@
-package com.voting.system.project;
+package com.voting.system.project.util;
 
 import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
 
-public interface MenuTest {
+public class MenuTestUtil {
 
-    default void checkWithDishes(Menu actual) {
+    public static void checkWithDishes(Menu actual) {
         assertMatch(actual, MENU_1);
         List<Dish> dishes = actual.getDishes().stream()
                 .sorted(Comparator.comparing(Dish::getName))
@@ -22,7 +22,7 @@ public interface MenuTest {
         assertMatch(dishes, RESTAURANT_1_MENU_1_DISHES);
     }
 
-    default void checkAllWithDishes(List<Menu> actual) {
+    public static void checkAllWithDishes(List<Menu> actual) {
         assertMatch(actual, RESTAURANT_1_MENUS);
         List<Dish> dishesNow = actual.get(0).getDishes().stream()
                 .sorted(Comparator.comparing(Dish::getName))
@@ -34,7 +34,7 @@ public interface MenuTest {
         assertMatch(dishes, RESTAURANT_1_MENU_1_DISHES);
     }
 
-    default void checkSaveWithDishes(Menu saved) {
+    public static void checkSaveWithDishes(Menu saved) {
         Menu expected = getNewMenuWithDishes();
         expected.setId(saved.getId());
         assertMatch(saved, expected);

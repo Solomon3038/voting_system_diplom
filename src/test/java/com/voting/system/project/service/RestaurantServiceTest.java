@@ -1,6 +1,6 @@
 package com.voting.system.project.service;
 
-import com.voting.system.project.RestaurantTest;
+import com.voting.system.project.util.RestaurantTestUtil;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.util.exception.NotExistException;
@@ -12,8 +12,9 @@ import java.util.List;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.RestaurantTestUtil.*;
 
-class RestaurantServiceTest extends AbstractServiceTest implements RestaurantTest {
+class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     private RestaurantService restaurantService;

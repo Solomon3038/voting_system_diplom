@@ -1,6 +1,5 @@
 package com.voting.system.project.service;
 
-import com.voting.system.project.MenuTest;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
@@ -11,8 +10,9 @@ import java.util.List;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.MenuTestUtil.*;
 
-class MenuServiceTest extends AbstractServiceTest implements MenuTest {
+class MenuServiceTest extends AbstractServiceTest{
 
     @Autowired
     private MenuService menuService;

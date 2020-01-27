@@ -18,13 +18,13 @@ public class TestMatcherUtil {
         ignoreFieldsMap.put(Dish.class, new String[]{"menu"});
     }
 
-    public static <T extends HasId> void assertMatch(T actual, T expected) {
+    public static <T> void assertMatch(T actual, T expected) {
         String[] ignoredFields = ignoreFieldsMap.getOrDefault(actual.getClass(), new String[0]);
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoredFields);
     }
 
     @SafeVarargs
-    public static <T extends HasId> void assertMatch(Iterable<T> actual, T... expected) {
+    public static <T> void assertMatch(Iterable<T> actual, T... expected) {
         assertMatch(actual, List.of(expected));
     }
 
