@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 class UserRepositoryTest extends AbstractRepositoryTest {
 

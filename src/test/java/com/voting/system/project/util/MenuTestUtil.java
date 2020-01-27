@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 public class MenuTestUtil {
 

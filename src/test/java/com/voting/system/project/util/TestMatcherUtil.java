@@ -1,4 +1,4 @@
-package com.voting.system.project;
+package com.voting.system.project.util;
 
 import com.voting.system.project.model.*;
 

@@ -1,6 +1,5 @@
 package com.voting.system.project.service;
 
-import com.voting.system.project.util.RestaurantTestUtil;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.util.exception.NotExistException;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.util.RestaurantTestUtil.*;
 
 class RestaurantServiceTest extends AbstractServiceTest {

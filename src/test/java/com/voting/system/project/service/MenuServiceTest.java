@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.util.MenuTestUtil.*;
 
 class MenuServiceTest extends AbstractServiceTest{

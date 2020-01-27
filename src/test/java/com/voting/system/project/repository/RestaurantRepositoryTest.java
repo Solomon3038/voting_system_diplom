@@ -1,6 +1,5 @@
 package com.voting.system.project.repository;
 
-import com.voting.system.project.util.RestaurantTestUtil;
 import com.voting.system.project.model.Restaurant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.util.RestaurantTestUtil.*;
 
 class RestaurantRepositoryTest extends AbstractRepositoryTest {
