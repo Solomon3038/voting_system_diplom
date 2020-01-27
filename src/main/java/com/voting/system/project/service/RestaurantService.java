@@ -6,6 +6,7 @@ import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
+    //TODO check transaction roll back if not valid menu or dishes
+    @Transactional
     public Restaurant createWithMenuAndDishes(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
 

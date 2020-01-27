@@ -4,6 +4,7 @@ import com.voting.system.project.model.Menu;
 import com.voting.system.project.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class MenuService {
         return menuRepository.findAllByRestaurantId(restaurantId);
     }
 
+    //TODO check transaction roll back dishes not valid
+    @Transactional
     public Menu createWithDishes(Menu menu) {
         Assert.notNull(menu, "menu must not be null");
         Assert.isTrue(!menu.getDishes().isEmpty(), "dishes must not be empty");

@@ -21,4 +21,9 @@ class ServiceConfiguration {
     public MenuService menuServiceBean() {
         return new MenuService();
     }
+
+    @Bean
+    public VoteService voteServiceBean() {
+        return new VoteService();
+    }
 }

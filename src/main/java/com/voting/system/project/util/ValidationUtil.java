@@ -3,8 +3,13 @@ package com.voting.system.project.util;
 import com.voting.system.project.model.HasId;
 import com.voting.system.project.util.exception.IllegalRequestDataException;
 import com.voting.system.project.util.exception.NotExistException;
+import com.voting.system.project.util.exception.VoteException;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class ValidationUtil {
+    public static final LocalTime VOTE_MAX_TIME = LocalTime.of(11, 00, 00);
 
     private ValidationUtil() {
     }
@@ -39,6 +44,18 @@ public class ValidationUtil {
             bean.setId(id);
         } else if (bean.id() != id) {
             throw new IllegalRequestDataException(bean + " must be with id=" + id);
+        }
+    }
+
+    public static void checkDate(LocalDate date) {
+        if (date.compareTo(LocalDate.now()) != 0) {
+            throw new VoteException("vote date " + date + " must be equal current date");
+        }
+    }
+
+    public static void checkTime() {
+        if (LocalTime.now().compareTo(VOTE_MAX_TIME) > 0) {
+            throw new VoteException("vote can't be accepted after " + VOTE_MAX_TIME + "AM");
         }
     }
 

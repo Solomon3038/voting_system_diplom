@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
+import static com.voting.system.project.util.VoteTestUtil.checkSave;
+import static com.voting.system.project.util.VoteTestUtil.checkUpdate;
 
 class VoteRepositoryTest extends AbstractRepositoryTest {
 
@@ -15,15 +16,12 @@ class VoteRepositoryTest extends AbstractRepositoryTest {
     @Test
     void save() {
         Vote saved = voteRepository.save(getNewVote());
-        Vote expected = getNewVote();
-        expected.setId(saved.getId());
-        assertMatch(saved, expected);
+        checkSave(saved);
     }
 
     @Test
     void update() {
         Vote updated = voteRepository.save(getUpdatedVote(VOTE_USER_2));
-        Vote expected = getUpdatedVote(VOTE_USER_2);
-        assertMatch(updated, expected);
+        checkUpdate(updated);
     }
 }
