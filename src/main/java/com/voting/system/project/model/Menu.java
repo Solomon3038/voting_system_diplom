@@ -1,6 +1,7 @@
 package com.voting.system.project.model;
 
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
@@ -9,9 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,7 +30,8 @@ public class Menu extends AbstractBaseEntity {
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu", cascade = CascadeType.PERSIST)
-    @OrderBy("id DESC")
+    @OrderBy("name ASC")
+    @BatchSize(size = 200)
     private List<Dish> dishes = new ArrayList<>();
 
     public Menu(Integer id, Restaurant restaurant) {

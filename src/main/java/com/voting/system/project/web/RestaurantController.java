@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.voting.system.project.util.RestaurantUtil.getToFrom;
 import static com.voting.system.project.web.AdminRestaurantController.REST_URL;
 
 @RestController
@@ -27,10 +25,9 @@ public class RestaurantController {
     private ModelMapper mapper;
 
     @GetMapping
-    public List<RestaurantWithMenusTo> getAllWithMenusAndDishes() {
+    public RestaurantWithMenusTo[] getAllWithMenusAndDishes() {
         final List<Restaurant> restaurants = restaurantService.getAllWithMenusOnCurrentDate();
-        return restaurants.stream()
-                .map(restaurant -> getToFrom(restaurant, mapper))
-                .collect(Collectors.toList());
+        //https://stackoverflow.com/a/41743400
+        return mapper.map(restaurants, RestaurantWithMenusTo[].class);
     }
 }

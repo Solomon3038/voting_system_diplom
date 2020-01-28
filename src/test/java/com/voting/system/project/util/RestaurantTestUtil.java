@@ -5,7 +5,6 @@ import com.voting.system.project.model.Restaurant;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.voting.system.project.TestData.*;
@@ -21,6 +20,10 @@ public class RestaurantTestUtil {
                 .sorted(Comparator.comparing(Menu::getId))
                 .collect(Collectors.toList());
         assertMatch(menus, MENUS_NOW);
+        for (int i = 0; i < 3; i++) {
+            assertMatch(menus.get(i).getDishes(), MENUS_NOW.get(i).getDishes());
+        }
+
     }
 
     public static void checkSaveWithMenusAndDishes(Restaurant saved) {

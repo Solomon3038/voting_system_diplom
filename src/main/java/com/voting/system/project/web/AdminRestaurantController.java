@@ -25,7 +25,6 @@ public class AdminRestaurantController {
 
     @GetMapping(REST_URL + "/{id}")
     public RestaurantTo get(@PathVariable int id) {
-        final RestaurantTo restaurantTo = mapper.map(restaurantService.get(id), RestaurantTo.class);
-        return restaurantTo;
+        return mapper.map(restaurantService.get(id), RestaurantTo.class);
     }
 }

@@ -3,7 +3,10 @@ package com.voting.system.project;
 import com.voting.system.project.model.*;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class TestData {
     public static final int NOT_EXIST_ID = -1;
@@ -97,9 +100,9 @@ public class TestData {
         MENU_1.setDishes(new ArrayList<>(Arrays.asList(DISH_1_1, DISH_1_2, DISH_1_3)));
         MENU_2.setDishes(new ArrayList<>(Arrays.asList(DISH_2_1, DISH_2_2)));
         MENU_3.setDishes(new ArrayList<>(Arrays.asList(DISH_3_1, DISH_3_2, DISH_3_3)));
-        MENU_1_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_1_1_NOW, DISH_1_2_NOW, DISH_1_3_NOW)));
+        MENU_1_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_1_3_NOW, DISH_1_2_NOW, DISH_1_1_NOW)));
         MENU_2_NOW.setDishes(new ArrayList<>(Collections.singletonList(DISH_2_1_NOW)));
-        MENU_3_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_3_1_NOW, DISH_3_2_NOW, DISH_3_3_NOW)));
+        MENU_3_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_3_3_NOW, DISH_3_1_NOW, DISH_3_2_NOW)));
 
         RESTAURANT_1.setMenus(new ArrayList<>(Arrays.asList(MENU_1_NOW, MENU_1)));
         RESTAURANT_2.setMenus(new ArrayList<>(Arrays.asList(MENU_2_NOW, MENU_2)));
