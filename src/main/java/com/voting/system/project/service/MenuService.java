@@ -26,10 +26,6 @@ public class MenuService {
         return menuRepository.findAllByRestaurantIdWithDishes(restaurantId);
     }
 
-    public List<Menu> getAll(int restaurantId) {
-        return menuRepository.findAllByRestaurantId(restaurantId);
-    }
-
     //TODO check transaction roll back dishes not valid
     @Transactional
     public Menu createWithDishes(Menu menu) {

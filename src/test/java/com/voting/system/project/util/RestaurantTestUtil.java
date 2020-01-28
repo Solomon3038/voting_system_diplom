@@ -17,7 +17,7 @@ public class RestaurantTestUtil {
         assertMatch(actual, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
         List<Menu> menus = actual.stream()
                 .map(Restaurant::getMenus)
-                .flatMap(Set::stream)
+                .flatMap(List::stream)
                 .sorted(Comparator.comparing(Menu::getId))
                 .collect(Collectors.toList());
         assertMatch(menus, MENUS_NOW);

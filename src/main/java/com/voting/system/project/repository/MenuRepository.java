@@ -12,9 +12,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
-    @Query("SELECT m FROM Menu m WHERE m.restaurant.id=:restaurantId ORDER BY m.registered DESC")
-    List<Menu> findAllByRestaurantId(int restaurantId);
-
     @Query("SELECT DISTINCT m FROM Menu m LEFT JOIN FETCH m.dishes d WHERE m.restaurant.id=:restaurantId ORDER BY m.registered DESC")
     List<Menu> findAllByRestaurantIdWithDishes(int restaurantId);
 

@@ -36,13 +36,6 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    void findAll() {
-        List<Menu> actual = menuRepository.findAllByRestaurantId(RESTAURANT_ID_1);
-        assertMatch(actual, RESTAURANT_1_MENUS);
-        checkEntityFieldLoadingType(Menu.class, "dishes", true);
-    }
-
-    @Test
     void findAllWithDishes() {
         List<Menu> actual = menuRepository.findAllByRestaurantIdWithDishes(RESTAURANT_ID_1);
         checkEntityFieldLoadingType(Menu.class, "dishes", false);

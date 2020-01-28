@@ -44,10 +44,10 @@ public class RestaurantService {
     public Restaurant createWithMenuAndDishes(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
 
-        final Set<Menu> menus = restaurant.getMenus();
+        final List<Menu> menus = restaurant.getMenus();
         Assert.isTrue(menus.size() == 1, "restaurant must have one menu");
 
-        final Set<Dish> dishes = menus.iterator().next().getDishes();
+        final List<Dish> dishes = menus.iterator().next().getDishes();
         Assert.isTrue(!dishes.isEmpty(), "dishes must not be empty");
         return restaurantRepository.save(restaurant);
     }

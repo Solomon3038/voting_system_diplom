@@ -40,12 +40,6 @@ class MenuServiceTest extends AbstractServiceTest{
     }
 
     @Test
-    void getAll() {
-        final List<Menu> actual = menuService.getAll(RESTAURANT_ID_1);
-        assertMatch(actual, RESTAURANT_1_MENUS);
-    }
-
-    @Test
     void createWithDishes() {
         Menu saved = menuService.createWithDishes(getNewMenuWithDishes());
         checkSaveWithDishes(saved);

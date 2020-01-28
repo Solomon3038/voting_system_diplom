@@ -8,7 +8,9 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,9 +30,9 @@ public class Menu extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu", cascade = CascadeType.PERSIST)
     @OrderBy("id DESC")
-    private Set<Dish> dishes = new HashSet<>();
+    private List<Dish> dishes = new ArrayList<>();
 
     public Menu(Integer id, Restaurant restaurant) {
         super(id);
@@ -42,13 +44,13 @@ public class Menu extends AbstractBaseEntity {
         this.registered = registered;
     }
 
-    public void setDishes(Set<Dish> dishes) {
-        this.dishes = CollectionUtils.isEmpty(dishes) ? new HashSet<>() : new HashSet<>(dishes);
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = CollectionUtils.isEmpty(dishes) ? new ArrayList<>() : new ArrayList<>(dishes);
     }
 
     public void setDish(@NotNull Dish dish) {
         if (dishes == null) {
-            dishes = new HashSet<>();
+            dishes = new ArrayList<>();
         }
         dishes.add(dish);
     }

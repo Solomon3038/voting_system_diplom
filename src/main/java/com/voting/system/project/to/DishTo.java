@@ -1,20 +1,20 @@
 package com.voting.system.project.to;
 
-import com.voting.system.project.model.Menu;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class RestaurantTo extends BaseTo {
+public class DishTo extends BaseTo {
 
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String address;
+    @NotNull
+    private Integer price;
 }
