@@ -4,13 +4,14 @@ import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.RestaurantRepository;
+import com.voting.system.project.to.RestaurantWithMenusTo;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
-import java.util.Set;
 
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
@@ -19,6 +20,9 @@ public class RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private ModelMapper mapper;
 
     public Restaurant get(int id) {
         Restaurant restaurant = restaurantRepository.findById(id);
@@ -29,8 +33,11 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    public List<Restaurant> getAllWithMenusOnCurrentDate() {
-        return restaurantRepository.findAllWithMenusOnCurrentDate();
+    //TODO add cache
+    public RestaurantWithMenusTo[] getAllWithMenusOnCurrentDate() {
+        final List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnCurrentDate();
+        //https://stackoverflow.com/a/41743400
+        return mapper.map(restaurants, RestaurantWithMenusTo[].class);
     }
 
     public Restaurant createOrUpdate(Restaurant restaurant) {

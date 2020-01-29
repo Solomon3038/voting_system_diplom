@@ -2,21 +2,28 @@ package com.voting.system.project.service;
 
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
+import com.voting.system.project.to.RestaurantWithMenusTo;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.util.RestaurantTestUtil.*;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     private RestaurantService restaurantService;
+
+    @Autowired
+    private ModelMapper mapper;
 
     @Test
     void get() {
@@ -35,8 +42,10 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getAllWithMenusOnCurrentDate() {
-        final List<Restaurant> actual = restaurantService.getAllWithMenusOnCurrentDate();
-        checkAllWithMenusOnCurrentDate(actual);
+        final RestaurantWithMenusTo[] actual = restaurantService.getAllWithMenusOnCurrentDate();
+        List<Restaurant> actualList = Arrays.asList(mapper.map(actual, Restaurant[].class));
+        assertMatch(actualList, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
+        checkAllWithMenusOnCurrentDate(actualList);
     }
 
     @Test
