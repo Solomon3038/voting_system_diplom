@@ -4,9 +4,11 @@ import com.voting.system.project.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 public class UserPrincipal implements UserDetails {
+    @NotNull
     private User user;
 
     public UserPrincipal(User user) {
