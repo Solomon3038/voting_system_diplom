@@ -1,14 +1,14 @@
 INSERT INTO USERS (id, name, email, password)
-VALUES (1, 'User One', 'user.one@ukr.net', 'password'),
-       (2, 'User Two', 'user.two@ukr.net', 'password'),
-       (3, 'Admin One', 'admin.one@gmail.com', 'admin'),
-       (4, 'Admin Two', 'admin.two@gmail.com', 'admin');
+VALUES (1, 'User One', 'user.one@ukr.net', '{noop}password'),
+       (2, 'User Two', 'user.two@ukr.net', '{noop}password'),
+       (3, 'Admin One', 'admin.one@gmail.com', '{noop}admin'),
+       (4, 'Admin Two', 'admin.two@gmail.com', '{noop}admin');
 
 INSERT INTO USER_ROLES (role, user_id)
-VALUES ('ROLE_USER', 1),
-       ('ROLE_USER', 2),
-       ('ROLE_ADMIN', 3),
-       ('ROLE_ADMIN', 4);
+VALUES ('USER', 1),
+       ('USER', 2),
+       ('ADMIN', 3),
+       ('ADMIN', 4);
 
 INSERT INTO RESTAURANTS (id, name, address)
 VALUES (1, 'Manhattan-skybar', 'вулиця Соборна, 112, Рівне, Рівненська область, 33000'),
