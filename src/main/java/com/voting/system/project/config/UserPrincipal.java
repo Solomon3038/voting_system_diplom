@@ -1,52 +1,25 @@
 package com.voting.system.project.config;
 
 import com.voting.system.project.model.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
-public class UserPrincipal implements UserDetails {
+@Getter
+public class UserPrincipal extends org.springframework.security.core.userdetails.User {
     @NotNull
     private User user;
 
     public UserPrincipal(User user) {
+        super(user.getName(), user.getPassword(), true, true, true, true, user.getRoles());
         this.user = user;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles();
-    }
-
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return user.getName();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public Integer getId() {
+        return user.id();
     }
 }

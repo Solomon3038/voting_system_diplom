@@ -22,8 +22,7 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     @GetMapping
-    public RestaurantWithMenusTo[] getAllWithMenusAndDishes(Principal principal) {
-        log.info("USER NAME {}", principal.getName());
+    public RestaurantWithMenusTo[] getAllWithMenusAndDishes() {
         return restaurantService.getAllWithMenusOnCurrentDate();
     }
 }

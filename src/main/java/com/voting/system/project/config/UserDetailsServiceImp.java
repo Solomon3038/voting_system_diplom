@@ -2,6 +2,7 @@ package com.voting.system.project.config;
 
 import com.voting.system.project.model.User;
 import com.voting.system.project.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,17 +10,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-//https://www.codeflow.site/ru/article/spring-security-authentication-with-a-database
+@AllArgsConstructor
 public class UserDetailsServiceImp implements UserDetailsService {
 
-    @Autowired
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userRepository.findUserByEmail(name);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findUserByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(name);
+            throw new UsernameNotFoundException("User with email " + email + " is not exist");
         }
         return new UserPrincipal(user);
     }
