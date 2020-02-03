@@ -14,14 +14,14 @@ class UserRepositoryTest extends AbstractRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    void findById() {
-        User actual = userRepository.findUserById(ADMIN_ID_1);
-        assertMatch(actual, ADMIN_1);
+    void findUserByEmail() {
+        User actual = userRepository.findUserByEmail(USER_1.getEmail());
+        assertMatch(actual, USER_1);
     }
 
     @Test
-    void findByIdNotExist() {
-        User userNotExist = userRepository.findUserById(NOT_EXIST_ID);
+    void findUserByEmailNotExist() {
+        User userNotExist = userRepository.findUserByEmail("emailNotExist");
         Assertions.assertNull(userNotExist);
     }
 }

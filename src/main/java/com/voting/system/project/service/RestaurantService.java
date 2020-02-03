@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.voting.system.project.util.RestaurantUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
 @Service
@@ -34,10 +36,11 @@ public class RestaurantService {
     }
 
     //TODO add cache
-    public RestaurantWithMenusTo[] getAllWithMenusOnCurrentDate() {
+    public List<RestaurantWithMenusTo> getAllWithMenusOnCurrentDate() {
         final List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnCurrentDate();
-        //https://stackoverflow.com/a/41743400
-        return mapper.map(restaurants, RestaurantWithMenusTo[].class);
+        final List<RestaurantWithMenusTo> restaurantTos = new ArrayList<>();
+        restaurants.forEach(restaurant -> restaurantTos.add(getToFrom(restaurant, mapper)));
+        return restaurantTos;
     }
 
     public Restaurant createOrUpdate(Restaurant restaurant) {

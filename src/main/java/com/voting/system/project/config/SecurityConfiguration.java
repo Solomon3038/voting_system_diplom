@@ -35,8 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers( "/restaurants").permitAll()
+                .antMatchers( "/restaurants/**").hasAuthority(Role.ROLE_USER.getAuthority())
                 .antMatchers("/actuator/**","/admin/**").hasAuthority(Role.ROLE_ADMIN.getAuthority())
-                .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();

@@ -8,11 +8,6 @@ import org.springframework.context.annotation.Bean;
 class ServiceConfiguration {
 
     @Bean
-    public UserService userServiceBean() {
-        return new UserService();
-    }
-
-    @Bean
     public RestaurantService restaurantServiceBean() {
         return new RestaurantService();
     }

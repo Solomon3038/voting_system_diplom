@@ -7,6 +7,8 @@ import com.voting.system.project.to.VoteTo;
 
 public class VoteUtil {
 
+    private VoteUtil(){}
+
     public static Vote getFromTo(VoteTo voteTo, User user, Restaurant restaurant) {
         return new Vote(voteTo.getId(), voteTo.getDate(), restaurant, user);
     }

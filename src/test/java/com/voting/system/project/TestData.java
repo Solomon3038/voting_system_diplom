@@ -16,10 +16,10 @@ public class TestData {
     public static final int ADMIN_ID_1 = USER_ID_2 + 1;
     public static final int ADMIN_ID_2 = ADMIN_ID_1 + 1;
 
-    public static final User USER_1 = new User(USER_ID_1, "User One", "user.one@ukr.net", "password", Role.ROLE_USER);
-    public static final User USER_2 = new User(USER_ID_2, "User Two", "user.two@ukr.net", "password", Role.ROLE_USER);
-    public static final User ADMIN_1 = new User(ADMIN_ID_1, "Admin One", "admin.one@gmail.com", "admin", Role.ROLE_ADMIN);
-    public static final User ADMIN_2 = new User(ADMIN_ID_2, "Admin Two", "admin.two@gmail.com", "admin", Role.ROLE_ADMIN);
+    public static final User USER_1 = new User(USER_ID_1, "User One", "user.one@ukr.net", "{noop}password", Role.ROLE_USER);
+    public static final User USER_2 = new User(USER_ID_2, "User Two", "user.two@ukr.net", "{noop}password", Role.ROLE_USER);
+    public static final User ADMIN_1 = new User(ADMIN_ID_1, "Admin One", "admin.one@gmail.com", "{noop}admin", Role.ROLE_ADMIN);
+    public static final User ADMIN_2 = new User(ADMIN_ID_2, "Admin Two", "admin.two@gmail.com", "{noop}admin", Role.ROLE_ADMIN);
 
     public static final int RESTAURANT_ID_1 = 1;
     public static final int RESTAURANT_ID_2 = RESTAURANT_ID_1 + 1;

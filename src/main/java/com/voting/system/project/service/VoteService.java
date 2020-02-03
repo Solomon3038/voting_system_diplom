@@ -30,10 +30,14 @@ public class VoteService {
     @Transactional
     public Vote createOrUpdate(VoteTo voteTo) {
         Assert.notNull(voteTo, "vote must not be null");
-        User user = checkNotExistWithId(userRepository.findUserById(voteTo.getUserId()), voteTo.getUserId());
-        Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(voteTo.getRestaurantId().intValue()), voteTo.getRestaurantId());
         checkDate(voteTo.getDate());
         checkTime();
+        Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(voteTo.getRestaurantId().intValue()), voteTo.getRestaurantId());
+        User user = userRepository.getOne(voteTo.getUserId());
+        Vote existed = voteRepository.findVoteByUserId(voteTo.getUserId());
+        if(existed != null) {
+            voteTo.setId(existed.getId());
+        }
         Vote vote = getFromTo(voteTo, user, restaurant);
         return voteRepository.save(vote);
     }

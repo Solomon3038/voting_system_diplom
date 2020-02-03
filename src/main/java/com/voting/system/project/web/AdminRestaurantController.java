@@ -23,11 +23,13 @@ public class AdminRestaurantController {
     public static final String ADMIN_URL = "/admin";
     public static final String REST_URL = "/restaurants";
 
-    @Autowired
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
+    private final ModelMapper mapper;
 
-    @Autowired
-    private ModelMapper mapper;
+    public AdminRestaurantController(RestaurantService restaurantService, ModelMapper mapper) {
+        this.restaurantService = restaurantService;
+        this.mapper = mapper;
+    }
 
     //https://blog.codeleak.pl/2016/09/injecting-authenticated-user-into.html
     @GetMapping(REST_URL + "/{id}")

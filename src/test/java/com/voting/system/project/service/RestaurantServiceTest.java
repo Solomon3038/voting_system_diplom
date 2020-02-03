@@ -42,7 +42,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getAllWithMenusOnCurrentDate() {
-        final RestaurantWithMenusTo[] actual = restaurantService.getAllWithMenusOnCurrentDate();
+        final List<RestaurantWithMenusTo> actual = restaurantService.getAllWithMenusOnCurrentDate();
         List<Restaurant> actualList = Arrays.asList(mapper.map(actual, Restaurant[].class));
         assertMatch(actualList, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
         checkAllWithMenusOnCurrentDate(actualList);

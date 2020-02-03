@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 import static com.voting.system.project.web.AdminRestaurantController.REST_URL;
 
@@ -18,11 +19,14 @@ import static com.voting.system.project.web.AdminRestaurantController.REST_URL;
 @RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 
-    @Autowired
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
+
+    public RestaurantController(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
+    }
 
     @GetMapping
-    public RestaurantWithMenusTo[] getAllWithMenusAndDishes() {
+    public List<RestaurantWithMenusTo> getAllWithMenusAndDishes() {
         return restaurantService.getAllWithMenusOnCurrentDate();
     }
 }

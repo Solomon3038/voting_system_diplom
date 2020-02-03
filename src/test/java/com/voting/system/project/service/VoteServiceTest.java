@@ -47,12 +47,8 @@ class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void createOrUpdateUserNotExist() {
-        Assertions.assertThrows(NotExistException.class, () -> voteService.createOrUpdate(new VoteTo(null, NOT_EXIST_ID, RESTAURANT_ID_3)));
-    }
-
-    @Test
     void createOrUpdateRestaurantNotExist() {
+        checkIfRunTest();
         Assertions.assertThrows(NotExistException.class, () -> voteService.createOrUpdate(new VoteTo(VOTE_ID_1, USER_ID_1, NOT_EXIST_ID)));
     }
 
