@@ -45,3 +45,7 @@ VALUES (1, 'Шатобріан', 9900, 1),
 
 INSERT INTO VOTES (restaurant_id, user_id)
 VALUES (1, 2);
+
+INSERT INTO VOTES (date, restaurant_id, user_id)
+VALUES ('2020-01-01', 3, 1),
+       ('2020-01-01', 2, 2);

@@ -34,7 +34,7 @@ public class VoteService {
         checkTime();
         Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(voteTo.getRestaurantId().intValue()), voteTo.getRestaurantId());
         User user = userRepository.getOne(voteTo.getUserId());
-        Vote existed = voteRepository.findVoteByUserId(voteTo.getUserId());
+        Vote existed = voteRepository.findVoteByUserIdOnCurrentDate(voteTo.getUserId());
         if(existed != null) {
             voteTo.setId(existed.getId());
         }
