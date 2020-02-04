@@ -15,9 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class RestaurantControllerTest extends AbstractControllerTest {
 
-    @Autowired
-    private ModelMapper mapper;
-
     @Test
     void getAllWithMenusAndDishes() throws Exception {
         final String restaurantsWithMenusOnCurrentDate = objectMapper.writeValueAsString(mapper.map(RESTAURANTS_WITH_MENU_ON_CURRENT_DATE, RestaurantWithMenusTo[].class));

@@ -3,6 +3,7 @@ package com.voting.system.project.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.voting.system.project.AbstractTest;
 import org.h2.tools.Server;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -33,7 +34,11 @@ public abstract class AbstractControllerTest extends AbstractTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    protected ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    protected ModelMapper mapper;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     @PostConstruct
     private void postConstruct() {
