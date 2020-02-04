@@ -104,9 +104,9 @@ public class TestData {
         MENU_2_NOW.setDishes(new ArrayList<>(Collections.singletonList(DISH_2_1_NOW)));
         MENU_3_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_3_3_NOW, DISH_3_1_NOW, DISH_3_2_NOW)));
 
-        RESTAURANT_1.setMenus(new ArrayList<>(Arrays.asList(MENU_1_NOW, MENU_1)));
-        RESTAURANT_2.setMenus(new ArrayList<>(Arrays.asList(MENU_2_NOW, MENU_2)));
-        RESTAURANT_3.setMenus(new ArrayList<>(Arrays.asList(MENU_3_NOW, MENU_3)));
+        RESTAURANT_1.setMenus(new ArrayList<>(Arrays.asList(MENU_1_NOW)));
+        RESTAURANT_2.setMenus(new ArrayList<>(Arrays.asList(MENU_2_NOW)));
+        RESTAURANT_3.setMenus(new ArrayList<>(Arrays.asList(MENU_3_NOW)));
     }
 
     public static Restaurant getNewRestaurantWithMenuAndDishes() {
