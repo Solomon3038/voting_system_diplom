@@ -1,19 +1,15 @@
 package com.voting.system.project.web;
 
-import com.voting.system.project.config.UserPrincipal;
 import com.voting.system.project.service.RestaurantService;
 import com.voting.system.project.to.RestaurantTo;
+import com.voting.system.project.util.SecurityUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @Log4j2
 @RestController
@@ -31,10 +27,10 @@ public class AdminRestaurantController {
         this.mapper = mapper;
     }
 
-    //https://blog.codeleak.pl/2016/09/injecting-authenticated-user-into.html
     @GetMapping(REST_URL + "/{id}")
-    public RestaurantTo get(@PathVariable int id, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        log.info("User id is {}", userPrincipal.getId());
+    public RestaurantTo getRestaurant(@PathVariable int id) {
+        int userId = SecurityUtil.authUserId();
+        log.info("User id is {} ", userId);
         return mapper.map(restaurantService.get(id), RestaurantTo.class);
     }
 }
