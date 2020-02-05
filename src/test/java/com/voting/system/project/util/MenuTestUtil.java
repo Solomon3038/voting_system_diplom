@@ -14,6 +14,9 @@ import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 public class MenuTestUtil {
 
+    private MenuTestUtil() {
+    }
+
     public static void checkWithDishes(Menu actual) {
         assertMatch(actual, MENU_1);
         List<Dish> dishes = actual.getDishes().stream()

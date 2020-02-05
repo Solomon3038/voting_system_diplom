@@ -40,14 +40,14 @@ class MenuServiceTest extends AbstractServiceTest {
 
     @Test
     void createWithDishes() {
-        Menu saved = menuService.createWithDishes(getNewMenuWithDishes());
+        Menu saved = menuService.createWithDishes(getNewMenuWithDishes(), RESTAURANT_ID_4);
         checkSaveWithDishes(saved);
     }
 
     @Test
     void createWithDishesNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> menuService.createWithDishes(null));
+                () -> menuService.createWithDishes(null, RESTAURANT_ID_4));
         Assertions.assertEquals("menu must not be null", exception.getMessage());
     }
 
@@ -56,7 +56,7 @@ class MenuServiceTest extends AbstractServiceTest {
         Menu menu = getNewMenuWithDishes();
         menu.setDishes(null);
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> menuService.createWithDishes(menu));
+                () -> menuService.createWithDishes(menu, RESTAURANT_ID_4));
         Assertions.assertEquals("dishes must not be empty", exception.getMessage());
     }
 }

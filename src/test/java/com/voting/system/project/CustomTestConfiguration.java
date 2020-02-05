@@ -1,6 +1,7 @@
 package com.voting.system.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.voting.system.project.service.DishService;
 import com.voting.system.project.service.MenuService;
 import com.voting.system.project.service.RestaurantService;
 import com.voting.system.project.service.VoteService;
@@ -19,6 +20,11 @@ public class CustomTestConfiguration {
     @Bean
     public MenuService menuServiceBean() {
         return new MenuService();
+    }
+
+    @Bean
+    public DishService dishServiceBean() {
+        return new DishService();
     }
 
     @Bean

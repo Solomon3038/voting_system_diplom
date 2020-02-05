@@ -4,6 +4,7 @@ import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.RestaurantRepository;
+import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,16 @@ public class RestaurantService {
     @Autowired
     private ModelMapper mapper;
 
-    public Restaurant get(int id) {
+    public RestaurantTo get(int id) {
         Restaurant restaurant = restaurantRepository.findById(id);
-        return checkNotExistWithId(restaurant, id);
+        return mapper.map(checkNotExistWithId(restaurant, id), RestaurantTo.class);
     }
 
-    public List<Restaurant> getAll() {
-        return restaurantRepository.findAll();
+    public List<RestaurantTo> getAll() {
+        final List<Restaurant> restaurants = restaurantRepository.findAll();
+        final List<RestaurantTo> restaurantTos = new ArrayList<>();
+        restaurants.forEach(restaurant -> restaurantTos.add(mapper.map(restaurant, RestaurantTo.class)));
+        return restaurantTos;
     }
 
     //TODO add cache

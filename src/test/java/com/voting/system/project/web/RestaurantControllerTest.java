@@ -2,8 +2,6 @@ package com.voting.system.project.web;
 
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import static com.voting.system.project.TestData.RESTAURANTS_WITH_MENU_ON_CURRENT_DATE;

@@ -7,6 +7,9 @@ import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 public class VoteTestUtil {
 
+    private VoteTestUtil() {
+    }
+
     public static void checkSave(Vote saved) {
         Vote expected = getNewVote();
         expected.setId(saved.getId());

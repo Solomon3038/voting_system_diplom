@@ -12,6 +12,9 @@ import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 public class RestaurantTestUtil {
 
+    private RestaurantTestUtil() {
+    }
+
     public static void checkAllWithMenusOnCurrentDate(List<Restaurant> actual) {
         assertMatch(actual, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
         List<Menu> menus = actual.stream()

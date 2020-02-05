@@ -19,7 +19,7 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     private static final String ADMIN_TEST_URL = ADMIN_URL + REST_URL + "/";
 
     @Test
-    @WithUserDetails(value = ADMIN_1_EMAIL, userDetailsServiceBeanName = USER_DETAILS_BEAN_NAME)
+    @WithUserDetails(ADMIN_1_EMAIL)
     void getRestaurant() throws Exception {
         final String restaurant = objectMapper.writeValueAsString(mapper.map(RESTAURANT_1, RestaurantTo.class));
 

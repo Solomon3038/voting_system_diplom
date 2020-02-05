@@ -11,7 +11,6 @@ import java.util.List;
 public class TestData {
     public static final String ADMIN_1_EMAIL = "admin.one@gmail.com";
     public static final String USER_1_EMAIL = "user.one@ukr.net";
-    public static final String USER_DETAILS_BEAN_NAME = "userDetailsServiceImp";
 
     public static final int NOT_EXIST_ID = -1;
 
@@ -132,10 +131,18 @@ public class TestData {
     }
 
     public static Menu getNewMenuWithDishes() {
-        Menu menu = new Menu(null, RESTAURANT_4_NO_MENU);
+        Menu menu = new Menu(null, null);
         Dish dish = new Dish(null, "dish 1", 10_00, menu);
         menu.setDishes(new ArrayList<>(Collections.singletonList(dish)));
         return menu;
+    }
+
+    public static Dish getNewDish() {
+        return new Dish(null, "dish new", 103_00, null);
+    }
+
+    public static Dish getUpdatedDish(Dish updated) {
+        return new Dish(updated.getId(), "dish update", 103_00, updated.getMenu());
     }
 
     public static Vote getNewVote() {

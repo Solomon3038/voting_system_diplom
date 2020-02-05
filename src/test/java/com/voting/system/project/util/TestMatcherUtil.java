@@ -18,7 +18,10 @@ public class TestMatcherUtil {
         ignoreFieldsMap.put(Dish.class, new String[]{"menu"});
     }
 
-    public static <T> void assertMatch(T actual, T expected) {
+    private TestMatcherUtil() {
+    }
+
+    public static <T extends HasId> void assertMatch(T actual, T expected) {
         String[] ignoredFields = ignoreFieldsMap.getOrDefault(actual.getClass(), new String[0]);
         assertThat(actual).isEqualToIgnoringGivenFields(expected, ignoredFields);
     }
@@ -28,7 +31,7 @@ public class TestMatcherUtil {
         assertMatch(actual, List.of(expected));
     }
 
-    public static <T extends HasId> void assertMatch(Iterable<T> actual, Iterable<T> expected) {
+    public static <T> void assertMatch(Iterable<T> actual, Iterable<T> expected) {
         String[] ignoredFields = ignoreFieldsMap.getOrDefault(actual.iterator().next().getClass(), new String[0]);
         assertThat(actual).usingElementComparatorIgnoringFields(ignoredFields).isEqualTo(expected);
     }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.util.MenuTestUtil.*;
 
 class MenuRepositoryTest extends AbstractRepositoryTest {
@@ -44,7 +43,9 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void saveWithDishes() {
-        Menu saved = menuRepository.save(getNewMenuWithDishes());
+        final Menu menu = getNewMenuWithDishes();
+        menu.setRestaurant(RESTAURANT_4_NO_MENU);
+        Menu saved = menuRepository.save(menu);
         checkSaveWithDishes(saved);
     }
 }

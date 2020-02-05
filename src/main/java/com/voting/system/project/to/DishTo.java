@@ -1,7 +1,6 @@
 package com.voting.system.project.to;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

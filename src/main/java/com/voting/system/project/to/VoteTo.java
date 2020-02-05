@@ -1,6 +1,5 @@
 package com.voting.system.project.to;
 
-import com.voting.system.project.model.AbstractBaseEntity;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

@@ -27,6 +27,7 @@ public class VoteService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
+    //voteTo id value always null
     @Transactional
     public Vote createOrUpdate(VoteTo voteTo) {
         Assert.notNull(voteTo, "vote must not be null");
@@ -35,7 +36,7 @@ public class VoteService {
         Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(voteTo.getRestaurantId().intValue()), voteTo.getRestaurantId());
         User user = userRepository.getOne(voteTo.getUserId());
         Vote existed = voteRepository.findVoteByUserIdOnCurrentDate(voteTo.getUserId());
-        if(existed != null) {
+        if (existed != null) {
             voteTo.setId(existed.getId());
         }
         Vote vote = getFromTo(voteTo, user, restaurant);
