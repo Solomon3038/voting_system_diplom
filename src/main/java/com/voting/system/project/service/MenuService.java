@@ -4,11 +4,14 @@ import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.MenuRepository;
 import com.voting.system.project.repository.RestaurantRepository;
+import com.voting.system.project.to.MenuTo;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
@@ -22,22 +25,29 @@ public class MenuService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
+    @Autowired
+    private ModelMapper mapper;
+
     public Menu getWithDishes(int id, int restaurantId) {
         Menu menu = menuRepository.findByIdWithDishes(id, restaurantId);
         return checkNotExistWithId(menu, id);
     }
 
-    public Menu get(int id, int restaurantId) {
+    public MenuTo get(int id, int restaurantId) {
         Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);
-        return checkNotExistWithId(menu, id);
+        checkNotExistWithId(menu, id);
+        return mapper.map(menu, MenuTo.class);
     }
 
     public List<Menu> getAllWithDishes(int restaurantId) {
         return menuRepository.findAllByRestaurantIdWithDishes(restaurantId);
     }
 
-    public List<Menu> getAll(int restaurantId) {
-        return menuRepository.findAllByRestaurantIdOrderByRegisteredDesc(restaurantId);
+    public List<MenuTo> getAll(int restaurantId) {
+        final List<Menu> menus = menuRepository.findAllByRestaurantIdOrderByRegisteredDesc(restaurantId);
+        final List<MenuTo> tos = new ArrayList<>();
+        menus.forEach(menu -> tos.add(mapper.map(menu, MenuTo.class)));
+        return tos;
     }
 
     //TODO check transaction roll back dishes not valid

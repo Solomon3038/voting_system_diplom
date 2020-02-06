@@ -19,7 +19,7 @@ public class RestaurantUtil {
         restaurant.getMenus().forEach(menu -> {
             final List<DishTo> dishesTos = new ArrayList<>();
             menu.getDishes().forEach(dish -> dishesTos.add(mapper.map(dish, DishTo.class)));
-            menuTos.add(new MenuWithDishesTo(menu.getId(), dishesTos));
+            menuTos.add(new MenuWithDishesTo(menu.getId(), menu.getRegistered(), dishesTos));
         });
         return new RestaurantWithMenusTo(restaurant.getId(), restaurant.getName(), restaurant.getAddress(), menuTos);
     }

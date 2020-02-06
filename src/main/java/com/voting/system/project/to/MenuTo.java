@@ -10,17 +10,13 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class MenuWithDishesTo extends BaseTo {
+public class MenuTo extends BaseTo {
 
     @NotNull
     private LocalDate registered;
 
-    @NotNull
-    private List<DishTo> dishes;
-
-    public MenuWithDishesTo(Integer id, @NotNull LocalDate registered, @NotNull List<DishTo> dishes) {
+    public MenuTo(Integer id, @NotNull LocalDate registered) {
         super(id);
         this.registered = registered;
-        this.dishes = dishes;
     }
 }
