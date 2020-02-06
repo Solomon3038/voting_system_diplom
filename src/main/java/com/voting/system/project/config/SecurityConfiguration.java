@@ -1,5 +1,6 @@
 package com.voting.system.project.config;
 
+import com.voting.system.project.auth.UserDetailsServiceImp;
 import com.voting.system.project.model.Role;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;

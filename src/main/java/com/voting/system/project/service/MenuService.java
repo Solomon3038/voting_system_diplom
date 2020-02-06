@@ -27,17 +27,44 @@ public class MenuService {
         return checkNotExistWithId(menu, id);
     }
 
+    public Menu get(int id, int restaurantId) {
+        Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);
+        return checkNotExistWithId(menu, id);
+    }
+
     public List<Menu> getAllWithDishes(int restaurantId) {
         return menuRepository.findAllByRestaurantIdWithDishes(restaurantId);
+    }
+
+    public List<Menu> getAll(int restaurantId) {
+        return menuRepository.findAllByRestaurantIdOrderByRegisteredDesc(restaurantId);
     }
 
     //TODO check transaction roll back dishes not valid
     @Transactional
     public Menu createWithDishes(Menu menu, int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
+        checkAndSetRestaurant(menu, restaurantId);
         Assert.isTrue(!menu.getDishes().isEmpty(), "dishes must not be empty");
+        return menuRepository.save(menu);
+    }
+
+    @Transactional
+    public Menu create(Menu menu, int restaurantId) {
+        checkAndSetRestaurant(menu, restaurantId);
+        return menuRepository.save(menu);
+    }
+
+    @Transactional
+    public void update(Menu menu, int restaurantId) {
+        Assert.notNull(menu, "menu must not be null");
+        checkNotExistWithId(menuRepository.findByIdAndRestaurantId(menu.getId(), restaurantId), menu.getId());
+        menu.setRestaurant(restaurantRepository.getOne(restaurantId));
+        menuRepository.save(menu);
+    }
+
+    private void checkAndSetRestaurant(Menu menu, int restaurantId) {
+        Assert.notNull(menu, "menu must not be null");
         Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(restaurantId), restaurantId);
         menu.setRestaurant(restaurant);
-        return menuRepository.save(menu);
     }
 }

@@ -1,4 +1,4 @@
-package com.voting.system.project.config;
+package com.voting.system.project.auth;
 
 import com.voting.system.project.model.User;
 import com.voting.system.project.repository.UserRepository;

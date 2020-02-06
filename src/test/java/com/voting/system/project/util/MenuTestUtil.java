@@ -4,7 +4,6 @@ import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import org.junit.jupiter.api.Assertions;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,10 +40,15 @@ public class MenuTestUtil {
         Menu expected = getNewMenuWithDishes();
         expected.setId(saved.getId());
         assertMatch(saved, expected);
-        Assertions.assertEquals(saved.getRegistered(), LocalDate.now());
 
         int id = saved.getDishes().iterator().next().getId();
         expected.getDishes().iterator().next().setId(id);
         assertMatch(saved.getDishes(), expected.getDishes());
+    }
+
+    public static void checkSave(Menu saved) {
+        Menu expected = getNewMenu();
+        expected.setId(saved.getId());
+        assertMatch(saved, expected);
     }
 }

@@ -1,6 +1,6 @@
 package com.voting.system.project.util;
 
-import com.voting.system.project.config.UserPrincipal;
+import com.voting.system.project.auth.UserPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

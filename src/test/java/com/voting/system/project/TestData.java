@@ -130,6 +130,14 @@ public class TestData {
         return new Restaurant(restaurant.getId(), "Update Restaurant", restaurant.getAddress());
     }
 
+    public static Menu getNewMenu() {
+        return new Menu(null, LocalDate.of(2020, 3, 1), null);
+    }
+
+    public static Menu getUpdatedMenu(Menu updated) {
+        return new Menu(updated.getId(), LocalDate.of(2020, 3, 1), updated.getRestaurant());
+    }
+
     public static Menu getNewMenuWithDishes() {
         Menu menu = new Menu(null, null);
         Dish dish = new Dish(null, "dish 1", 10_00, menu);
