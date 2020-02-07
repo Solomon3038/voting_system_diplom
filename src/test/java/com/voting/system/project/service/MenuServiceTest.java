@@ -20,25 +20,9 @@ class MenuServiceTest extends AbstractServiceTest {
     private MenuService menuService;
 
     @Test
-    void getWithDishes() {
-        Menu actual = menuService.getWithDishes(MENU_ID_1, RESTAURANT_ID_1);
-        checkWithDishes(actual);
-    }
-
-    @Test
-    void getWithDishesNotExist() {
-        Assertions.assertThrows(NotExistException.class, () -> menuService.getWithDishes(NOT_EXIST_ID, RESTAURANT_ID_1));
-    }
-
-    @Test
-    void getWithDishesNotOwn() {
-        Assertions.assertThrows(NotExistException.class, () -> menuService.getWithDishes(MENU_ID_2, RESTAURANT_ID_1));
-    }
-
-    @Test
     void get() {
         Menu actual = mapper.map(menuService.get(MENU_ID_1, RESTAURANT_ID_1), Menu.class);
-        checkWithDishes(actual);
+        assertMatch(actual, MENU_1);
     }
 
     @Test
@@ -52,15 +36,10 @@ class MenuServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void getAllWithDishes() {
-        final List<Menu> actual = menuService.getAllWithDishes(RESTAURANT_ID_1);
-        checkAllWithDishes(actual);
-    }
-
-    @Test
     void getAll() {
         final List<MenuTo> tos = menuService.getAll(RESTAURANT_ID_1);
-        assertMatch(Arrays.asList(mapper.map(tos, Menu[].class), MENU_1_NOW, MENU_1));
+        final List<Menu> actual = Arrays.asList(mapper.map(tos, Menu[].class));
+        assertMatch(actual, MENU_1_NOW, MENU_1);
     }
 
     @Test

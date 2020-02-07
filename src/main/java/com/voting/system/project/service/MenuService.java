@@ -28,19 +28,10 @@ public class MenuService {
     @Autowired
     private ModelMapper mapper;
 
-    public Menu getWithDishes(int id, int restaurantId) {
-        Menu menu = menuRepository.findByIdWithDishes(id, restaurantId);
-        return checkNotExistWithId(menu, id);
-    }
-
     public MenuTo get(int id, int restaurantId) {
         Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);
         checkNotExistWithId(menu, id);
         return mapper.map(menu, MenuTo.class);
-    }
-
-    public List<Menu> getAllWithDishes(int restaurantId) {
-        return menuRepository.findAllByRestaurantIdWithDishes(restaurantId);
     }
 
     public List<MenuTo> getAll(int restaurantId) {

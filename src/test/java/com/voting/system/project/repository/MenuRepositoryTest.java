@@ -17,26 +17,6 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     private MenuRepository menuRepository;
 
     @Test
-    void findByIdWithDishes() {
-        Menu actual = menuRepository.findByIdWithDishes(MENU_ID_1, RESTAURANT_ID_1);
-        checkEntityFieldLoadingType(Menu.class, "dishes", false);
-        checkEntityFieldLoadingType(Menu.class, "restaurant", true);
-        checkWithDishes(actual);
-    }
-
-    @Test
-    void findByIdWithDishesNotExist() {
-        Menu menuNotExist = menuRepository.findByIdWithDishes(NOT_EXIST_ID, RESTAURANT_ID_1);
-        Assertions.assertNull(menuNotExist);
-    }
-
-    @Test
-    void findByIdWithDishesNotOwn() {
-        Menu menuNotExist = menuRepository.findByIdWithDishes(MENU_ID_2, RESTAURANT_ID_1);
-        Assertions.assertNull(menuNotExist);
-    }
-
-    @Test
     void findByIdAndRestaurantId() {
         Menu actual = menuRepository.findByIdAndRestaurantId(MENU_ID_1, RESTAURANT_ID_1);
         checkEntityFieldLoadingType(Menu.class, "dishes", true);
@@ -54,13 +34,6 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     void findByIdAndRestaurantIdNotOwn() {
         Menu menuNotExist = menuRepository.findByIdAndRestaurantId(MENU_ID_2, RESTAURANT_ID_1);
         Assertions.assertNull(menuNotExist);
-    }
-
-    @Test
-    void findAllByRestaurantIdWithDishes() {
-        List<Menu> actual = menuRepository.findAllByRestaurantIdWithDishes(RESTAURANT_ID_1);
-        checkEntityFieldLoadingType(Menu.class, "dishes", false);
-        checkAllWithDishes(actual);
     }
 
     @Test

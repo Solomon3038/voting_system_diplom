@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.voting.system.project.web.AdminRestaurantController.REST_URL;
+import static com.voting.system.project.web.RestaurantController.REST_URL;
 
 @Log4j2
 @RestController
 @RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
+
+    public static final String REST_URL = "/restaurants";
 
     private final RestaurantService restaurantService;
 
