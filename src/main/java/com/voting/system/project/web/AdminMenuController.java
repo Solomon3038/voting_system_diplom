@@ -21,11 +21,9 @@ public class AdminMenuController {
 
     public static final String ADMIN_MENU_URL = ADMIN_REST_URL + "/{restId}/menus";
 
-    private final RestaurantService restaurantService;
     private final MenuService menuService;
 
-    public AdminMenuController(RestaurantService restaurantService, MenuService menuService) {
-        this.restaurantService = restaurantService;
+    public AdminMenuController(MenuService menuService) {
         this.menuService = menuService;
     }
 

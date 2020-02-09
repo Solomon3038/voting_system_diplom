@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
-@SpringBootTest
+@SpringBootTest(properties = "vote.h2.tcp_server.enable=false")
 @Import(CustomTestConfiguration.class)
 abstract class AbstractServiceTest extends AbstractTest {
 

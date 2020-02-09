@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(properties = "vote.h2.tcp_server.enable=false")
 public abstract class AbstractControllerTest extends AbstractTest {
 
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
@@ -44,10 +44,6 @@ public abstract class AbstractControllerTest extends AbstractTest {
 
     @PostConstruct
     private void postConstruct() {
-        //https://stackoverflow.com/a/12447211/12805042
-        final AutowireCapableBeanFactory beanFactory = webApplicationContext.getAutowireCapableBeanFactory();
-        ((DefaultListableBeanFactory) beanFactory).destroySingleton("h2Server");
-
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)

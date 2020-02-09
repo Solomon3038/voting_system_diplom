@@ -21,11 +21,9 @@ public class AdminRestaurantController {
     public static final String ADMIN_REST_URL = "/admin/restaurants";
 
     private final RestaurantService restaurantService;
-    private final MenuService menuService;
 
-    public AdminRestaurantController(RestaurantService restaurantService, MenuService menuService) {
+    public AdminRestaurantController(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
-        this.menuService = menuService;
     }
 
     @GetMapping
