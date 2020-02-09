@@ -47,9 +47,14 @@ public class RestaurantService {
         return restaurantTos;
     }
 
-    public Restaurant createOrUpdate(Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant must not be null");
-        Assert.isTrue(restaurant.getMenus().isEmpty(), "list of menus must be empty");
+    public Restaurant create(Restaurant restaurant) {
+        checkRestaurant(restaurant);
+        return restaurantRepository.save(restaurant);
+    }
+
+    public Restaurant update(Restaurant restaurant) {
+        checkRestaurant(restaurant);
+        checkNotExistWithId(restaurantRepository.findById(restaurant.getId().intValue()), restaurant.getId());
         return restaurantRepository.save(restaurant);
     }
 
@@ -64,5 +69,10 @@ public class RestaurantService {
         final List<Dish> dishes = menus.iterator().next().getDishes();
         Assert.isTrue(!dishes.isEmpty(), "dishes must not be empty");
         return restaurantRepository.save(restaurant);
+    }
+
+    private void checkRestaurant(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
+        Assert.isTrue(restaurant.getMenus().isEmpty(), "list of menus must be empty");
     }
 }

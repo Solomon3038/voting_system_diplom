@@ -1,8 +1,7 @@
 package com.voting.system.project.web;
 
 import com.voting.system.project.service.MenuService;
-import com.voting.system.project.service.RestaurantService;
-import com.voting.system.project.to.MenuTo;
+import com.voting.system.project.to.MenuWithDishesTo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,13 +27,13 @@ public class AdminMenuController {
     }
 
     @GetMapping
-    public List<MenuTo> getMenus(@PathVariable int restId) {
+    public List<MenuWithDishesTo> getMenus(@PathVariable int restId) {
         log.info("getMenus for restaurant with id {}", restId);
         return menuService.getAll(restId);
     }
 
     @GetMapping("/{id}")
-    public MenuTo getMenu(@PathVariable int restId, @PathVariable int id) {
+    public MenuWithDishesTo getMenu(@PathVariable int restId, @PathVariable int id) {
         log.info("getMenu with id {} for restaurant with id {}", id, restId);
         return menuService.get(id, restId);
     }

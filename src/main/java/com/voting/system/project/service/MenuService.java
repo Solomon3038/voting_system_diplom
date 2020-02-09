@@ -4,7 +4,7 @@ import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.MenuRepository;
 import com.voting.system.project.repository.RestaurantRepository;
-import com.voting.system.project.to.MenuTo;
+import com.voting.system.project.to.MenuWithDishesTo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
 @Service
@@ -28,16 +29,16 @@ public class MenuService {
     @Autowired
     private ModelMapper mapper;
 
-    public MenuTo get(int id, int restaurantId) {
+    public MenuWithDishesTo get(int id, int restaurantId) {
         Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);
         checkNotExistWithId(menu, id);
-        return mapper.map(menu, MenuTo.class);
+        return mapper.map(menu, MenuWithDishesTo.class);
     }
 
-    public List<MenuTo> getAll(int restaurantId) {
+    public List<MenuWithDishesTo> getAll(int restaurantId) {
         final List<Menu> menus = menuRepository.findAllByRestaurantIdOrderByRegisteredDesc(restaurantId);
-        final List<MenuTo> tos = new ArrayList<>();
-        menus.forEach(menu -> tos.add(mapper.map(menu, MenuTo.class)));
+        final List<MenuWithDishesTo> tos = new ArrayList<>();
+        menus.forEach(menu -> tos.add(getToFrom(menu, mapper)));
         return tos;
     }
 

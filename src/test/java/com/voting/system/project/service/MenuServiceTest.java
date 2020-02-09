@@ -1,7 +1,7 @@
 package com.voting.system.project.service;
 
 import com.voting.system.project.model.Menu;
-import com.voting.system.project.to.MenuTo;
+import com.voting.system.project.to.MenuWithDishesTo;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -37,9 +37,9 @@ class MenuServiceTest extends AbstractServiceTest {
 
     @Test
     void getAll() {
-        final List<MenuTo> tos = menuService.getAll(RESTAURANT_ID_1);
+        final List<MenuWithDishesTo> tos = menuService.getAll(RESTAURANT_ID_1);
         final List<Menu> actual = Arrays.asList(mapper.map(tos, Menu[].class));
-        assertMatch(actual, MENU_1_NOW, MENU_1);
+        checkAllWithDishes(actual);
     }
 
     @Test

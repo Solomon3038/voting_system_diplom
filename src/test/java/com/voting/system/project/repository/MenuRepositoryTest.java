@@ -19,7 +19,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     @Test
     void findByIdAndRestaurantId() {
         Menu actual = menuRepository.findByIdAndRestaurantId(MENU_ID_1, RESTAURANT_ID_1);
-        checkEntityFieldLoadingType(Menu.class, "dishes", true);
+        checkEntityFieldLoadingType(Menu.class, "dishes", false);
         checkEntityFieldLoadingType(Menu.class, "restaurant", true);
         assertMatch(actual, MENU_1);
     }
@@ -39,7 +39,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     @Test
     void findAllByRestaurantIdOrderByRegisteredDesc() {
         List<Menu> actual = menuRepository.findAllByRestaurantIdOrderByRegisteredDesc(RESTAURANT_ID_1);
-        checkEntityFieldLoadingType(Menu.class, "dishes", true);
+        checkEntityFieldLoadingType(Menu.class, "dishes", false);
         assertMatch(actual, MENU_1_NOW, MENU_1);
     }
 

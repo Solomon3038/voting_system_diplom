@@ -23,9 +23,6 @@ public class DishService {
     @Autowired
     private MenuRepository menuRepository;
 
-    @Autowired
-    private ModelMapper mapper;
-
     public List<Dish> getAll(int menuId) {
         return dishRepository.findAllByMenuIdOrderByNameAsc(menuId);
     }

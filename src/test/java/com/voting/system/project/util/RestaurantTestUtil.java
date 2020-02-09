@@ -26,7 +26,6 @@ public class RestaurantTestUtil {
         for (int i = 0; i < 3; i++) {
             assertMatch(menus.get(i).getDishes(), MENUS_NOW.get(i).getDishes());
         }
-
     }
 
     public static void checkSaveWithMenusAndDishes(Restaurant saved) {
