@@ -28,6 +28,8 @@
 
 12. It should contain the code and README.md with API documentation and curl commands to get data for voting and vote.
 
+## Project documentation
+
 ### Get all restaurants with menu on current date
 
 **URL:**  /restaurants
@@ -40,7 +42,7 @@
 
 <details>
   <summary>Content</summary><p>
-  ```javascript
+```
   [
       {
           "id": 2,
@@ -130,6 +132,6 @@
           "new": false
       }
   ]
-  ```
-  </p></details>
+```
+</p></details>
 
