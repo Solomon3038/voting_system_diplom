@@ -34,9 +34,9 @@
 
 ### `GET /restaurants`
 
-Authorization: not required 
+Authorization: **not required**
 
-Success response status: ```html <span style="color: green"> 200 </span> ```
+Success response status:  **200**
 
 Curl:
 
