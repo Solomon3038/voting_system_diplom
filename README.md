@@ -1,6 +1,6 @@
 # voting_system_diplom
 
-##Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
+### Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
 **The task is:**
 
@@ -28,7 +28,7 @@
 
 12. It should contain the code and README.md with API documentation and curl commands to get data for voting and vote.
 
-###Get all restaurants with menu on current date
+### Get all restaurants with menu on current date
 
 **URL:**  /restaurants
 
