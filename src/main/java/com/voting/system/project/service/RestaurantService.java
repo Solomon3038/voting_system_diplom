@@ -73,6 +73,6 @@ public class RestaurantService {
 
     private void checkRestaurant(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
-        Assert.isTrue(restaurant.getMenus().isEmpty(), "list of menus must be empty");
+        Assert.isTrue(restaurant.getMenus() == null || restaurant.getMenus().isEmpty(), "list of menus must be empty or not exist");
     }
 }

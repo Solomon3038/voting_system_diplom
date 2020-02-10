@@ -69,7 +69,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     void createWithNotEmptyMenusError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> restaurantService.create(getNewRestaurantWithMenuAndDishes()));
-        Assertions.assertEquals("list of menus must be empty", exception.getMessage());
+        Assertions.assertEquals("list of menus must be empty or not exist", exception.getMessage());
     }
 
     @Test
@@ -90,7 +90,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     void updateWithNotEmptyMenusError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> restaurantService.update(getNewRestaurantWithMenuAndDishes()));
-        Assertions.assertEquals("list of menus must be empty", exception.getMessage());
+        Assertions.assertEquals("list of menus must be empty or not exist", exception.getMessage());
     }
 
     @Test

@@ -141,3 +141,260 @@ curl -X GET \
 ```
 </p></details>
 
+#### Get all restaurants
+
+### `GET /admin/restaurants`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **200**
+
+Curl:
+
+```
+curl -X GET \
+  http://localhost:8080/admin/restaurants \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Host: localhost:8080'  
+```
+<details>
+  <summary>Content:</summary><p>
+  
+```
+[
+    {
+        "id": 4,
+        "name": "Closed",
+        "address": "вулиця Грушевського, 120, Рівне, Рівненська область, 33000",
+        "new": false
+    },
+    {
+        "id": 2,
+        "name": "Gastro",
+        "address": "проспект Миру, 10, Рівне, Рівненська область, 33013",
+        "new": false
+    },
+    {
+        "id": 1,
+        "name": "Manhattan-skybar",
+        "address": "вулиця Соборна, 112, Рівне, Рівненська область, 33000",
+        "new": false
+    },
+    {
+        "id": 3,
+        "name": "Vinograd",
+        "address": "вулиця Видумка, 2 Б, Рівне, Рівненська область, 33023",
+        "new": false
+    }
+]
+```
+</p></details>
+
+Error response status: **401**
+
+#### Get restaurant
+
+### `GET /admin/restaurants/1`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **200**
+
+Curl:
+
+```
+curl -X GET \
+  http://localhost:8080/admin/restaurants/1 \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Host: localhost:8080' 
+```
+<details>
+  <summary>Content:</summary><p>
+  
+```
+{
+    "id": 1,
+    "name": "Manhattan-skybar",
+    "address": "вулиця Соборна, 112, Рівне, Рівненська область, 33000",
+    "new": false
+}
+```
+</p></details>
+
+Error response status: **401**
+
+#### Create restaurant
+
+### `POST /admin/restaurants`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **201**
+
+<details>
+  <summary>Data params:</summary><p>
+  
+```
+    {
+        "name": "New Restaurant",
+        "address": "new address"
+    }
+```
+ </p></details>
+
+Curl:
+
+```
+curl -X POST \
+  http://localhost:8080/admin/restaurants/ \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: localhost:8080' \
+  -H 'cache-control: no-cache' \
+  -d '    {
+        "name": "New Restaurant",
+        "address": "new address"
+    }'
+```
+<details>
+  <summary>Content:</summary><p>
+  
+```
+{
+    "id": 5,
+    "name": "New Restaurant",
+    "address": "new address",
+    "menus": null,
+    "new": false
+}
+```
+</p></details>
+
+Error response status:
+
+#### Get all menus with dishes for one restaurant
+
+### `GET admin/restaurants/1/menus`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **200**
+
+Curl:
+
+```
+curl -X GET \
+  http://localhost:8080/admin/restaurants/1/menus \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Host: localhost:8080'
+```
+<details>
+  <summary>Content:</summary><p>
+  
+```
+[
+    {
+        "id": 4,
+        "registered": "2020-02-10",
+        "dishes": [
+            {
+                "id": 11,
+                "name": "Салат з тигровими креветками під кисло-солодким соусом",
+                "price": 14600,
+                "new": false
+            },
+            {
+                "id": 10,
+                "name": "Червоний борщ",
+                "price": 3800,
+                "new": false
+            },
+            {
+                "id": 9,
+                "name": "Шатобріан",
+                "price": 9900,
+                "new": false
+            }
+        ],
+        "new": false
+    },
+    {
+        "id": 1,
+        "registered": "2020-01-01",
+        "dishes": [
+            {
+                "id": 3,
+                "name": "Салат з тигровими креветками під кисло-солодким соусом",
+                "price": 14600,
+                "new": false
+            },
+            {
+                "id": 2,
+                "name": "Червоний борщ",
+                "price": 3800,
+                "new": false
+            },
+            {
+                "id": 1,
+                "name": "Шатобріан",
+                "price": 9900,
+                "new": false
+            }
+        ],
+        "new": false
+    }
+]
+```
+</p></details>
+
+Error response status: **401**
+
+#### Get all menus with dishes for one restaurant
+
+### `GET admin/restaurants/1/menus/1`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **200**
+
+Curl:
+
+```
+curl -X GET \
+  http://localhost:8080/admin/restaurants/1/menus/1 \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Host: localhost:8080'
+```
+<details>
+  <summary>Content:</summary><p>
+  
+```
+{
+    "id": 1,
+    "registered": "2020-01-01",
+    "dishes": [
+        {
+            "id": 3,
+            "name": "Салат з тигровими креветками під кисло-солодким соусом",
+            "price": 14600,
+            "new": false
+        },
+        {
+            "id": 2,
+            "name": "Червоний борщ",
+            "price": 3800,
+            "new": false
+        },
+        {
+            "id": 1,
+            "name": "Шатобріан",
+            "price": 9900,
+            "new": false
+        }
+    ],
+    "new": false
+}
+```
+</p></details>
+
+Error response status: **401**
