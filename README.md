@@ -30,18 +30,23 @@
 
 ## Project documentation
 
-### Get all restaurants with menu on current date
+#### Get all restaurants with menu on current date
 
-**URL:**  /restaurants
+### `GET /restaurants`
 
-**Method:** GET
+Authorization: not required 
 
-**Authorization:** not required 
+Success response status: ```html <span style="color: green"> 200 </span> ```
 
-**Success response status:** 200
+Curl:
 
+```
+curl -X GET \
+  http://localhost:8080/restaurants \
+  -H 'Host: localhost:8080' 
+```
 <details>
-  <summary>Content</summary><p>
+  <summary>Content:</summary><p>
   
 ```
   [
@@ -134,6 +139,5 @@
       }
   ]
 ```
-
 </p></details>
 
