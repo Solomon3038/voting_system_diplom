@@ -3,6 +3,7 @@ package com.voting.system.project.web;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.service.RestaurantService;
 import com.voting.system.project.to.RestaurantTo;
+import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,6 +11,9 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.voting.system.project.TestData.*;
+import static com.voting.system.project.util.MenuTestUtil.checkSaveWithDishes;
+import static com.voting.system.project.util.RestaurantTestUtil.checkSave;
+import static com.voting.system.project.util.RestaurantTestUtil.checkSaveWithMenusAndDishes;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,16 +45,22 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     void createWithLocation() throws Exception {
         Restaurant newRestaurant = getNewRestaurant();
         String restaurant = objectMapper.writeValueAsString(newRestaurant);
-
-        String result = mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_REST_URL_TEST)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(restaurant))
-                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
-
+        String result = doPost(restaurant, ADMIN_REST_URL_TEST);
         Restaurant created = objectMapper.readValue(result, Restaurant.class);
-        Integer newId = created.getId();
-        newRestaurant.setId(newId);
-        assertMatch(created, newRestaurant);
-        assertMatch(restaurantService.get(newId), newRestaurant);
+        checkSave(created);
+        newRestaurant.setId(created.getId());
+        assertMatch(restaurantService.get(created.getId()), newRestaurant);
+    }
+
+    @Test
+    @WithUserDetails(ADMIN_1_EMAIL)
+    void createWithLocationFull() throws Exception {
+        Restaurant newRestaurant = getNewRestaurantWithMenuAndDishes();
+        String restaurant = objectMapper.writeValueAsString(mapper.map(newRestaurant, RestaurantWithMenusTo.class));
+        String result = doPost(restaurant, ADMIN_REST_URL_TEST + "/full");
+        RestaurantWithMenusTo created = objectMapper.readValue(result, RestaurantWithMenusTo.class);
+        checkSaveWithMenusAndDishes(mapper.map(created, Restaurant.class));
+        newRestaurant.setId(created.getId());
+        assertMatch(restaurantService.get(created.getId()), newRestaurant);
     }
 }

@@ -30,7 +30,9 @@
 
 ## Project documentation
 
-#### Get all restaurants with menu on current date
+``note, that price type is integer``
+
+#### Get all restaurants with menus on current date
 
 ### `GET /restaurants`
 
@@ -272,7 +274,103 @@ curl -X POST \
 
 Error response status:
 
-#### Get all menus with dishes for one restaurant
+#### Create restaurant with menu and dishes
+
+### `POST /admin/restaurants/full`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **201**
+
+<details>
+  <summary>Data params:</summary><p>
+  
+```
+{
+    "name": "New Restaurant",
+    "address": "New Address",
+    "menus": [
+        {
+            "dishes": [
+                {
+                    "name": "new dish 1",
+                    "price": 12000
+                },
+                {
+                    "name": "new dish 2",
+                    "price": 13000
+                }
+            ]
+        }
+    ]
+}
+```
+ </p></details>
+
+Curl:
+
+```
+curl -X POST \
+  http://localhost:8080/admin/restaurants/full \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: localhost:8080' \
+  -d '{
+        "name": "New Restaurant",
+        "address": "New Address",
+        "menus": [
+            {
+                "dishes": [
+                    {
+                        "name": "new dish 1",
+                        "price": 12000
+                    },
+                     {
+                        "name": "new dish 2",
+                        "price": 13000
+                    }
+                ]
+            }
+        ]
+    }'
+```
+<details>
+  <summary>Content:</summary><p>
+  
+```
+{
+    "id": 5,
+    "name": "New Restaurant",
+    "address": "New Address",
+    "menus": [
+        {
+            "id": 7,
+            "registered": "2020-02-11",
+            "dishes": [
+                {
+                    "id": 16,
+                    "name": "new dish 1",
+                    "price": 12000,
+                    "new": false
+                },
+                {
+                    "id": 17,
+                    "name": "new dish 2",
+                    "price": 13000,
+                    "new": false
+                }
+            ],
+            "new": false
+        }
+    ],
+    "new": false
+}
+```
+</p></details>
+
+Error response status:
+
+#### Get all menus with dishes for restaurant
 
 ### `GET admin/restaurants/1/menus`
 
@@ -349,7 +447,7 @@ curl -X GET \
 
 Error response status: **401**
 
-#### Get all menus with dishes for one restaurant
+#### Get one menu with dishes for restaurant
 
 ### `GET admin/restaurants/1/menus/1`
 
