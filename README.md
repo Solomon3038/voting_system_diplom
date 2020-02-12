@@ -40,7 +40,7 @@
 
 | Description | Authorization | Method | URL | Success status | Error status |
 |:---         |:---           |:---    |:--- |:---         |:---            |
-| Get all restaurants with menus on current date| not required | GET | /restaurants | 200 | - | 
+| **Get all restaurants with menus on current date**| not required | GET | /restaurants | 200 | - | 
 <details>
   <summary>Curl:</summary><p>
   
@@ -146,9 +146,16 @@ curl -X GET \
 ```
 </p></details>
 
-|    |    |    |    |    |    |  
-|:---|:---|:---|:---|:---|:---|
-| Get all restaurants| ROLE_ADMIN | GET | /admin/restaurants | 200 | 401 |
+<table>
+      <tr>
+      <td><b> Get all restaurants </b></td>
+      <td> ROLE_ADMIN </td>
+      <td> GET </td>
+      <td> /admin/restaurants </td>
+      <td> 200 </td>
+      <td> 401 </td>
+      </tr>
+</table>
 
 <details>
   <summary>Curl:</summary><p>
@@ -193,9 +200,16 @@ curl -X GET \
 ```
 </p></details>
 
-|    |    |    |    |    |    |  
-|:---|:---|:---|:---|:---|:---|
-| Get restaurant| ROLE_ADMIN | GET | /admin/restaurants/1 | 200 | 401 |
+<table>
+      <tr>
+      <td><b> Get restaurant </b></td>
+      <td> ROLE_ADMIN </td>
+      <td> GET </td>
+      <td> /admin/restaurants/1 </td>
+      <td> 200 </td>
+      <td> 401 </td>
+      </tr>
+</table>
 
 <details>
   <summary>Curl:</summary><p>
@@ -218,6 +232,7 @@ curl -X GET \
     "new": false
 }
 ```
+</p></details>
 
 #### Create restaurant
 
