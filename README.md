@@ -40,7 +40,7 @@
 
 | Description | Authorization | Method | URL | Success status | Error status |
 |:---         |:---           |:---    |:--- |:---         |:---            |
-| **Get all restaurants with menus on current date**| not required | GET | /restaurants | 200 | - | 
+| **Get all restaurants with menus on current date**| not required | GET | /restaurants | 200 OK | - | 
 <details>
   <summary>Curl:</summary><p>
   
@@ -152,8 +152,8 @@ curl -X GET \
           <td> ROLE_ADMIN </td>
           <td> GET </td>
           <td> /admin/restaurants </td>
-          <td> 200 </td>
-          <td> 401 </td>
+          <td> 200 OK</td>
+          <td> 401 Unauthorized </td>
       </tr>
 </table>
 
@@ -206,8 +206,8 @@ curl -X GET \
           <td> ROLE_ADMIN </td>
           <td> GET </td>
           <td> /admin/restaurants/1 </td>
-          <td> 200 </td>
-          <td> 401 </td>
+          <td> 200 OK</td>
+          <td> 401 Unauthorized </td>
       </tr>
 </table>
 
@@ -240,7 +240,7 @@ curl -X GET \
           <td> ROLE_ADMIN </td>
           <td> POST </td>
           <td> /admin/restaurants </td>
-          <td> 201 </td>
+          <td> 201 Created </td>
           <td>  </td>
       </tr>
 </table>
@@ -291,7 +291,7 @@ curl -X POST \
           <td> ROLE_ADMIN </td>
           <td> PUT </td>
           <td> /admin/restaurants/1 </td>
-          <td> 204 </td>
+          <td> 204 No Content </td>
           <td>  </td>
       </tr>
 </table>
@@ -330,7 +330,7 @@ curl -X PUT \
           <td> ROLE_ADMIN </td>
           <td> POST </td>
           <td> /admin/restaurants/full </td>
-          <td> 201 </td>
+          <td> 201 Created </td>
           <td>  </td>
       </tr>
 </table>
@@ -428,8 +428,8 @@ curl -X POST \
           <td> ROLE_ADMIN </td>
           <td> GET </td>
           <td> admin/restaurants/1/menus </td>
-          <td style="color: green;"> 200 OK</td>
-          <td style="color: red"> 401 Unauthorized </td>
+          <td> 200 OK</td>
+          <td> 401 Unauthorized </td>
       </tr>
 </table>
 
@@ -508,8 +508,8 @@ curl -X GET \
           <td> ROLE_ADMIN </td>
           <td> GET </td>
           <td> admin/restaurants/1/menus/1 </td>
-          <td> 200 </td>
-          <td> 401 </td>
+          <td> 200 OK</td>
+          <td> 401 Unauthorized </td>
       </tr>
 </table>
 
