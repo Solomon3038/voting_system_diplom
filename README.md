@@ -148,12 +148,12 @@ curl -X GET \
 
 <table>
       <tr>
-      <td><b> Get all restaurants </b></td>
-      <td> ROLE_ADMIN </td>
-      <td> GET </td>
-      <td> /admin/restaurants </td>
-      <td> 200 </td>
-      <td> 401 </td>
+          <td><b> Get all restaurants </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> GET </td>
+          <td> /admin/restaurants </td>
+          <td> 200 </td>
+          <td> 401 </td>
       </tr>
 </table>
 
@@ -202,12 +202,12 @@ curl -X GET \
 
 <table>
       <tr>
-      <td><b> Get restaurant </b></td>
-      <td> ROLE_ADMIN </td>
-      <td> GET </td>
-      <td> /admin/restaurants/1 </td>
-      <td> 200 </td>
-      <td> 401 </td>
+          <td><b> Get restaurant </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> GET </td>
+          <td> /admin/restaurants/1 </td>
+          <td> 200 </td>
+          <td> 401 </td>
       </tr>
 </table>
 
@@ -234,13 +234,16 @@ curl -X GET \
 ```
 </p></details>
 
-#### Create restaurant
-
-### `POST /admin/restaurants`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **201**
+<table>
+      <tr>
+          <td><b> Create restaurant </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> POST </td>
+          <td> /admin/restaurants </td>
+          <td> 201 </td>
+          <td>  </td>
+      </tr>
+</table>
 
 <details>
   <summary>Data params:</summary><p>
@@ -251,10 +254,10 @@ Success response status:  **201**
     "address": "new address"
 }
 ```
- </p></details>
-
-Curl:
-
+</p></details>
+<details>
+  <summary>Curl:</summary><p>
+  
 ```
 curl -X POST \
   http://localhost:8080/admin/restaurants/ \
@@ -267,6 +270,7 @@ curl -X POST \
         "address": "new address"
     }'
 ```
+</p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -281,15 +285,16 @@ curl -X POST \
 ```
 </p></details>
 
-Error response status:
-
-#### Update restaurant
-
-### `PUT /admin/restaurants/1`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **204**
+<table>
+      <tr>
+          <td><b> Update restaurant </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> PUT </td>
+          <td> /admin/restaurants/1 </td>
+          <td> 204 </td>
+          <td>  </td>
+      </tr>
+</table>
 
 <details>
   <summary>Data params:</summary><p>
@@ -301,9 +306,9 @@ Success response status:  **204**
     "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
 }
 ```
- </p></details>
-
-Curl:
+</p></details>
+<details>
+  <summary>Curl:</summary><p>
 
 ```
 curl -X PUT \
@@ -317,14 +322,18 @@ curl -X PUT \
     "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
 }'
 ```
+</p></details>
 
-#### Create restaurant with menu and dishes
-
-### `POST /admin/restaurants/full`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **201**
+<table>
+      <tr>
+          <td><b> Create restaurant with menu and dishes </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> POST </td>
+          <td> /admin/restaurants/full </td>
+          <td> 201 </td>
+          <td>  </td>
+      </tr>
+</table>
 
 <details>
   <summary>Data params:</summary><p>
@@ -350,8 +359,8 @@ Success response status:  **201**
 }
 ```
  </p></details>
-
-Curl:
+<details>
+  <summary>Curl:</summary><p>
 
 ```
 curl -X POST \
@@ -378,6 +387,7 @@ curl -X POST \
         ]
     }'
 ```
+ </p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -412,17 +422,19 @@ curl -X POST \
 ```
 </p></details>
 
-Error response status:
+<table>
+      <tr>
+          <td><b> Get all menus with dishes for restaurant </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> GET </td>
+          <td> admin/restaurants/1/menus </td>
+          <td style="color: green;"> 200 OK</td>
+          <td style="color: red"> 401 Unauthorized </td>
+      </tr>
+</table>
 
-#### Get all menus with dishes for restaurant
-
-### `GET admin/restaurants/1/menus`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **200**
-
-Curl:
+<details>
+  <summary>Curl:</summary><p>
 
 ```
 curl -X GET \
@@ -430,6 +442,7 @@ curl -X GET \
   -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
   -H 'Host: localhost:8080'
 ```
+</p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -489,17 +502,19 @@ curl -X GET \
 ```
 </p></details>
 
-Error response status: **401**
+<table>
+      <tr>
+          <td><b> Get one menu with dishes for restaurant </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> GET </td>
+          <td> admin/restaurants/1/menus/1 </td>
+          <td> 200 </td>
+          <td> 401 </td>
+      </tr>
+</table>
 
-#### Get one menu with dishes for restaurant
-
-### `GET admin/restaurants/1/menus/1`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **200**
-
-Curl:
+<details>
+  <summary>Curl:</summary><p>
 
 ```
 curl -X GET \
@@ -507,6 +522,7 @@ curl -X GET \
   -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
   -H 'Host: localhost:8080'
 ```
+</p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -537,6 +553,4 @@ curl -X GET \
     "new": false
 }
 ```
-</p></details>
-
-Error response status: **401**
+  </p></details>
