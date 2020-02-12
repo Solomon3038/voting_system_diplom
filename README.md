@@ -167,6 +167,7 @@ curl -X GET \
 </p></details>
     </td>
     <td></td>
+    <td></td>
     </tr>
     <tr>
         <td><b> Get all restaurants </b></td>
@@ -226,6 +227,7 @@ curl -X GET \
 </p></details>
     </td>
     <td></td>
+    <td></td>
     </tr>
       <tr>
           <td><b> Get restaurant </b></td>
@@ -264,6 +266,7 @@ curl -X GET \
 ```
 </p></details>
 </td>
+<td></td>
 <td></td>
 </tr>
       <tr>
@@ -322,6 +325,7 @@ curl -X POST \
 </p></details>
 </td>
 <td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Update restaurant </b></td>
@@ -366,6 +370,7 @@ curl -X PUT \
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Create restaurant with menu and dishes </b></td>
@@ -401,7 +406,7 @@ curl -X PUT \
 }
 ```
  </p></details>
- <td>
+ </td>
  <td>
 <details>
   <summary>Curl:</summary><p>
@@ -469,6 +474,7 @@ curl -X POST \
 ```
 </p></details>
 </td>
+<td></td>
 <td></td>
 </tr>
       <tr>
@@ -555,6 +561,7 @@ curl -X GET \
 </p></details>
 </td>
 <td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Get one menu with dishes for restaurant </b></td>
@@ -613,6 +620,7 @@ curl -X GET \
   </p></details>
 </td>
 <td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Create menu </b></td>
@@ -666,6 +674,7 @@ curl -X POST \
 ```
   </p></details>
 </td>
+<td></td>
 <td></td>
 </tr>
 </table>
