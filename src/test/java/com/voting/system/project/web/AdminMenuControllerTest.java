@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.MenuTestUtil.checkSave;
+import static com.voting.system.project.util.MenuTestUtil.checkSaveWithDishes;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
 
@@ -42,6 +43,17 @@ class AdminMenuControllerTest extends AbstractControllerTest {
         String result = doPost(menu, ADMIN_MENU_URL_TEST);
         MenuTo created = objectMapper.readValue(result, MenuTo.class);
         checkSave(mapper.map(created, Menu.class));
+        newMenu.setId(created.getId());
+        assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
+    }
+
+    @Test
+    void createWithLocationFull() throws Exception {
+        MenuWithDishesTo newMenu = mapper.map(getNewMenuWithDishes(), MenuWithDishesTo.class);
+        String menu = objectMapper.writeValueAsString(newMenu);
+        String result = doPost(menu, ADMIN_MENU_URL_TEST + "/full");
+        MenuWithDishesTo created = objectMapper.readValue(result, MenuWithDishesTo.class);
+        checkSaveWithDishes(mapper.map(created, Menu.class));
         newMenu.setId(created.getId());
         assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
     }

@@ -139,7 +139,7 @@ public class TestData {
     }
 
     public static Menu getNewMenuWithDishes() {
-        Menu menu = new Menu(null, null);
+        Menu menu = new Menu(null, LocalDate.of(2020, 3, 1), null);
         Dish dish = new Dish(null, "dish 1", 10_00, menu);
         menu.setDishes(new ArrayList<>(Collections.singletonList(dish)));
         return menu;

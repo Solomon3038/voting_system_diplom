@@ -1,5 +1,6 @@
 package com.voting.system.project.web;
 
+import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.service.MenuService;
 import com.voting.system.project.to.MenuTo;
@@ -46,5 +47,21 @@ public class AdminMenuController extends AbstractAdminController {
         checkNew(menu);
         final MenuTo created = mapper.map(menuService.create(menu, restId), MenuTo.class);
         return getResponseEntity(created, ADMIN_MENU_URL + "/{id}", restId, created.getId());
+    }
+
+    @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MenuWithDishesTo> createWithLocationFull(@Valid @RequestBody Menu menu, @PathVariable int restId) {
+        log.info("create full {}", menu);
+        checkNew(menu);
+        setNestedObjects(menu);
+        final MenuWithDishesTo created = getToFrom(menuService.createWithDishes(menu, restId), mapper);
+        return getResponseEntity(created, ADMIN_MENU_URL + "/{id}", restId, created.getId());
+    }
+
+    private void setNestedObjects(Menu menu) {
+        final List<Dish> dishes = menu.getDishes();
+        if (dishes != null && !dishes.isEmpty()) {
+            dishes.forEach(dish -> dish.setMenu(menu));
+        }
     }
 }
