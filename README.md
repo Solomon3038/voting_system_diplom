@@ -177,7 +177,8 @@ curl -X GET \
         <td> 200 OK</td>
         <td> 401 Unauthorized </td>
     </tr>
-    <tr><td></td>
+    <tr>
+    <td></td>
     <td>
 <details>
   <summary>Curl:</summary><p>
@@ -190,6 +191,7 @@ curl -X GET \
 ```
 </p></details>
     </td>
+    <td></td>
     <td>
 <details>
   <summary>Content:</summary><p>
@@ -224,6 +226,8 @@ curl -X GET \
 ```
 </p></details>
     </td>
+    <td></td>
+    <td></td>
     </tr>
       <tr>
           <td><b> Get restaurant </b></td>
@@ -233,7 +237,8 @@ curl -X GET \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-<tr><td></td>
+<tr>
+<td></td>
 <td>
 <details>
   <summary>Curl:</summary><p>
@@ -246,6 +251,7 @@ curl -X GET \
 ```
 </p></details>
 </td>
+<td></td>
 <td>
 <details>
   <summary>Content:</summary><p>
@@ -260,6 +266,8 @@ curl -X GET \
 ```
 </p></details>
 </td>
+<td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Create restaurant </b></td>
@@ -300,6 +308,7 @@ curl -X POST \
 ```
 </p></details>
 </td>
+<td></td>
 <td>
 <details>
   <summary>Content:</summary><p>
@@ -315,6 +324,8 @@ curl -X POST \
 ```
 </p></details>
 </td>
+<td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Update restaurant </b></td>
@@ -356,6 +367,10 @@ curl -X PUT \
 ```
 </p></details>
 </td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Create restaurant with menu and dishes </b></td>
@@ -423,6 +438,7 @@ curl -X POST \
 ```
  </p></details>
  </td>
+ <td></td>
  <td>
 <details>
   <summary>Content:</summary><p>
@@ -458,6 +474,8 @@ curl -X POST \
 ```
 </p></details>
 </td>
+<td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Get all menus with dishes for restaurant </b></td>
@@ -467,7 +485,8 @@ curl -X POST \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-<tr><td></td>
+<tr>
+<td></td>
 <td>
 <details>
   <summary>Curl:</summary><p>
@@ -480,6 +499,7 @@ curl -X GET \
 ```
 </p></details>
 </td>
+<td></td>
 <td>
 <details>
   <summary>Content:</summary><p>
@@ -540,6 +560,8 @@ curl -X GET \
 ```
 </p></details>
 </td>
+<td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Get one menu with dishes for restaurant </b></td>
@@ -549,7 +571,8 @@ curl -X GET \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-<tr><td></td>
+<tr>
+<td></td>
 <td>
 <details>
   <summary>Curl:</summary><p>
@@ -562,6 +585,7 @@ curl -X GET \
 ```
 </p></details>
 </td>
+<td></td>
 <td>
 <details>
   <summary>Content:</summary><p>
@@ -595,6 +619,8 @@ curl -X GET \
 ```
   </p></details>
 </td>
+<td></td>
+<td></td>
 </tr>
       <tr>
           <td><b> Create menu </b></td>
@@ -634,6 +660,7 @@ curl -X POST \
 ```
   </p></details>
 </td>
+<td></td>
 <td>
   <details>
     <summary>Content:</summary><p>
@@ -647,5 +674,7 @@ curl -X POST \
 ```
   </p></details>
 </td>
+<td></td>
+<td></td>
 </tr>
 </table>
