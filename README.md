@@ -18,7 +18,7 @@
 
 7. If user votes again the same day:
 
-8. If it is before 11:00 we asume that he changed his mind.
+8. If it is before 11:00 we assume that he changed his mind.
 
 9. If it is after 11:00 then it is too late, vote can't be changed
 
@@ -32,21 +32,24 @@
 
 ``note, that price type is integer``
 
-#### Get all restaurants with menus on current date
+**Authorization:**
 
-### `GET /restaurants`
+``ROLE_ADMIN`` **name:** admin.one@gmail.com, **password:** admin
 
-Authorization: **not required**
+``ROLE_USER`` **name:** user.one@ukr.net, **password:** password
 
-Success response status:  **200**
-
-Curl:
-
+| Description | Authorization | Method | URL | Success status | Error status |
+|:---         |:---           |:---    |:--- |:---         |:---            |
+| Get all restaurants with menus on current date| not required | GET | /restaurants | 200 | - | 
+<details>
+  <summary>Curl:</summary><p>
+  
 ```
 curl -X GET \
   http://localhost:8080/restaurants \
   -H 'Host: localhost:8080' 
 ```
+</p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -143,15 +146,12 @@ curl -X GET \
 ```
 </p></details>
 
-#### Get all restaurants
+|    |    |    |    |    |    |  
+|:---|:---|:---|:---|:---|:---|
+| Get all restaurants| ROLE_ADMIN | GET | /admin/restaurants | 200 | 401 |
 
-### `GET /admin/restaurants`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **200**
-
-Curl:
+<details>
+  <summary>Curl:</summary><p>
 
 ```
 curl -X GET \
@@ -159,6 +159,7 @@ curl -X GET \
   -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
   -H 'Host: localhost:8080'  
 ```
+</p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -192,17 +193,12 @@ curl -X GET \
 ```
 </p></details>
 
-Error response status: **401**
+|    |    |    |    |    |    |  
+|:---|:---|:---|:---|:---|:---|
+| Get restaurant| ROLE_ADMIN | GET | /admin/restaurants/1 | 200 | 401 |
 
-#### Get restaurant
-
-### `GET /admin/restaurants/1`
-
-Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
-
-Success response status:  **200**
-
-Curl:
+<details>
+  <summary>Curl:</summary><p>
 
 ```
 curl -X GET \
@@ -210,6 +206,7 @@ curl -X GET \
   -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
   -H 'Host: localhost:8080' 
 ```
+</p></details>
 <details>
   <summary>Content:</summary><p>
   
@@ -221,9 +218,6 @@ curl -X GET \
     "new": false
 }
 ```
-</p></details>
-
-Error response status: **401**
 
 #### Create restaurant
 
