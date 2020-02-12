@@ -37,7 +37,7 @@
 ``ROLE_ADMIN`` **name:** admin.one@gmail.com, **password:** admin
 
 ``ROLE_USER`` **name:** user.one@ukr.net, **password:** password
-
+<table>
 <tr>
     <tr>
         <th>Description</th>
@@ -47,14 +47,14 @@
         <th>Success status</th>
         <th>Error status</th>
     </tr>
-      <tr>
-          <td><b> Get all restaurants with menus on current date </b></td>
-          <td> not required </td>
-          <td> GET </td>
-          <td> /restaurants </td>
-          <td> 200 OK</td>
-          <td> - </td>
-      </tr>
+    <tr>
+        <td><b> Get all restaurants with menus on current date </b></td>
+        <td> not required </td>
+        <td> GET </td>
+        <td> /restaurants </td>
+        <td> 200 OK</td>
+        <td> - </td>
+    </tr>
       <tr>
       <td>
 <details>
@@ -644,3 +644,4 @@ curl -X POST \
   </p></details>
 </td>
 </tr>
+</table>
