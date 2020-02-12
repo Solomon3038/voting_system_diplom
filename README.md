@@ -38,7 +38,7 @@
 
 ``ROLE_USER`` **name:** user.one@ukr.net, **password:** password
 
-<table>
+<tr>
     <tr>
         <th>Description</th>
         <th>Authorization</th>
@@ -56,6 +56,7 @@
           <td> - </td>
       </tr>
       <tr>
+      <td>
 <details>
   <summary>Curl:</summary><p>
   
@@ -65,8 +66,8 @@ curl -X GET \
   -H 'Host: localhost:8080' 
 ```
 </p></details>
-    </tr>
-    <tr>
+    </td>
+    <td>
 <details>
   <summary>Content:</summary><p>
   
@@ -162,6 +163,7 @@ curl -X GET \
   ]
 ```
 </p></details>
+    </td>
     </tr>
     <tr>
         <td><b> Get all restaurants </b></td>
@@ -172,6 +174,7 @@ curl -X GET \
         <td> 401 Unauthorized </td>
     </tr>
     <tr>
+    <td>
 <details>
   <summary>Curl:</summary><p>
 
@@ -182,8 +185,8 @@ curl -X GET \
   -H 'Host: localhost:8080'  
 ```
 </p></details>
-    </tr>
-    <tr>
+    </td>
+    <td>
 <details>
   <summary>Content:</summary><p>
   
@@ -216,6 +219,7 @@ curl -X GET \
 ]
 ```
 </p></details>
+    </td>
     </tr>
       <tr>
           <td><b> Get restaurant </b></td>
@@ -225,8 +229,8 @@ curl -X GET \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-</table>
-
+<tr>
+<td>
 <details>
   <summary>Curl:</summary><p>
 
@@ -237,6 +241,8 @@ curl -X GET \
   -H 'Host: localhost:8080' 
 ```
 </p></details>
+</td>
+<td>
 <details>
   <summary>Content:</summary><p>
   
@@ -249,8 +255,8 @@ curl -X GET \
 }
 ```
 </p></details>
-
-<table>
+</td>
+</tr>
       <tr>
           <td><b> Create restaurant </b></td>
           <td> ROLE_ADMIN </td>
@@ -259,8 +265,8 @@ curl -X GET \
           <td> 201 Created </td>
           <td>  </td>
       </tr>
-</table>
-
+<tr>
+<td>
 <details>
   <summary>Data params:</summary><p>
   
@@ -271,6 +277,8 @@ curl -X GET \
 }
 ```
 </p></details>
+</td>
+<td>
 <details>
   <summary>Curl:</summary><p>
   
@@ -287,6 +295,8 @@ curl -X POST \
     }'
 ```
 </p></details>
+</td>
+<td>
 <details>
   <summary>Content:</summary><p>
   
@@ -300,8 +310,8 @@ curl -X POST \
 }
 ```
 </p></details>
-
-<table>
+</td>
+</tr>
       <tr>
           <td><b> Update restaurant </b></td>
           <td> ROLE_ADMIN </td>
@@ -310,8 +320,8 @@ curl -X POST \
           <td> 204 No Content </td>
           <td>  </td>
       </tr>
-</table>
-
+<tr>
+<td>
 <details>
   <summary>Data params:</summary><p>
   
@@ -323,6 +333,8 @@ curl -X POST \
 }
 ```
 </p></details>
+</td>
+<td>
 <details>
   <summary>Curl:</summary><p>
 
@@ -339,8 +351,8 @@ curl -X PUT \
 }'
 ```
 </p></details>
-
-<table>
+</td>
+</tr>
       <tr>
           <td><b> Create restaurant with menu and dishes </b></td>
           <td> ROLE_ADMIN </td>
@@ -349,8 +361,8 @@ curl -X PUT \
           <td> 201 Created </td>
           <td>  </td>
       </tr>
-</table>
-
+<tr>
+<td>
 <details>
   <summary>Data params:</summary><p>
   
@@ -375,6 +387,8 @@ curl -X PUT \
 }
 ```
  </p></details>
+ <td>
+ <td>
 <details>
   <summary>Curl:</summary><p>
 
@@ -404,6 +418,8 @@ curl -X POST \
     }'
 ```
  </p></details>
+ </td>
+ <td>
 <details>
   <summary>Content:</summary><p>
   
@@ -437,8 +453,8 @@ curl -X POST \
 }
 ```
 </p></details>
-
-<table>
+</td>
+</tr>
       <tr>
           <td><b> Get all menus with dishes for restaurant </b></td>
           <td> ROLE_ADMIN </td>
@@ -447,8 +463,8 @@ curl -X POST \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-</table>
-
+<tr>
+<td>
 <details>
   <summary>Curl:</summary><p>
 
@@ -459,6 +475,8 @@ curl -X GET \
   -H 'Host: localhost:8080'
 ```
 </p></details>
+</td>
+<td>
 <details>
   <summary>Content:</summary><p>
   
@@ -517,8 +535,8 @@ curl -X GET \
 ]
 ```
 </p></details>
-
-<table>
+</td>
+</tr>
       <tr>
           <td><b> Get one menu with dishes for restaurant </b></td>
           <td> ROLE_ADMIN </td>
@@ -527,8 +545,8 @@ curl -X GET \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-</table>
-
+<tr>
+<td>
 <details>
   <summary>Curl:</summary><p>
 
@@ -539,6 +557,8 @@ curl -X GET \
   -H 'Host: localhost:8080'
 ```
 </p></details>
+</td>
+<td>
 <details>
   <summary>Content:</summary><p>
   
@@ -570,8 +590,8 @@ curl -X GET \
 }
 ```
   </p></details>
-  
-<table>
+</td>
+</tr>
       <tr>
           <td><b> Create menu </b></td>
           <td> ROLE_ADMIN </td>
@@ -580,8 +600,8 @@ curl -X GET \
           <td> 201 Created </td>
           <td>  </td>
       </tr>
-</table>
-  
+<tr>
+<td> 
   <details>
     <summary>Data params:</summary><p>
     
@@ -595,6 +615,8 @@ curl -X GET \
 }1
   ```
   </p></details>
+</td>
+<td>
   <details>
     <summary>Curl:</summary><p>
     
@@ -607,6 +629,8 @@ curl -X POST \
   -d '{"registered": "2020-02-12"}'
 ```
   </p></details>
+</td>
+<td>
   <details>
     <summary>Content:</summary><p>
     
@@ -618,3 +642,5 @@ curl -X POST \
 }
 ```
   </p></details>
+</td>
+</tr>
