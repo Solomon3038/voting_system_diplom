@@ -38,9 +38,24 @@
 
 ``ROLE_USER`` **name:** user.one@ukr.net, **password:** password
 
-| Description | Authorization | Method | URL | Success status | Error status |
-|:---         |:---           |:---    |:--- |:---         |:---            |
-| **Get all restaurants with menus on current date**| not required | GET | /restaurants | 200 OK | - | 
+<table>
+    <tr>
+        <th>Description</th>
+        <th>Authorization</th>
+        <th>Method</th>
+        <th>URL</th>
+        <th>Success status</th>
+        <th>Error status</th>
+    </tr>
+      <tr>
+          <td><b> Get all restaurants with menus on current date </b></td>
+          <td> not required </td>
+          <td> GET </td>
+          <td> /restaurants </td>
+          <td> 200 OK</td>
+          <td> - </td>
+      </tr>
+      <tr>
 <details>
   <summary>Curl:</summary><p>
   
@@ -50,6 +65,8 @@ curl -X GET \
   -H 'Host: localhost:8080' 
 ```
 </p></details>
+    </tr>
+    <tr>
 <details>
   <summary>Content:</summary><p>
   
@@ -145,18 +162,16 @@ curl -X GET \
   ]
 ```
 </p></details>
-
-<table>
-      <tr>
-          <td><b> Get all restaurants </b></td>
-          <td> ROLE_ADMIN </td>
-          <td> GET </td>
-          <td> /admin/restaurants </td>
-          <td> 200 OK</td>
-          <td> 401 Unauthorized </td>
-      </tr>
-</table>
-
+    </tr>
+    <tr>
+        <td><b> Get all restaurants </b></td>
+        <td> ROLE_ADMIN </td>
+        <td> GET </td>
+        <td> /admin/restaurants </td>
+        <td> 200 OK</td>
+        <td> 401 Unauthorized </td>
+    </tr>
+    <tr>
 <details>
   <summary>Curl:</summary><p>
 
@@ -167,6 +182,8 @@ curl -X GET \
   -H 'Host: localhost:8080'  
 ```
 </p></details>
+    </tr>
+    <tr>
 <details>
   <summary>Content:</summary><p>
   
@@ -199,8 +216,7 @@ curl -X GET \
 ]
 ```
 </p></details>
-
-<table>
+    </tr>
       <tr>
           <td><b> Get restaurant </b></td>
           <td> ROLE_ADMIN </td>
@@ -550,6 +566,54 @@ curl -X GET \
             "new": false
         }
     ],
+    "new": false
+}
+```
+  </p></details>
+  
+<table>
+      <tr>
+          <td><b> Create menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> POST </td>
+          <td> /admin/restaurants/4/menus </td>
+          <td> 201 Created </td>
+          <td>  </td>
+      </tr>
+</table>
+  
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+//create on current date
+{}
+
+//create on setted date
+{
+	"registered": "2020-02-12"
+}1
+  ```
+  </p></details>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl -X POST \
+  http://localhost:8080/admin/restaurants/4/menus \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: localhost:8080' \
+  -d '{"registered": "2020-02-12"}'
+```
+  </p></details>
+  <details>
+    <summary>Content:</summary><p>
+    
+```
+{
+    "id": 7,
+    "registered": "2020-02-12",
     "new": false
 }
 ```

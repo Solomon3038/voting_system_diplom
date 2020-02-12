@@ -1,30 +1,48 @@
 package com.voting.system.project.web;
 
+import com.voting.system.project.model.Menu;
+import com.voting.system.project.service.MenuService;
+import com.voting.system.project.to.MenuTo;
 import com.voting.system.project.to.MenuWithDishesTo;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
 
 import java.util.Arrays;
 
 import static com.voting.system.project.TestData.*;
+import static com.voting.system.project.util.MenuTestUtil.checkSave;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
 
-//https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/test-method.html#test-method-withuserdetails
+@WithUserDetails(ADMIN_1_EMAIL)
 class AdminMenuControllerTest extends AbstractControllerTest {
 
     public static final String ADMIN_MENU_URL_TEST = ADMIN_REST_URL + "/" + RESTAURANT_ID_1 + "/menus/";
 
+    @Autowired
+    private MenuService menuService;
+
     @Test
-    @WithUserDetails(ADMIN_1_EMAIL)
     void getMenus() throws Exception {
         final String menus = objectMapper.writeValueAsString(mapper.map(Arrays.asList(MENU_1_NOW, MENU_1), MenuWithDishesTo[].class));
         doGet(ADMIN_MENU_URL_TEST, menus);
     }
 
     @Test
-    @WithUserDetails(ADMIN_1_EMAIL)
     void getMenu() throws Exception {
         final String menu = objectMapper.writeValueAsString(mapper.map(MENU_1, MenuWithDishesTo.class));
         doGet(ADMIN_MENU_URL_TEST + MENU_ID_1, menu);
+    }
+
+    @Test
+    void createWithLocation() throws Exception {
+        Menu newMenu = getNewMenu();
+        String menu = objectMapper.writeValueAsString(newMenu);
+        String result = doPost(menu, ADMIN_MENU_URL_TEST);
+        MenuTo created = objectMapper.readValue(result, MenuTo.class);
+        checkSave(mapper.map(created, Menu.class));
+        newMenu.setId(created.getId());
+        assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
     }
 }

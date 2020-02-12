@@ -62,6 +62,7 @@ public abstract class AbstractControllerTest extends AbstractTest {
         return mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
+                .andDo(print())
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
     }
 
@@ -69,6 +70,7 @@ public abstract class AbstractControllerTest extends AbstractTest {
         mockMvc.perform(MockMvcRequestBuilders.put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
+                .andDo(print())
                 .andExpect(status().isNoContent());
     }
 }

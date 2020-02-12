@@ -1,7 +1,6 @@
 package com.voting.system.project.web;
 
 import com.voting.system.project.model.Dish;
-import com.voting.system.project.model.HasId;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.service.RestaurantService;
@@ -13,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 import static com.voting.system.project.util.RestaurantUtil.getToFrom;
@@ -26,16 +23,13 @@ import static com.voting.system.project.util.ValidationUtil.checkNew;
 @Log4j2
 @RestController
 @RequestMapping(value = AdminRestaurantController.ADMIN_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestaurantController {
-
-    public static final String ADMIN_REST_URL = "/admin/restaurants";
+public class AdminRestaurantController extends AbstractAdminController {
 
     private final RestaurantService restaurantService;
-    private final ModelMapper mapper;
 
     public AdminRestaurantController(RestaurantService restaurantService, ModelMapper mapper) {
+        super(mapper);
         this.restaurantService = restaurantService;
-        this.mapper = mapper;
     }
 
     @GetMapping
@@ -54,7 +48,8 @@ public class AdminRestaurantController {
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
         checkNew(restaurant);
-        return getResponseEntity(restaurantService.create(restaurant));
+        final Restaurant created = restaurantService.create(restaurant);
+        return getResponseEntity(created, ADMIN_REST_URL + "/{id}", created.getId());
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -70,14 +65,8 @@ public class AdminRestaurantController {
         log.info("create full {}", restaurant);
         checkNew(restaurant);
         setNestedObjects(restaurant);
-        return getResponseEntity(getToFrom(restaurantService.createWithMenuAndDishes(restaurant), mapper));
-    }
-
-    private <T extends HasId> ResponseEntity<T> getResponseEntity(T created) {
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(ADMIN_REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(created);
+        final RestaurantWithMenusTo created = getToFrom(restaurantService.createWithMenuAndDishes(restaurant), mapper);
+        return getResponseEntity(created, ADMIN_REST_URL + "/{id}", created.getId());
     }
 
     private void setNestedObjects(Restaurant restaurant) {
