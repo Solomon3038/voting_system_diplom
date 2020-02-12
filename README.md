@@ -68,6 +68,7 @@ curl -X GET \
 ```
 </p></details>
     </td>
+    <td></td>
     <td>
 <details>
   <summary>Content:</summary><p>
@@ -165,6 +166,8 @@ curl -X GET \
 ```
 </p></details>
     </td>
+    <td></td>
+    <td></td>
     </tr>
     <tr>
         <td><b> Get all restaurants </b></td>
