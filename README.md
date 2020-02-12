@@ -56,6 +56,7 @@
         <td> - </td>
     </tr>
       <tr>
+      <td></td>
       <td>
 <details>
   <summary>Curl:</summary><p>
@@ -173,7 +174,7 @@ curl -X GET \
         <td> 200 OK</td>
         <td> 401 Unauthorized </td>
     </tr>
-    <tr>
+    <tr><td></td>
     <td>
 <details>
   <summary>Curl:</summary><p>
@@ -229,7 +230,7 @@ curl -X GET \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-<tr>
+<tr><td></td>
 <td>
 <details>
   <summary>Curl:</summary><p>
@@ -463,7 +464,7 @@ curl -X POST \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-<tr>
+<tr><td></td>
 <td>
 <details>
   <summary>Curl:</summary><p>
@@ -545,7 +546,7 @@ curl -X GET \
           <td> 200 OK</td>
           <td> 401 Unauthorized </td>
       </tr>
-<tr>
+<tr><td></td>
 <td>
 <details>
   <summary>Curl:</summary><p>
