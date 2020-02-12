@@ -9,6 +9,7 @@ import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 import static com.voting.system.project.util.RestaurantUtil.getToFrom;
+import static com.voting.system.project.util.ValidationUtil.assureIdConsistent;
 import static com.voting.system.project.util.ValidationUtil.checkNew;
 
 @Log4j2
@@ -53,6 +55,14 @@ public class AdminRestaurantController {
         log.info("create {}", restaurant);
         checkNew(restaurant);
         return getResponseEntity(restaurantService.create(restaurant));
+    }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
+        log.info("update {}", restaurant);
+        assureIdConsistent(restaurant, id);
+        restaurantService.update(restaurant);
     }
 
     @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)

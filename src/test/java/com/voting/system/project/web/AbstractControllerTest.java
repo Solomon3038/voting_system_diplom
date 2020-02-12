@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.voting.system.project.AbstractTest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -52,18 +50,25 @@ public abstract class AbstractControllerTest extends AbstractTest {
                 .build();
     }
 
-    protected void doGet(String url, String jsonObject) throws Exception {
+    protected void doGet(String url, String expectedJsonObject) throws Exception {
         mockMvc.perform(get(url))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(jsonObject));
+                .andExpect(content().json(expectedJsonObject));
     }
 
-    protected String doPost(String restaurant, String url) throws Exception {
+    protected String doPost(String jsonObject, String url) throws Exception {
         return mockMvc.perform(MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(restaurant))
+                .content(jsonObject))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+    }
+
+    protected void doPut(String jsonObject, String url) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonObject))
+                .andExpect(status().isNoContent());
     }
 }

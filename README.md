@@ -237,10 +237,10 @@ Success response status:  **201**
   <summary>Data params:</summary><p>
   
 ```
-    {
-        "name": "New Restaurant",
-        "address": "new address"
-    }
+{
+    "name": "New Restaurant",
+    "address": "new address"
+}
 ```
  </p></details>
 
@@ -273,6 +273,41 @@ curl -X POST \
 </p></details>
 
 Error response status:
+
+#### Update restaurant
+
+### `PUT /admin/restaurants/1`
+
+Authorization: ROLE_ADMIN, name: admin.one@gmail.com, password: admin
+
+Success response status:  **204**
+
+<details>
+  <summary>Data params:</summary><p>
+  
+```
+{
+    "id": 1,
+    "name": "Manhattan-skybar updated",
+    "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
+}
+```
+ </p></details>
+
+Curl:
+
+```
+curl -X PUT \
+  http://localhost:8080/admin/restaurants/1 \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: localhost:8080' \
+  -d '{
+    "id": 1,
+    "name": "Manhattan-skybar updated",
+    "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
+}'
+```
 
 #### Create restaurant with menu and dishes
 

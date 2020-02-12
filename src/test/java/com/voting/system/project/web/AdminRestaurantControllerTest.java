@@ -6,19 +6,16 @@ import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.util.MenuTestUtil.checkSaveWithDishes;
 import static com.voting.system.project.util.RestaurantTestUtil.checkSave;
 import static com.voting.system.project.util.RestaurantTestUtil.checkSaveWithMenusAndDishes;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/test-method.html#test-method-withuserdetails
+@WithUserDetails(ADMIN_1_EMAIL)
 class AdminRestaurantControllerTest extends AbstractControllerTest {
 
     public static final String ADMIN_REST_URL_TEST = ADMIN_REST_URL + "/";
@@ -27,21 +24,18 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     private RestaurantService restaurantService;
 
     @Test
-    @WithUserDetails(ADMIN_1_EMAIL)
     void getAllRestaurants() throws Exception {
         final String restaurants = objectMapper.writeValueAsString(mapper.map(RESTAURANTS, RestaurantTo[].class));
         doGet(ADMIN_REST_URL_TEST, restaurants);
     }
 
     @Test
-    @WithUserDetails(ADMIN_1_EMAIL)
     void getRestaurant() throws Exception {
         final String restaurant = objectMapper.writeValueAsString(mapper.map(RESTAURANT_1, RestaurantTo.class));
         doGet(ADMIN_REST_URL_TEST + RESTAURANT_ID_1, restaurant);
     }
 
     @Test
-    @WithUserDetails(ADMIN_1_EMAIL)
     void createWithLocation() throws Exception {
         Restaurant newRestaurant = getNewRestaurant();
         String restaurant = objectMapper.writeValueAsString(newRestaurant);
@@ -53,7 +47,14 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(ADMIN_1_EMAIL)
+    void update() throws Exception {
+        Restaurant updatedRestaurant = getUpdatedRestaurant(RESTAURANT_1);
+        String restaurant = objectMapper.writeValueAsString(updatedRestaurant);
+        doPut(restaurant, ADMIN_REST_URL_TEST + RESTAURANT_ID_1);
+        assertMatch(restaurantService.get(RESTAURANT_ID_1), updatedRestaurant);
+    }
+
+    @Test
     void createWithLocationFull() throws Exception {
         Restaurant newRestaurant = getNewRestaurantWithMenuAndDishes();
         String restaurant = objectMapper.writeValueAsString(mapper.map(newRestaurant, RestaurantWithMenusTo.class));
