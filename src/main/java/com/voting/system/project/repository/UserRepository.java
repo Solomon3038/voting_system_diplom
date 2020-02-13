@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.email=:email")
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=:email")
     User findUserByEmail(String email);
 }

@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
+import static com.voting.system.project.TestDataTo.getNewMenuTo;
+import static com.voting.system.project.TestDataTo.getUpdatedMenuTo;
 import static com.voting.system.project.util.MenuTestUtil.*;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
@@ -72,7 +74,7 @@ class MenuServiceTest extends AbstractServiceTest {
 
     @Test
     void create() {
-        Menu saved = menuService.create(getNewMenu(), RESTAURANT_ID_4);
+        Menu saved = menuService.create(getNewMenuTo(), RESTAURANT_ID_4);
         checkSave(saved);
     }
 
@@ -86,31 +88,31 @@ class MenuServiceTest extends AbstractServiceTest {
     @Test
     void createNotExistError() {
         Assertions.assertThrows(NotExistException.class,
-                () -> menuService.create(getNewMenu(), NOT_EXIST_ID));
+                () -> menuService.create(getNewMenuTo(), NOT_EXIST_ID));
     }
 
     @Test
     void update() {
-        menuService.update(getUpdatedMenu(MENU_1), RESTAURANT_ID_1);
-        assertMatch(menuService.get(MENU_ID_1, RESTAURANT_ID_1), getUpdatedMenu(MENU_1));
+        menuService.update(getUpdatedMenuTo(MENU_1), MENU_ID_1, RESTAURANT_ID_1);
+        assertMatch(menuService.get(MENU_ID_1, RESTAURANT_ID_1), getUpdatedMenuTo(MENU_1));
     }
 
     @Test
     void updateNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> menuService.update(null, RESTAURANT_ID_1));
+                () -> menuService.update(null, MENU_ID_1, RESTAURANT_ID_1));
         Assertions.assertEquals("menu must not be null", exception.getMessage());
     }
 
     @Test
     void updateNotExistError() {
         Assertions.assertThrows(NotExistException.class,
-                () -> menuService.update(getUpdatedMenu(MENU_1), NOT_EXIST_ID));
+                () -> menuService.update(getUpdatedMenuTo(MENU_1), MENU_ID_1, NOT_EXIST_ID));
     }
 
     @Test
     void updateNotOwnError() {
         Assertions.assertThrows(NotExistException.class,
-                () -> menuService.update(getUpdatedMenu(MENU_1), RESTAURANT_ID_2));
+                () -> menuService.update(getUpdatedMenuTo(MENU_1), MENU_ID_1, RESTAURANT_ID_2));
     }
 }

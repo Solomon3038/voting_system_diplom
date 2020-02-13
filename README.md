@@ -797,4 +797,220 @@ curl -X POST \
 <td></td>
 <td></td>
 </tr>
+ <tr>
+          <td><b> Create menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> POST </td>
+          <td> /admin/restaurants/4/menus </td>
+          <td> 201 Created </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+//create on current date
+{}
+
+//create on setted date
+{
+	"registered": "2020-02-12"
+}
+  ```
+  </p></details>
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl -X POST \
+  http://localhost:8080/admin/restaurants/4/menus \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: localhost:8080' \
+  -d '{"registered": "2020-02-12"}'
+```
+  </p></details>
+</td>
+<td></td>
+<td>
+  <details>
+    <summary>Content:</summary><p>
+    
+```
+{
+    "id": 7,
+    "registered": "2020-02-12",
+    "new": false
+}
+```
+  </p></details>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+          <td><b> Update menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> PUT </td>
+          <td> /admin/restaurants/4/menus/1 </td>
+          <td> 204 No Content </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+//create on current date
+{
+	"registered": "2019-05-12"
+}
+  ```
+  </p></details>
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl --location --request PUT 'http://localhost:8080/admin/restaurants/1/menus/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+	"registered": "2019-05-12"
+}'
+```
+  </p></details>
+</td>
+<td></td>
+<td>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+          <td><b> Create menu with dishes </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> POST </td>
+          <td> /admin/restaurants/4/menus/full </td>
+          <td> 201 Created </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+//create on current date
+{
+    "dishes": [
+        {
+            "name": "Салат з тигровими креветками під кисло-солодким соусом",
+            "price": 14600
+        },
+        {
+            "name": "Червоний борщ",
+            "price": 3800
+        },
+        {
+            "name": "Шатобріан",
+            "price": 9900
+        }
+    ]
+}
+
+//create on setted date
+{
+    "registered": "2020-03-01",
+    "dishes": [
+        {
+            "name": "Салат з тигровими креветками під кисло-солодким соусом",
+            "price": 14600
+        },
+        {
+            "name": "Червоний борщ",
+            "price": 3800
+        },
+        {
+            "name": "Шатобріан",
+            "price": 9900
+        }
+    ]
+}
+  ```
+  </p></details>
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl -X POST \
+  http://localhost:8080/admin/restaurants/4/menus/full \
+  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+  -H 'Content-Type: application/json' \
+  -H 'Host: localhost:8080' \
+  -d '{
+    "registered": "2020-03-01",
+    "dishes": [
+        {
+            "name": "Салат з тигровими креветками під кисло-солодким соусом",
+            "price": 14600
+        },
+        {
+            "name": "Червоний борщ",
+            "price": 3800
+        },
+        {
+            "name": "Шатобріан",
+            "price": 9900
+        }
+    ]
+}'
+```
+  </p></details>
+</td>
+<td></td>
+<td>
+  <details>
+    <summary>Content:</summary><p>
+    
+```
+{
+    "id": 7,
+    "registered": "2020-03-01",
+    "dishes": [
+        {
+            "id": 16,
+            "name": "Салат з тигровими креветками під кисло-солодким соусом",
+            "price": 14600,
+            "new": false
+        },
+        {
+            "id": 17,
+            "name": "Червоний борщ",
+            "price": 3800,
+            "new": false
+        },
+        {
+            "id": 18,
+            "name": "Шатобріан",
+            "price": 9900,
+            "new": false
+        }
+    ],
+    "new": false
+}
+```
+  </p></details>
+</td>
+<td></td>
+<td></td>
+</tr>
 </table>

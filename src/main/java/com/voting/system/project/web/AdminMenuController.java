@@ -5,8 +5,10 @@ import com.voting.system.project.model.Menu;
 import com.voting.system.project.service.MenuService;
 import com.voting.system.project.to.MenuTo;
 import com.voting.system.project.to.MenuWithDishesTo;
+import com.voting.system.project.to.RestaurantTo;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.voting.system.project.util.MenuUtil.getToFrom;
+import static com.voting.system.project.util.ValidationUtil.assureIdConsistent;
 import static com.voting.system.project.util.ValidationUtil.checkNew;
 
 @Log4j2
@@ -42,11 +45,19 @@ public class AdminMenuController extends AbstractAdminController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MenuTo> createWithLocation(@Valid @RequestBody Menu menu, @PathVariable int restId) {
-        log.info("create {}", menu);
-        checkNew(menu);
-        final MenuTo created = mapper.map(menuService.create(menu, restId), MenuTo.class);
+    public ResponseEntity<MenuTo> createWithLocation(@Valid @RequestBody MenuTo menuTo, @PathVariable int restId) {
+        log.info("create {}", menuTo);
+        checkNew(menuTo);
+        final MenuTo created = getToFrom(menuService.create(menuTo, restId));
         return getResponseEntity(created, ADMIN_MENU_URL + "/{id}", restId, created.getId());
+    }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void update(@Valid @RequestBody MenuTo menuTo, @PathVariable int restId, @PathVariable int id) {
+        log.info("update {}", menuTo);
+        assureIdConsistent(menuTo, id);
+        menuService.update(menuTo, id, restId);
     }
 
     @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)
