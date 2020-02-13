@@ -3,6 +3,7 @@ package com.voting.system.project.util;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.to.DishTo;
 import com.voting.system.project.to.MenuWithDishesTo;
+import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.modelmapper.ModelMapper;
 
@@ -22,5 +23,9 @@ public class RestaurantUtil {
             menuTos.add(new MenuWithDishesTo(menu.getId(), menu.getRegistered(), dishesTos));
         });
         return new RestaurantWithMenusTo(restaurant.getId(), restaurant.getName(), restaurant.getAddress(), menuTos);
+    }
+
+    public static Restaurant getFromTo(RestaurantTo restaurantTo) {
+        return new Restaurant(restaurantTo.getId(), restaurantTo.getName(), restaurantTo.getAddress());
     }
 }

@@ -100,16 +100,16 @@ public class TestData {
     public static final List<Dish> RESTAURANT_1_MENU_1_NOW_DISHES = List.of(DISH_1_3_NOW, DISH_1_2_NOW, DISH_1_1_NOW);
 
     static {
-        MENU_1.setDishes(new ArrayList<>(Arrays.asList(DISH_1_1, DISH_1_2, DISH_1_3)));
-        MENU_2.setDishes(new ArrayList<>(Arrays.asList(DISH_2_1, DISH_2_2)));
-        MENU_3.setDishes(new ArrayList<>(Arrays.asList(DISH_3_1, DISH_3_2, DISH_3_3)));
-        MENU_1_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_1_3_NOW, DISH_1_2_NOW, DISH_1_1_NOW)));
-        MENU_2_NOW.setDishes(new ArrayList<>(Collections.singletonList(DISH_2_1_NOW)));
-        MENU_3_NOW.setDishes(new ArrayList<>(Arrays.asList(DISH_3_3_NOW, DISH_3_1_NOW, DISH_3_2_NOW)));
+        MENU_1.setDishes(Arrays.asList(DISH_1_1, DISH_1_2, DISH_1_3));
+        MENU_2.setDishes(Arrays.asList(DISH_2_1, DISH_2_2));
+        MENU_3.setDishes(Arrays.asList(DISH_3_1, DISH_3_2, DISH_3_3));
+        MENU_1_NOW.setDishes(Arrays.asList(DISH_1_3_NOW, DISH_1_2_NOW, DISH_1_1_NOW));
+        MENU_2_NOW.setDishes(Collections.singletonList(DISH_2_1_NOW));
+        MENU_3_NOW.setDishes(Arrays.asList(DISH_3_3_NOW, DISH_3_1_NOW, DISH_3_2_NOW));
 
-        RESTAURANT_1.setMenus(new ArrayList<>(Arrays.asList(MENU_1_NOW)));
-        RESTAURANT_2.setMenus(new ArrayList<>(Arrays.asList(MENU_2_NOW)));
-        RESTAURANT_3.setMenus(new ArrayList<>(Arrays.asList(MENU_3_NOW)));
+        RESTAURANT_1.setMenus(Arrays.asList(MENU_1_NOW));
+        RESTAURANT_2.setMenus(Arrays.asList(MENU_2_NOW));
+        RESTAURANT_3.setMenus(Arrays.asList(MENU_3_NOW));
     }
 
     public static Restaurant getNewRestaurantWithMenuAndDishes() {
@@ -117,7 +117,7 @@ public class TestData {
         Menu menu = new Menu(null, restaurant);
         Dish dish1 = new Dish(null, "dish 1", 10_00, menu);
         Dish dish2 = new Dish(null, "dish 2", 20_00, menu);
-        menu.setDishes(new ArrayList<>(Arrays.asList(dish1, dish2)));
+        menu.setDishes(Arrays.asList(dish1, dish2));
         restaurant.setMenu(menu);
         return restaurant;
     }
@@ -141,7 +141,7 @@ public class TestData {
     public static Menu getNewMenuWithDishes() {
         Menu menu = new Menu(null, LocalDate.of(2020, 3, 1), null);
         Dish dish = new Dish(null, "dish 1", 10_00, menu);
-        menu.setDishes(new ArrayList<>(Collections.singletonList(dish)));
+        menu.setDishes(Collections.singletonList(dish));
         return menu;
     }
 

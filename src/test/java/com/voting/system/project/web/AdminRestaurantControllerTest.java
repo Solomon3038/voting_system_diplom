@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
 
 import static com.voting.system.project.TestData.*;
+import static com.voting.system.project.TestDataTo.getNewRestaurantTo;
+import static com.voting.system.project.TestDataTo.getUpdatedRestaurantTo;
 import static com.voting.system.project.util.RestaurantTestUtil.checkSave;
 import static com.voting.system.project.util.RestaurantTestUtil.checkSaveWithMenusAndDishes;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
@@ -37,7 +39,7 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        Restaurant newRestaurant = getNewRestaurant();
+        RestaurantTo newRestaurant = getNewRestaurantTo();
         String restaurant = objectMapper.writeValueAsString(newRestaurant);
         String result = doPost(restaurant, ADMIN_REST_URL_TEST);
         Restaurant created = objectMapper.readValue(result, Restaurant.class);
@@ -48,7 +50,7 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        Restaurant updatedRestaurant = getUpdatedRestaurant(RESTAURANT_1);
+        RestaurantTo updatedRestaurant = getUpdatedRestaurantTo(RESTAURANT_1);
         String restaurant = objectMapper.writeValueAsString(updatedRestaurant);
         doPut(restaurant, ADMIN_REST_URL_TEST + RESTAURANT_ID_1);
         assertMatch(restaurantService.get(RESTAURANT_ID_1), updatedRestaurant);

@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -13,10 +12,14 @@ import java.util.List;
 public class MenuTo extends BaseTo {
 
     @NotNull
-    private LocalDate registered;
+    private LocalDate registered = LocalDate.now();
 
-    public MenuTo(Integer id, @NotNull LocalDate registered) {
+    public MenuTo(Integer id) {
         super(id);
+    }
+
+    public MenuTo(Integer id, LocalDate registered) {
+        this(id);
         this.registered = registered;
     }
 }

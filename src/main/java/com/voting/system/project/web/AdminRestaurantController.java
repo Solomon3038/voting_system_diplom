@@ -45,19 +45,19 @@ public class AdminRestaurantController extends AbstractAdminController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
-        log.info("create {}", restaurant);
-        checkNew(restaurant);
-        final Restaurant created = restaurantService.create(restaurant);
+    public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody RestaurantTo restaurantTo) {
+        log.info("create {}", restaurantTo);
+        checkNew(restaurantTo);
+        final Restaurant created = restaurantService.create(restaurantTo);
         return getResponseEntity(created, ADMIN_REST_URL + "/{id}", created.getId());
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
-        log.info("update {}", restaurant);
-        assureIdConsistent(restaurant, id);
-        restaurantService.update(restaurant);
+    public void update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
+        log.info("update {}", restaurantTo);
+        assureIdConsistent(restaurantTo, id);
+        restaurantService.update(restaurantTo);
     }
 
     @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)

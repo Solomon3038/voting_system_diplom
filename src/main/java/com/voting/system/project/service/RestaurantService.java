@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.voting.system.project.util.RestaurantUtil.getFromTo;
 import static com.voting.system.project.util.RestaurantUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
@@ -47,15 +48,15 @@ public class RestaurantService {
         return restaurantTos;
     }
 
-    public Restaurant create(Restaurant restaurant) {
-        checkRestaurant(restaurant);
+    public Restaurant create(RestaurantTo restaurantTo) {
+        final Restaurant restaurant = getRestaurant(restaurantTo);
         return restaurantRepository.save(restaurant);
     }
 
-    public Restaurant update(Restaurant restaurant) {
-        checkRestaurant(restaurant);
+    public void update(RestaurantTo restaurantTo) {
+        final Restaurant restaurant = getRestaurant(restaurantTo);
         checkNotExistWithId(restaurantRepository.findById(restaurant.getId().intValue()), restaurant.getId());
-        return restaurantRepository.save(restaurant);
+        restaurantRepository.save(restaurant);
     }
 
     //TODO check transaction roll back if not valid menu or dishes
@@ -71,8 +72,8 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
-    private void checkRestaurant(Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant must not be null");
-        Assert.isTrue(restaurant.getMenus() == null || restaurant.getMenus().isEmpty(), "list of menus must be empty or not exist");
+    private Restaurant getRestaurant(RestaurantTo restaurantTo) {
+        Assert.notNull(restaurantTo, "restaurant must not be null");
+        return getFromTo(restaurantTo);
     }
 }

@@ -13,7 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
+import static com.voting.system.project.TestDataTo.getNewRestaurantTo;
+import static com.voting.system.project.TestDataTo.getUpdatedRestaurantTo;
 import static com.voting.system.project.util.RestaurantTestUtil.*;
+import static com.voting.system.project.util.RestaurantUtil.getFromTo;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 class RestaurantServiceTest extends AbstractServiceTest {
@@ -47,14 +50,14 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void create() {
-        Restaurant saved = restaurantService.create(getNewRestaurant());
+        Restaurant saved = restaurantService.create(getNewRestaurantTo());
         checkSave(saved);
     }
 
     @Test
     void update() {
-        restaurantService.update(getUpdatedRestaurant(RESTAURANT_1));
-        Restaurant updated = mapper.map(restaurantService.get(RESTAURANT_ID_1), Restaurant.class);
+        restaurantService.update(getUpdatedRestaurantTo(RESTAURANT_1));
+        Restaurant updated = getFromTo(restaurantService.get(RESTAURANT_ID_1));
         checkUpdate(updated);
     }
 
@@ -66,13 +69,6 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void createWithNotEmptyMenusError() {
-        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.create(getNewRestaurantWithMenuAndDishes()));
-        Assertions.assertEquals("list of menus must be empty or not exist", exception.getMessage());
-    }
-
-    @Test
     void updateNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> restaurantService.update(null));
@@ -81,16 +77,9 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void updateNotExist() {
-        Restaurant created = getNewRestaurant();
+        RestaurantTo created = getNewRestaurantTo();
         created.setId(NOT_EXIST_ID);
         Assertions.assertThrows(NotExistException.class, () -> restaurantService.update(created));
-    }
-
-    @Test
-    void updateWithNotEmptyMenusError() {
-        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.update(getNewRestaurantWithMenuAndDishes()));
-        Assertions.assertEquals("list of menus must be empty or not exist", exception.getMessage());
     }
 
     @Test
