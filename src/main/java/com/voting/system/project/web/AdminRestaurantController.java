@@ -57,7 +57,7 @@ public class AdminRestaurantController extends AbstractAdminController {
     public void update(@Valid @RequestBody RestaurantTo restaurantTo, @PathVariable int id) {
         log.info("update {}", restaurantTo);
         assureIdConsistent(restaurantTo, id);
-        restaurantService.update(restaurantTo);
+        restaurantService.update(restaurantTo, id);
     }
 
     @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)

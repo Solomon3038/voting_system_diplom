@@ -4,10 +4,11 @@ import com.voting.system.project.model.Menu;
 import com.voting.system.project.service.MenuService;
 import com.voting.system.project.to.MenuTo;
 import com.voting.system.project.to.MenuWithDishesTo;
-import com.voting.system.project.to.RestaurantTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -52,6 +53,7 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void update() throws Exception {
         MenuTo updatedMenu = getUpdatedMenuTo(MENU_1);
         String menu = objectMapper.writeValueAsString(updatedMenu);

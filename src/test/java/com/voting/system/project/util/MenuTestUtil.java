@@ -2,7 +2,6 @@ package com.voting.system.project.util;
 
 import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.Comparator;
 import java.util.List;

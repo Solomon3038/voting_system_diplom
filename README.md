@@ -691,7 +691,6 @@ curl -X POST \
     <summary>Data params:</summary><p>
     
   ```
-//create on current date
 {
 	"registered": "2019-05-12"
 }

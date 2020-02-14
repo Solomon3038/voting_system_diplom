@@ -65,9 +65,7 @@ public class MenuService {
     public void update(MenuTo menuTo, int id, int restaurantId) {
         Assert.notNull(menuTo, "menu must not be null");
         checkNotExistWithId(menuRepository.findByIdAndRestaurantId(id, restaurantId), id);
-        Menu menu = getFromTo(menuTo);
-        menu.setRestaurant(restaurantRepository.getOne(restaurantId));
-        menuRepository.save(menu);
+        menuRepository.setValue(id, menuTo.getId(), menuTo.getRegistered());
     }
 
     private void setRestaurant(Menu menu, int restaurantId) {

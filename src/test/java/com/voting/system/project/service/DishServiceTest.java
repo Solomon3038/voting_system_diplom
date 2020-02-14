@@ -5,6 +5,8 @@ import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.DishTestUtil.checkSave;
@@ -54,8 +56,9 @@ class DishServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void update() {
-        dishService.update(getUpdatedDish(DISH_1_1), MENU_ID_1);
+        dishService.update(getUpdatedDish(DISH_1_1), DISH_ID_1, MENU_ID_1);
         Dish actual = dishService.get(DISH_ID_1, MENU_ID_1);
         assertMatch(actual, getUpdatedDish(DISH_1_1));
     }
@@ -63,14 +66,14 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void updateNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> dishService.update(null, MENU_ID_1));
+                () -> dishService.update(null, DISH_ID_1, MENU_ID_1));
         Assertions.assertEquals("dish must not be null", exception.getMessage());
     }
 
     @Test
     void updateNotOwn() {
         Assertions.assertThrows(NotExistException.class,
-                () -> dishService.update(getUpdatedDish(DISH_1_1), MENU_ID_2));
+                () -> dishService.update(getUpdatedDish(DISH_1_1), DISH_ID_1, MENU_ID_2));
     }
 
     @Test
@@ -78,7 +81,7 @@ class DishServiceTest extends AbstractServiceTest {
         final Dish updatedDish = getUpdatedDish(DISH_1_1);
         updatedDish.setId(NOT_EXIST_ID);
         Assertions.assertThrows(NotExistException.class, () -> {
-            dishService.update(updatedDish, MENU_ID_1);
+            dishService.update(updatedDish, NOT_EXIST_ID, MENU_ID_1);
         });
     }
 

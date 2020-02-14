@@ -6,6 +6,8 @@ import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -92,6 +94,7 @@ class MenuServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void update() {
         menuService.update(getUpdatedMenuTo(MENU_1), MENU_ID_1, RESTAURANT_ID_1);
         assertMatch(menuService.get(MENU_ID_1, RESTAURANT_ID_1), getUpdatedMenuTo(MENU_1));

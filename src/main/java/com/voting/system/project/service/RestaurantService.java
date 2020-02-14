@@ -49,31 +49,27 @@ public class RestaurantService {
     }
 
     public Restaurant create(RestaurantTo restaurantTo) {
-        final Restaurant restaurant = getRestaurant(restaurantTo);
+        Assert.notNull(restaurantTo, "restaurant must not be null");
+        final Restaurant restaurant = getFromTo(restaurantTo);
         return restaurantRepository.save(restaurant);
     }
 
-    public void update(RestaurantTo restaurantTo) {
-        final Restaurant restaurant = getRestaurant(restaurantTo);
-        checkNotExistWithId(restaurantRepository.findById(restaurant.getId().intValue()), restaurant.getId());
-        restaurantRepository.save(restaurant);
+    @Transactional
+    public void update(RestaurantTo restaurantTo, int id) {
+        Assert.notNull(restaurantTo, "restaurant must not be null");
+        checkNotExistWithId(restaurantRepository.findById(restaurantTo.getId().intValue()), id);
+        restaurantRepository.setValue(id, restaurantTo.getName(), restaurantTo.getAddress());
     }
 
     //TODO check transaction roll back if not valid menu or dishes
-    @Transactional
     public Restaurant createWithMenuAndDishes(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
 
         final List<Menu> menus = restaurant.getMenus();
-        Assert.isTrue(menus.size() == 1, "restaurant must have one menu");
+        Assert.isTrue(menus != null && menus.size() == 1, "restaurant must have one menu");
 
         final List<Dish> dishes = menus.iterator().next().getDishes();
         Assert.isTrue(!dishes.isEmpty(), "dishes must not be empty");
         return restaurantRepository.save(restaurant);
-    }
-
-    private Restaurant getRestaurant(RestaurantTo restaurantTo) {
-        Assert.notNull(restaurantTo, "restaurant must not be null");
-        return getFromTo(restaurantTo);
     }
 }

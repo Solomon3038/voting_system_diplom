@@ -7,6 +7,8 @@ import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestDataTo.getNewRestaurantTo;
@@ -49,6 +51,7 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void update() throws Exception {
         RestaurantTo updatedRestaurant = getUpdatedRestaurantTo(RESTAURANT_1);
         String restaurant = objectMapper.writeValueAsString(updatedRestaurant);

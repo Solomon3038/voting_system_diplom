@@ -3,7 +3,6 @@ package com.voting.system.project;
 import com.voting.system.project.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

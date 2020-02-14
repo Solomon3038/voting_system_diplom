@@ -8,6 +8,8 @@ import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,8 +57,9 @@ class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void update() {
-        restaurantService.update(getUpdatedRestaurantTo(RESTAURANT_1));
+        restaurantService.update(getUpdatedRestaurantTo(RESTAURANT_1), RESTAURANT_ID_1);
         Restaurant updated = getFromTo(restaurantService.get(RESTAURANT_ID_1));
         checkUpdate(updated);
     }
@@ -71,7 +74,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void updateNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.update(null));
+                () -> restaurantService.update(null, RESTAURANT_ID_1));
         Assertions.assertEquals("restaurant must not be null", exception.getMessage());
     }
 
@@ -79,7 +82,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     void updateNotExist() {
         RestaurantTo created = getNewRestaurantTo();
         created.setId(NOT_EXIST_ID);
-        Assertions.assertThrows(NotExistException.class, () -> restaurantService.update(created));
+        Assertions.assertThrows(NotExistException.class, () -> restaurantService.update(created, RESTAURANT_ID_1));
     }
 
     @Test

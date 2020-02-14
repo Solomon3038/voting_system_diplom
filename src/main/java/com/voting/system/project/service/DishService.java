@@ -4,7 +4,6 @@ import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.repository.DishRepository;
 import com.voting.system.project.repository.MenuRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,11 +40,10 @@ public class DishService {
     }
 
     @Transactional
-    public void update(Dish dish, int menuId) {
+    public void update(Dish dish, int id, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        checkNotExistWithId(dishRepository.findDishByIdAndMenuId(dish.getId(), menuId), dish.getId());
-        dish.setMenu(menuRepository.getOne(menuId));
-        dishRepository.save(dish);
+        checkNotExistWithId(dishRepository.findDishByIdAndMenuId(id, menuId), id);
+        dishRepository.setValue(id, menuId, dish.getName(), dish.getPrice());
     }
 
     public void delete(int id, int menuId) {

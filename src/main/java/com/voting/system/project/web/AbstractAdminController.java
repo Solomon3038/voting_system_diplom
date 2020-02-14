@@ -18,7 +18,7 @@ public abstract class AbstractAdminController {
         this.mapper = mapper;
     }
 
-    protected  <T extends HasId> ResponseEntity<T> getResponseEntity(T created, String url, Integer... ids) {
+    protected <T extends HasId> ResponseEntity<T> getResponseEntity(T created, String url, Integer... ids) {
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(url)
                 .buildAndExpand(ids).toUri();
