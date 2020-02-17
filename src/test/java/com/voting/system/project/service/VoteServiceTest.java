@@ -13,8 +13,7 @@ import java.time.LocalTime;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.ValidationUtil.VOTE_MAX_TIME;
-import static com.voting.system.project.util.VoteTestUtil.checkSave;
-import static com.voting.system.project.util.VoteTestUtil.checkUpdate;
+import static com.voting.system.project.util.VoteTestUtil.*;
 import static com.voting.system.project.util.VoteUtil.getToFrom;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -73,10 +72,5 @@ class VoteServiceTest extends AbstractServiceTest {
         final VoteException exception = Assertions.assertThrows(VoteException.class,
                 () -> voteService.createOrUpdate(getToFrom(vote)));
         Assertions.assertEquals("vote can't be accepted after " + VOTE_MAX_TIME + "AM", exception.getMessage());
-    }
-
-    private void checkIfRunTest() {
-        assumeTrue(LocalTime.now().compareTo(VOTE_MAX_TIME) <= 0,
-                "text execution time is from 00:00:00AM till " + VOTE_MAX_TIME + "AM");
     }
 }

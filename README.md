@@ -38,7 +38,6 @@
 
 ``ROLE_USER`` **name:** user.one@ukr.net, **password:** password
 <table>
-<tr>
     <tr>
         <th>Description</th>
         <th>Authorization</th>
@@ -47,6 +46,33 @@
         <th>Success status</th>
         <th>Error status</th>
     </tr>
+ <tr>
+          <td><b> Vote </b></td>
+          <td> ROLE_USER </td>
+          <td> PUT </td>
+          <td> restaurants/1/votes </td>
+          <td> 204 No Content </td>
+          <td>  </td>
+ </tr>
+<tr>
+<td>
+</td>
+<td>
+<details>
+  <summary>Curl:</summary><p>
+
+```
+curl --location --request PUT 'http://localhost:8080/restaurants/1/votes' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic dXNlci5vbmVAdWtyLm5ldDpwYXNzd29yZA=='
+```
+</p></details>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
     <tr>
         <td><b> Get all restaurants with menus on current date </b></td>
         <td> not required </td>

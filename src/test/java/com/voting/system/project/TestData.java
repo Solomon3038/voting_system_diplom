@@ -10,6 +10,7 @@ import java.util.List;
 public class TestData {
     public static final String ADMIN_1_EMAIL = "admin.one@gmail.com";
     public static final String USER_1_EMAIL = "user.one@ukr.net";
+    public static final String USER_2_EMAIL = "user.two@ukr.net";
 
     public static final int NOT_EXIST_ID = -1;
 
@@ -19,7 +20,7 @@ public class TestData {
     public static final int ADMIN_ID_2 = ADMIN_ID_1 + 1;
 
     public static final User USER_1 = new User(USER_ID_1, "User One", USER_1_EMAIL, "{noop}password", Role.ROLE_USER);
-    public static final User USER_2 = new User(USER_ID_2, "User Two", "user.two@ukr.net", "{noop}password", Role.ROLE_USER);
+    public static final User USER_2 = new User(USER_ID_2, "User Two", USER_2_EMAIL, "{noop}password", Role.ROLE_USER);
     public static final User ADMIN_1 = new User(ADMIN_ID_1, "Admin One", ADMIN_1_EMAIL, "{noop}admin", Role.ROLE_ADMIN);
     public static final User ADMIN_2 = new User(ADMIN_ID_2, "Admin Two", "admin.two@gmail.com", "{noop}admin", Role.ROLE_ADMIN);
 

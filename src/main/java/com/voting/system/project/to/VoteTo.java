@@ -3,7 +3,6 @@ package com.voting.system.project.to;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,16 +20,18 @@ public class VoteTo extends BaseTo {
     @NotNull
     private Integer restaurantId;
 
-    @ConstructorProperties({"id", "date", "userId", "restaurantId"})
     public VoteTo(Integer id, LocalDate date, Integer userId, Integer restaurantId) {
         this(id, userId, restaurantId);
         this.date = date;
     }
 
-    @ConstructorProperties({"id", "userId", "restaurantId"})
     public VoteTo(Integer id, Integer userId, Integer restaurantId) {
         super(id);
         this.userId = userId;
         this.restaurantId = restaurantId;
+    }
+
+    public VoteTo(Integer userId, Integer restaurantId) {
+        this(null, userId, restaurantId);
     }
 }

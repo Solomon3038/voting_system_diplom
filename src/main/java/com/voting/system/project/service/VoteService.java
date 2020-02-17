@@ -27,7 +27,6 @@ public class VoteService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    //voteTo id value always null
     @Transactional
     public Vote createOrUpdate(VoteTo voteTo) {
         Assert.notNull(voteTo, "vote must not be null");
