@@ -1,12 +1,16 @@
 package com.voting.system.project.service;
 
 import com.voting.system.project.model.Dish;
+import com.voting.system.project.to.DishTo;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.DishTestUtil.checkSave;
@@ -19,7 +23,9 @@ class DishServiceTest extends AbstractServiceTest {
 
     @Test
     void getAll() {
-        assertMatch(dishService.getAll(MENU_ID_1), DISH_1_3, DISH_1_2, DISH_1_1);
+        final List<DishTo> dishTos = dishService.getAll(MENU_ID_1);
+        final List<Dish> dishes = Arrays.asList(mapper.map(dishTos, Dish[].class));
+        assertMatch(dishes, DISH_1_3, DISH_1_2, DISH_1_1);
     }
 
     @Test
@@ -39,28 +45,28 @@ class DishServiceTest extends AbstractServiceTest {
 
     @Test
     void save() {
-        Dish actual = dishService.save(getNewDish(), MENU_ID_1);
+        final Dish actual = dishService.create(getNewDish(), MENU_ID_1);
         checkSave(actual);
     }
 
     @Test
     void saveNullError() {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> dishService.save(null, MENU_ID_1));
+                () -> dishService.create(null, MENU_ID_1));
         Assertions.assertEquals("dish must not be null", exception.getMessage());
     }
 
     @Test
     void saveNotExist() {
-        Assertions.assertThrows(NotExistException.class, () -> dishService.save(getNewDish(), NOT_EXIST_ID));
+        Assertions.assertThrows(NotExistException.class, () -> dishService.create(getNewDish(), NOT_EXIST_ID));
     }
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
     void update() {
         dishService.update(getUpdatedDish(DISH_1_1), DISH_ID_1, MENU_ID_1);
-        Dish actual = dishService.get(DISH_ID_1, MENU_ID_1);
-        assertMatch(actual, getUpdatedDish(DISH_1_1));
+        final DishTo actual = dishService.get(DISH_ID_1, MENU_ID_1);
+        assertMatch(mapper.map(actual, Dish.class), getUpdatedDish(DISH_1_1));
     }
 
     @Test

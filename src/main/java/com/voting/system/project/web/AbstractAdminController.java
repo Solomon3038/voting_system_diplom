@@ -11,6 +11,7 @@ public abstract class AbstractAdminController {
 
     public static final String ADMIN_REST_URL = "/admin/restaurants";
     public static final String ADMIN_MENU_URL = ADMIN_REST_URL + "/{restId}/menus";
+    public static final String ADMIN_DISH_URL = "admin/menus/{menuId}/dishes";
 
     protected final ModelMapper mapper;
 

@@ -23,7 +23,6 @@ import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
-
     private final ModelMapper mapper;
 
     public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper mapper) {

@@ -21,14 +21,15 @@ import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 @Service
 public class MenuService {
 
-    @Autowired
-    private MenuRepository menuRepository;
+    private final MenuRepository menuRepository;
+    private final RestaurantRepository restaurantRepository;
+    private final ModelMapper mapper;
 
-    @Autowired
-    private RestaurantRepository restaurantRepository;
-
-    @Autowired
-    private ModelMapper mapper;
+    public MenuService(MenuRepository menuRepository, RestaurantRepository restaurantRepository, ModelMapper mapper) {
+        this.menuRepository = menuRepository;
+        this.restaurantRepository = restaurantRepository;
+        this.mapper = mapper;
+    }
 
     public MenuWithDishesTo get(int id, int restaurantId) {
         final Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);

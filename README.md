@@ -892,4 +892,222 @@ curl --location --request PUT 'http://localhost:8080/admin/restaurants/1/menus/1
 <td></td>
 <td></td>
 </tr>
+ <tr>
+          <td><b> Get all dishes for menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> GET </td>
+          <td> admin/menus/1/dishes </td>
+          <td> 200 OK</td>
+          <td> 401 Unauthorized </td>
+      </tr>
+<tr>
+<td></td>
+<td>
+<details>
+  <summary>Curl:</summary><p>
+
+```
+curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
+```
+</p></details>
+</td>
+<td></td>
+<td>
+<details>
+  <summary>Content:</summary><p>
+  
+```
+[
+    {
+        "id": 3,
+        "name": "Салат з тигровими креветками під кисло-солодким соусом",
+        "price": 14600,
+        "new": false
+    },
+    {
+        "id": 2,
+        "name": "Червоний борщ",
+        "price": 3800,
+        "new": false
+    },
+    {
+        "id": 1,
+        "name": "Шатобріан",
+        "price": 9900,
+        "new": false
+    }
+]
+```
+</p></details>
+</td>
+<td></td>
+<td></td>
+</tr>
+      <tr>
+          <td><b> Get one dish for menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> GET </td>
+          <td> admin/menus/1/dishes/1 </td>
+          <td> 200 OK</td>
+          <td> 401 Unauthorized </td>
+      </tr>
+<tr>
+<td></td>
+<td>
+<details>
+  <summary>Curl:</summary><p>
+
+```
+curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
+```
+</p></details>
+</td>
+<td></td>
+<td>
+<details>
+  <summary>Content:</summary><p>
+  
+```
+{
+    "id": 1,
+    "name": "Шатобріан",
+    "price": 9900,
+    "new": false
+}
+```
+  </p></details>
+</td>
+<td></td>
+<td></td>
+</tr>
+      <tr>
+          <td><b> Create menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> POST </td>
+          <td> admin/menus/1/dishes </td>
+          <td> 201 Created </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+{
+    "name": "New Dish",
+    "price": 10500
+}
+  ```
+  </p></details>
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl --location --request POST 'http://localhost:8080/admin/menus/1/dishes' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+    "name": "New Dish",
+    "price": 10500
+}'
+```
+  </p></details>
+</td>
+<td></td>
+<td>
+  <details>
+    <summary>Content:</summary><p>
+    
+```
+{
+    "id": 16,
+    "name": "New Dish",
+    "price": 10500,
+    "new": false
+}
+```
+  </p></details>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+          <td><b> Update dish </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> PUT </td>
+          <td> admin/menus/1/dishes/3 </td>
+          <td> 204 No Content </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+{
+    "id": 3,
+    "name": "Updated Dish",
+    "price": 14500
+}
+  ```
+  </p></details>
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl --location --request PUT 'http://localhost:8080/admin/menus/1/dishes/3' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+    "id": 3,
+    "name": "Updated Dish",
+    "price": 14500
+}'
+```
+  </p></details>
+</td>
+<td></td>
+<td>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+          <td><b> Delete dish </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> PUT </td>
+          <td> admin/menus/1/dishes/1 </td>
+          <td> 204 No Content </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl --location --request DELETE 'http://localhost:8080/admin/menus/1/dishes/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
+```
+  </p></details>
+</td>
+<td></td>
+<td>
+</td>
+<td></td>
+<td></td>
+</tr>
 </table>

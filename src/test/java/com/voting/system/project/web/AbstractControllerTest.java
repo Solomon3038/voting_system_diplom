@@ -73,4 +73,10 @@ public abstract class AbstractControllerTest extends AbstractTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    protected void doDelete(String url) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(url))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
 }
