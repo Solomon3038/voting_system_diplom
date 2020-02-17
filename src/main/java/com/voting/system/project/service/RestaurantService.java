@@ -22,14 +22,17 @@ import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 @Service
 public class RestaurantService {
 
-    @Autowired
-    private RestaurantRepository restaurantRepository;
+    private final RestaurantRepository restaurantRepository;
 
-    @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+
+    public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper mapper) {
+        this.restaurantRepository = restaurantRepository;
+        this.mapper = mapper;
+    }
 
     public RestaurantTo get(int id) {
-        Restaurant restaurant = restaurantRepository.findById(id);
+        final Restaurant restaurant = restaurantRepository.findById(id);
         return mapper.map(checkNotExistWithId(restaurant, id), RestaurantTo.class);
     }
 
@@ -48,9 +51,9 @@ public class RestaurantService {
         return restaurantTos;
     }
 
-    public Restaurant create(RestaurantTo restaurantTo) {
-        Assert.notNull(restaurantTo, "restaurant must not be null");
-        final Restaurant restaurant = getFromTo(restaurantTo);
+    //TODO check transaction roll back if not valid menu or dishes
+    public Restaurant create(Restaurant restaurant) {
+        Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);
     }
 
@@ -59,17 +62,5 @@ public class RestaurantService {
         Assert.notNull(restaurantTo, "restaurant must not be null");
         checkNotExistWithId(restaurantRepository.findById(restaurantTo.getId().intValue()), id);
         restaurantRepository.setValue(id, restaurantTo.getName(), restaurantTo.getAddress());
-    }
-
-    //TODO check transaction roll back if not valid menu or dishes
-    public Restaurant createWithMenuAndDishes(Restaurant restaurant) {
-        Assert.notNull(restaurant, "restaurant must not be null");
-
-        final List<Menu> menus = restaurant.getMenus();
-        Assert.isTrue(menus != null && menus.size() == 1, "restaurant must have one menu");
-
-        final List<Dish> dishes = menus.iterator().next().getDishes();
-        Assert.isTrue(!dishes.isEmpty(), "dishes must not be empty");
-        return restaurantRepository.save(restaurant);
     }
 }

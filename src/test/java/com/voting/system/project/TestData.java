@@ -111,6 +111,13 @@ public class TestData {
         RESTAURANT_3.setMenus(Arrays.asList(MENU_3_NOW));
     }
 
+    public static Restaurant getNewRestaurantWithMenu() {
+        Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
+        Menu menu = new Menu(null, restaurant);
+        restaurant.setMenu(menu);
+        return restaurant;
+    }
+
     public static Restaurant getNewRestaurantWithMenuAndDishes() {
         Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
         Menu menu = new Menu(null, restaurant);

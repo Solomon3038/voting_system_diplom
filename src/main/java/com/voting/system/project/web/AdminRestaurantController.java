@@ -45,10 +45,11 @@ public class AdminRestaurantController extends AbstractAdminController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody RestaurantTo restaurantTo) {
-        log.info("create {}", restaurantTo);
-        checkNew(restaurantTo);
-        final Restaurant created = restaurantService.create(restaurantTo);
+    public ResponseEntity<RestaurantWithMenusTo> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
+        log.info("create {}", restaurant);
+        checkNew(restaurant);
+        setNestedObjects(restaurant);
+        final RestaurantWithMenusTo created = getToFrom(restaurantService.create(restaurant), mapper);
         return getResponseEntity(created, ADMIN_REST_URL + "/{id}", created.getId());
     }
 
@@ -58,15 +59,6 @@ public class AdminRestaurantController extends AbstractAdminController {
         log.info("update {}", restaurantTo);
         assureIdConsistent(restaurantTo, id);
         restaurantService.update(restaurantTo, id);
-    }
-
-    @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestaurantWithMenusTo> createWithLocationFull(@Valid @RequestBody Restaurant restaurant) {
-        log.info("create full {}", restaurant);
-        checkNew(restaurant);
-        setNestedObjects(restaurant);
-        final RestaurantWithMenusTo created = getToFrom(restaurantService.createWithMenuAndDishes(restaurant), mapper);
-        return getResponseEntity(created, ADMIN_REST_URL + "/{id}", created.getId());
     }
 
     private void setNestedObjects(Restaurant restaurant) {

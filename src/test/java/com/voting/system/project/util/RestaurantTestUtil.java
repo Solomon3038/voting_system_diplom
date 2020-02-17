@@ -28,14 +28,14 @@ public class RestaurantTestUtil {
         }
     }
 
-    public static void checkSaveWithMenusAndDishes(Restaurant saved) {
+    public static void checkSaveWithMenu(Restaurant saved) {
+        Restaurant expected = getNewRestaurantWithMenu();
+        checkSaveWith(saved, expected);
+    }
+
+    public static void checkSaveWithMenuAndDishes(Restaurant saved) {
         Restaurant expected = getNewRestaurantWithMenuAndDishes();
-        int id = saved.getId();
-        expected.setId(id);
-        int menuId = saved.getMenus().iterator().next().getId();
-        expected.getMenus().iterator().next().setId(menuId);
-        assertMatch(saved, expected);
-        assertMatch(saved.getMenus(), expected.getMenus());
+        checkSaveWith(saved, expected);
     }
 
     public static void checkSave(Restaurant saved) {
@@ -47,5 +47,14 @@ public class RestaurantTestUtil {
     public static void checkUpdate(Restaurant updated) {
         Restaurant expected = getUpdatedRestaurant(RESTAURANT_1);
         assertMatch(updated, expected);
+    }
+
+    private static void checkSaveWith(Restaurant saved, Restaurant expected) {
+        int id = saved.getId();
+        expected.setId(id);
+        int menuId = saved.getMenus().iterator().next().getId();
+        expected.getMenus().iterator().next().setId(menuId);
+        assertMatch(saved, expected);
+        assertMatch(saved.getMenus(), expected.getMenus());
     }
 }

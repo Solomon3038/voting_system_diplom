@@ -62,9 +62,8 @@
   <summary>Curl:</summary><p>
   
 ```
-curl -X GET \
-  http://localhost:8080/restaurants \
-  -H 'Host: localhost:8080' 
+curl --location --request GET 'http://localhost:8080/restaurants' \
+--header 'Content-Type: application/json' 
 ```
 </p></details>
     </td>
@@ -184,10 +183,9 @@ curl -X GET \
   <summary>Curl:</summary><p>
 
 ```
-curl -X GET \
-  http://localhost:8080/admin/restaurants \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Host: localhost:8080'  
+curl --location --request GET 'http://localhost:8080/admin/restaurants' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
 ```
 </p></details>
     </td>
@@ -244,10 +242,9 @@ curl -X GET \
   <summary>Curl:</summary><p>
 
 ```
-curl -X GET \
-  http://localhost:8080/admin/restaurants/1 \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Host: localhost:8080' 
+curl --location --request GET 'http://localhost:8080/admin/restaurants/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
 ```
 </p></details>
 </td>
@@ -295,16 +292,14 @@ curl -X GET \
   <summary>Curl:</summary><p>
   
 ```
-curl -X POST \
-  http://localhost:8080/admin/restaurants/ \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Content-Type: application/json' \
-  -H 'Host: localhost:8080' \
-  -H 'cache-control: no-cache' \
-  -d '    {
-        "name": "New Restaurant",
-        "address": "new address"
-    }'
+curl --location --request POST 'http://localhost:8080/admin/restaurants' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+    "name": "New Restaurant",
+    "address": "new address"
+}
+'
 ```
 </p></details>
 </td>
@@ -327,12 +322,12 @@ curl -X POST \
 <td></td>
 <td></td>
 </tr>
-      <tr>
-          <td><b> Update restaurant </b></td>
+<tr>
+          <td><b> Create restaurant with menu </b></td>
           <td> ROLE_ADMIN </td>
-          <td> PUT </td>
-          <td> /admin/restaurants/1 </td>
-          <td> 204 No Content </td>
+          <td> POST </td>
+          <td> /admin/restaurants </td>
+          <td> 201 Created </td>
           <td>  </td>
       </tr>
 <tr>
@@ -342,41 +337,65 @@ curl -X POST \
   
 ```
 {
-    "id": 1,
-    "name": "Manhattan-skybar updated",
-    "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
+    "name": "New Restaurant",
+    "address": "New Address",
+    "menus": [
+        {}
+    ]
 }
 ```
-</p></details>
-</td>
-<td>
+ </p></details>
+ </td>
+ <td>
 <details>
   <summary>Curl:</summary><p>
 
 ```
-curl -X PUT \
-  http://localhost:8080/admin/restaurants/1 \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Content-Type: application/json' \
-  -H 'Host: localhost:8080' \
-  -d '{
-    "id": 1,
-    "name": "Manhattan-skybar updated",
-    "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
-}'
+curl --location --request POST 'http://localhost:8080/admin/restaurants' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+    "name": "New Restaurant",
+    "address": "New Address",
+    "menus": [
+        {}
+    ]
+}
+'
+```
+ </p></details>
+ </td>
+ <td></td>
+ <td>
+<details>
+  <summary>Content:</summary><p>
+  
+```
+{
+    "id": 5,
+    "name": "New Restaurant",
+    "address": "New Address",
+    "menus": [
+        {
+            "id": 7,
+            "registered": "2020-02-17",
+            "dishes": [],
+            "new": false
+        }
+    ],
+    "new": false
+}
 ```
 </p></details>
 </td>
 <td></td>
 <td></td>
-<td></td>
-<td></td>
 </tr>
-      <tr>
+<tr>
           <td><b> Create restaurant with menu and dishes </b></td>
           <td> ROLE_ADMIN </td>
           <td> POST </td>
-          <td> /admin/restaurants/full </td>
+          <td> /admin/restaurants </td>
           <td> 201 Created </td>
           <td>  </td>
       </tr>
@@ -412,29 +431,27 @@ curl -X PUT \
   <summary>Curl:</summary><p>
 
 ```
-curl -X POST \
-  http://localhost:8080/admin/restaurants/full \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Content-Type: application/json' \
-  -H 'Host: localhost:8080' \
-  -d '{
-        "name": "New Restaurant",
-        "address": "New Address",
-        "menus": [
-            {
-                "dishes": [
-                    {
-                        "name": "new dish 1",
-                        "price": 12000
-                    },
-                     {
-                        "name": "new dish 2",
-                        "price": 13000
-                    }
-                ]
-            }
-        ]
-    }'
+curl --location --request POST 'http://localhost:8080/admin/restaurants' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+    "name": "New Restaurant",
+    "address": "New Address",
+    "menus": [
+        {
+            "dishes": [
+                {
+                    "name": "new dish 1",
+                    "price": 12000
+                },
+                {
+                    "name": "new dish 2",
+                    "price": 13000
+                }
+            ]
+        }
+    ]
+}'
 ```
  </p></details>
  </td>
@@ -478,6 +495,49 @@ curl -X POST \
 <td></td>
 </tr>
       <tr>
+          <td><b> Update restaurant </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> PUT </td>
+          <td> /admin/restaurants/1 </td>
+          <td> 204 No Content </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td>
+<details>
+  <summary>Data params:</summary><p>
+  
+```
+{
+    "id": 1,
+    "name": "Manhattan-skybar updated",
+    "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
+}
+```
+</p></details>
+</td>
+<td>
+<details>
+  <summary>Curl:</summary><p>
+
+```
+curl --location --request PUT 'http://localhost:8080/admin/restaurants/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+    "id": 1,
+    "name": "Manhattan-skybar updated",
+    "address": "вулиця Гагаріна, 67, Рівне, Рівненська область, 33022"
+}'
+```
+</p></details>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+      <tr>
           <td><b> Get all menus with dishes for restaurant </b></td>
           <td> ROLE_ADMIN </td>
           <td> GET </td>
@@ -492,10 +552,9 @@ curl -X POST \
   <summary>Curl:</summary><p>
 
 ```
-curl -X GET \
-  http://localhost:8080/admin/restaurants/1/menus \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Host: localhost:8080'
+curl --location --request GET 'http://localhost:8080/admin/restaurants/1/menus' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
 ```
 </p></details>
 </td>
@@ -578,10 +637,9 @@ curl -X GET \
   <summary>Curl:</summary><p>
 
 ```
-curl -X GET \
-  http://localhost:8080/admin/restaurants/1/menus/1 \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Host: localhost:8080'
+curl --location --request GET 'http://localhost:8080/admin/restaurants/1/menus/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg=='
 ```
 </p></details>
 </td>
@@ -651,12 +709,12 @@ curl -X GET \
     <summary>Curl:</summary><p>
     
 ```
-curl -X POST \
-  http://localhost:8080/admin/restaurants/4/menus \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Content-Type: application/json' \
-  -H 'Host: localhost:8080' \
-  -d '{"registered": "2020-02-12"}'
+curl --location --request POST 'http://localhost:8080/admin/restaurants/1/menus' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+	"registered": "2020-02-12"
+}'
 ```
   </p></details>
 </td>
@@ -678,50 +736,10 @@ curl -X POST \
 <td></td>
 </tr>
 <tr>
-          <td><b> Update menu </b></td>
-          <td> ROLE_ADMIN </td>
-          <td> PUT </td>
-          <td> /admin/restaurants/4/menus/1 </td>
-          <td> 204 No Content </td>
-          <td>  </td>
-      </tr>
-<tr>
-<td> 
-  <details>
-    <summary>Data params:</summary><p>
-    
-  ```
-{
-	"registered": "2019-05-12"
-}
-  ```
-  </p></details>
-</td>
-<td>
-  <details>
-    <summary>Curl:</summary><p>
-    
-```
-curl --location --request PUT 'http://localhost:8080/admin/restaurants/1/menus/1' \
---header 'Content-Type: application/json' \
---header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
---data-raw '{
-	"registered": "2019-05-12"
-}'
-```
-  </p></details>
-</td>
-<td></td>
-<td>
-</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
           <td><b> Create menu with dishes </b></td>
           <td> ROLE_ADMIN </td>
           <td> POST </td>
-          <td> /admin/restaurants/4/menus/full </td>
+          <td> /admin/restaurants/4/menus </td>
           <td> 201 Created </td>
           <td>  </td>
       </tr>
@@ -775,13 +793,10 @@ curl --location --request PUT 'http://localhost:8080/admin/restaurants/1/menus/1
     <summary>Curl:</summary><p>
     
 ```
-curl -X POST \
-  http://localhost:8080/admin/restaurants/4/menus/full \
-  -H 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
-  -H 'Content-Type: application/json' \
-  -H 'Host: localhost:8080' \
-  -d '{
-    "registered": "2020-03-01",
+curl --location --request POST 'http://localhost:8080/admin/restaurants/4/menus' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
     "dishes": [
         {
             "name": "Салат з тигровими креветками під кисло-солодким соусом",
@@ -808,7 +823,7 @@ curl -X POST \
 ```
 {
     "id": 7,
-    "registered": "2020-03-01",
+    "registered": "2020-02-17",
     "dishes": [
         {
             "id": 16,
@@ -833,6 +848,46 @@ curl -X POST \
 }
 ```
   </p></details>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+          <td><b> Update menu </b></td>
+          <td> ROLE_ADMIN </td>
+          <td> PUT </td>
+          <td> /admin/restaurants/4/menus/1 </td>
+          <td> 204 No Content </td>
+          <td>  </td>
+      </tr>
+<tr>
+<td> 
+  <details>
+    <summary>Data params:</summary><p>
+    
+  ```
+{
+	"registered": "2019-05-12"
+}
+  ```
+  </p></details>
+</td>
+<td>
+  <details>
+    <summary>Curl:</summary><p>
+    
+```
+curl --location --request PUT 'http://localhost:8080/admin/restaurants/1/menus/1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic YWRtaW4ub25lQGdtYWlsLmNvbTphZG1pbg==' \
+--data-raw '{
+	"registered": "2019-05-12"
+}'
+```
+  </p></details>
+</td>
+<td></td>
+<td>
 </td>
 <td></td>
 <td></td>

@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestDataTo.*;
+import static com.voting.system.project.TestDataTo.getNewMenuWithDishesTo;
+import static com.voting.system.project.TestDataTo.getUpdatedMenuTo;
 import static com.voting.system.project.util.MenuTestUtil.checkSave;
 import static com.voting.system.project.util.MenuTestUtil.checkSaveWithDishes;
-import static com.voting.system.project.util.MenuUtil.getFromTo;
 import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
@@ -43,11 +43,22 @@ class AdminMenuControllerTest extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        MenuTo newMenu = getNewMenuTo();
-        String menu = objectMapper.writeValueAsString(newMenu);
-        String result = doPost(menu, ADMIN_MENU_URL_TEST);
-        MenuTo created = objectMapper.readValue(result, MenuTo.class);
-        checkSave(getFromTo(created));
+        final Menu newMenu = getNewMenu();
+        final String menu = objectMapper.writeValueAsString(newMenu);
+        final String result = doPost(menu, ADMIN_MENU_URL_TEST);
+        final MenuWithDishesTo created = objectMapper.readValue(result, MenuWithDishesTo.class);
+        checkSave(mapper.map(created, Menu.class));
+        newMenu.setId(created.getId());
+        assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
+    }
+
+    @Test
+    void createWithLocationWithDishes() throws Exception {
+        final MenuWithDishesTo newMenu = getNewMenuWithDishesTo();
+        final String menu = objectMapper.writeValueAsString(newMenu);
+        final String result = doPost(menu, ADMIN_MENU_URL_TEST);
+        final MenuWithDishesTo created = objectMapper.readValue(result, MenuWithDishesTo.class);
+        checkSaveWithDishes(mapper.map(created, Menu.class));
         newMenu.setId(created.getId());
         assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
     }
@@ -55,20 +66,9 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     @Test
     @Transactional(propagation = Propagation.NEVER)
     void update() throws Exception {
-        MenuTo updatedMenu = getUpdatedMenuTo(MENU_1);
-        String menu = objectMapper.writeValueAsString(updatedMenu);
+        final MenuTo updatedMenu = getUpdatedMenuTo(MENU_1);
+        final String menu = objectMapper.writeValueAsString(updatedMenu);
         doPut(menu, ADMIN_MENU_URL_TEST + MENU_ID_1);
         assertMatch(menuService.get(MENU_ID_1, RESTAURANT_ID_1), updatedMenu);
-    }
-
-    @Test
-    void createWithLocationFull() throws Exception {
-        MenuWithDishesTo newMenu = getNewMenuWithDishesTo();
-        String menu = objectMapper.writeValueAsString(newMenu);
-        String result = doPost(menu, ADMIN_MENU_URL_TEST + "/full");
-        MenuWithDishesTo created = objectMapper.readValue(result, MenuWithDishesTo.class);
-        checkSaveWithDishes(mapper.map(created, Menu.class));
-        newMenu.setId(created.getId());
-        assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
     }
 }

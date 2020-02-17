@@ -47,7 +47,7 @@ class RestaurantRepositoryTest extends AbstractRepositoryTest {
     @Test
     void saveWithMenusAndDishes() {
         Restaurant saved = restaurantRepository.save(getNewRestaurantWithMenuAndDishes());
-        checkSaveWithMenusAndDishes(saved);
+        checkSaveWithMenuAndDishes(saved);
     }
 
     @Test

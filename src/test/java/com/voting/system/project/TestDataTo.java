@@ -11,6 +11,13 @@ import java.util.Collections;
 
 public class TestDataTo {
 
+    public static RestaurantWithMenusTo getNewRestaurantWithMenuTo() {
+        RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
+        MenuWithDishesTo menu = new MenuWithDishesTo(null);
+        restaurant.setMenus(Arrays.asList(menu));
+        return restaurant;
+    }
+
     public static RestaurantWithMenusTo getNewRestaurantWithMenuAndDishesTo() {
         RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
         MenuWithDishesTo menu = new MenuWithDishesTo(null);

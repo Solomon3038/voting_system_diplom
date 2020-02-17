@@ -15,7 +15,6 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.voting.system.project.util.MenuUtil.getFromTo;
 import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
@@ -32,7 +31,7 @@ public class MenuService {
     private ModelMapper mapper;
 
     public MenuWithDishesTo get(int id, int restaurantId) {
-        Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);
+        final Menu menu = menuRepository.findByIdAndRestaurantId(id, restaurantId);
         checkNotExistWithId(menu, id);
         return getToFrom(menu, mapper);
     }
@@ -46,17 +45,8 @@ public class MenuService {
 
     //TODO check transaction roll back dishes not valid
     @Transactional
-    public Menu createWithDishes(Menu menu, int restaurantId) {
+    public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
-        setRestaurant(menu, restaurantId);
-        Assert.isTrue(!menu.getDishes().isEmpty(), "dishes must not be empty");
-        return menuRepository.save(menu);
-    }
-
-    @Transactional
-    public Menu create(MenuTo menuTo, int restaurantId) {
-        Assert.notNull(menuTo, "menu must not be null");
-        Menu menu = getFromTo(menuTo);
         setRestaurant(menu, restaurantId);
         return menuRepository.save(menu);
     }
@@ -69,7 +59,7 @@ public class MenuService {
     }
 
     private void setRestaurant(Menu menu, int restaurantId) {
-        Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(restaurantId), restaurantId);
+        final Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(restaurantId), restaurantId);
         menu.setRestaurant(restaurant);
     }
 }

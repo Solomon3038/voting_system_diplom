@@ -44,10 +44,11 @@ public class AdminMenuController extends AbstractAdminController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MenuTo> createWithLocation(@Valid @RequestBody MenuTo menuTo, @PathVariable int restId) {
-        log.info("create {}", menuTo);
-        checkNew(menuTo);
-        final MenuTo created = getToFrom(menuService.create(menuTo, restId));
+    public ResponseEntity<MenuWithDishesTo> createWithLocation(@Valid @RequestBody Menu menu, @PathVariable int restId) {
+        log.info("create {}", menu);
+        checkNew(menu);
+        setNestedObjects(menu);
+        final MenuWithDishesTo created = getToFrom(menuService.create(menu, restId), mapper);
         return getResponseEntity(created, ADMIN_MENU_URL + "/{id}", restId, created.getId());
     }
 
@@ -57,15 +58,6 @@ public class AdminMenuController extends AbstractAdminController {
         log.info("update {}", menuTo);
         assureIdConsistent(menuTo, id);
         menuService.update(menuTo, id, restId);
-    }
-
-    @PostMapping(value = "/full", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MenuWithDishesTo> createWithLocationFull(@Valid @RequestBody Menu menu, @PathVariable int restId) {
-        log.info("create full {}", menu);
-        checkNew(menu);
-        setNestedObjects(menu);
-        final MenuWithDishesTo created = getToFrom(menuService.createWithDishes(menu, restId), mapper);
-        return getResponseEntity(created, ADMIN_MENU_URL + "/{id}", restId, created.getId());
     }
 
     private void setNestedObjects(Menu menu) {
