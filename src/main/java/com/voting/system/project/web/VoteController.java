@@ -14,7 +14,7 @@ import static com.voting.system.project.web.RestaurantController.REST_URL;
 
 @Log4j2
 @RestController
-@RequestMapping(value = VoteController.VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = VoteController.VOTE_URL)
 public class VoteController {
 
     public static final String VOTE_URL = REST_URL + "/{restId}/votes";
