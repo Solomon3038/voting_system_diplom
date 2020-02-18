@@ -26,13 +26,13 @@ class AdminDishControllerTest extends AbstractControllerTest {
     private DishService dishService;
 
     @Test
-    void getDishes() throws Exception {
+    void getAll() throws Exception {
         final String dishes = objectMapper.writeValueAsString(mapper.map(Arrays.asList(DISH_1_3, DISH_1_2, DISH_1_1), DishTo[].class));
         doGet(ADMIN_DISH_URL_TEST, dishes);
     }
 
     @Test
-    void getDish() throws Exception {
+    void get() throws Exception {
         final String dish = objectMapper.writeValueAsString(mapper.map(DISH_1_1, DishTo.class));
         doGet(ADMIN_DISH_URL_TEST + DISH_ID_1, dish);
     }

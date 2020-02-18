@@ -47,6 +47,7 @@ public class RestaurantService {
     }
 
     //TODO check transaction roll back if not valid menu or dishes
+    @Transactional
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);

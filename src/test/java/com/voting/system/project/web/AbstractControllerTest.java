@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -15,6 +17,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import javax.annotation.PostConstruct;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -59,7 +62,7 @@ public abstract class AbstractControllerTest extends AbstractTest {
     }
 
     protected String doPost(String jsonObject, String url) throws Exception {
-        return mockMvc.perform(MockMvcRequestBuilders.post(url)
+        return mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
                 .andDo(print())
@@ -67,7 +70,7 @@ public abstract class AbstractControllerTest extends AbstractTest {
     }
 
     protected void doPut(String jsonObject, String url) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put(url)
+        mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
                 .andDo(print())
@@ -75,8 +78,20 @@ public abstract class AbstractControllerTest extends AbstractTest {
     }
 
     protected void doDelete(String url) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(url))
+        mockMvc.perform(delete(url))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    protected void doGetNotExist(String url) throws Exception {
+        mockMvc.perform(get(url))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    protected void doPostUnprocessable(String jsonObject, String url, ResultMatcher status) throws Exception {
+        mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonObject))
+                .andExpect(status);
     }
 }

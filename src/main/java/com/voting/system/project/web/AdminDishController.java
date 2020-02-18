@@ -29,13 +29,13 @@ public class AdminDishController extends AbstractAdminController {
     }
 
     @GetMapping
-    public List<DishTo> getDishes(@PathVariable int menuId) {
+    public List<DishTo> getAll(@PathVariable int menuId) {
         log.info("getDishes for menu with id {}", menuId);
         return dishService.getAll(menuId);
     }
 
     @GetMapping("/{id}")
-    public DishTo getDish(@PathVariable int menuId, @PathVariable int id) {
+    public DishTo get(@PathVariable int menuId, @PathVariable int id) {
         log.info("getDish with id {} for restaurant with id {}", id, menuId);
         return dishService.get(id, menuId);
     }

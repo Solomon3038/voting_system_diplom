@@ -30,13 +30,13 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     private MenuService menuService;
 
     @Test
-    void getMenus() throws Exception {
+    void getAll() throws Exception {
         final String menus = objectMapper.writeValueAsString(mapper.map(Arrays.asList(MENU_1_NOW, MENU_1), MenuWithDishesTo[].class));
         doGet(ADMIN_MENU_URL_TEST, menus);
     }
 
     @Test
-    void getMenu() throws Exception {
+    void get() throws Exception {
         final String menu = objectMapper.writeValueAsString(getToFrom(MENU_1, mapper));
         doGet(ADMIN_MENU_URL_TEST + MENU_ID_1, menu);
     }

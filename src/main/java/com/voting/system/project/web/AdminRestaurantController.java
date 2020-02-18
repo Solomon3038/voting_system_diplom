@@ -33,13 +33,13 @@ public class AdminRestaurantController extends AbstractAdminController {
     }
 
     @GetMapping
-    public List<RestaurantTo> getAllRestaurants() {
+    public List<RestaurantTo> getAll() {
         log.info("getAll restaurants");
         return restaurantService.getAll();
     }
 
     @GetMapping("/{id}")
-    public RestaurantTo getRestaurant(@PathVariable int id) {
+    public RestaurantTo get(@PathVariable int id) {
         log.info("get restaurant with id {}", id);
         return restaurantService.get(id);
     }

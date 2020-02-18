@@ -32,13 +32,13 @@ public class AdminMenuController extends AbstractAdminController {
     }
 
     @GetMapping
-    public List<MenuWithDishesTo> getMenus(@PathVariable int restId) {
+    public List<MenuWithDishesTo> getAll(@PathVariable int restId) {
         log.info("getMenus for restaurant with id {}", restId);
         return menuService.getAll(restId);
     }
 
     @GetMapping("/{id}")
-    public MenuWithDishesTo getMenu(@PathVariable int restId, @PathVariable int id) {
+    public MenuWithDishesTo get(@PathVariable int restId, @PathVariable int id) {
         log.info("getMenu with id {} for restaurant with id {}", id, restId);
         return menuService.get(id, restId);
     }
