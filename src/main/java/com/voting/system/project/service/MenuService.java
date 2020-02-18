@@ -7,7 +7,6 @@ import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.MenuTo;
 import com.voting.system.project.to.MenuWithDishesTo;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;

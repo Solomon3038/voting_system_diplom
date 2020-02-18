@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestDataTo.getNewMenuTo;
 import static com.voting.system.project.TestDataTo.getUpdatedMenuTo;
 import static com.voting.system.project.util.MenuTestUtil.*;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;

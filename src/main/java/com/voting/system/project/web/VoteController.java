@@ -6,7 +6,6 @@ import com.voting.system.project.to.VoteTo;
 import com.voting.system.project.util.SecurityUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import static com.voting.system.project.util.ValidationUtil.checkNew;
