@@ -31,7 +31,7 @@ public class ExceptionInfoHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({VoteException.class})
     public final ResponseEntity<?> handleVoteException(VoteException ex, WebRequest request) throws Exception {
-        return getResponseEntity(request, ex.getMessage(), VOTE_ERROR, HttpStatus.UNPROCESSABLE_ENTITY);
+        return getResponseEntity(request, ex.getMessage(), VOTE_ERROR, HttpStatus.REQUEST_TIMEOUT);
     }
 
     @ExceptionHandler({IllegalRequestDataException.class})

@@ -25,8 +25,13 @@ public class VoteTestUtil {
         assertMatch(updated, expected);
     }
 
-    public static void checkIfRunTest() {
+    public static void checkIfBeforeTime() {
         assumeTrue(LocalTime.now().compareTo(VOTE_MAX_TIME) <= 0,
                 "text execution time is from 00:00:00AM till " + VOTE_MAX_TIME + "AM");
+    }
+
+    public static void checkIfAfterTime() {
+        assumeTrue(LocalTime.now().compareTo(VOTE_MAX_TIME) > 0,
+                "text execution time is from " + VOTE_MAX_TIME + "AM till 23:59:59AM");
     }
 }

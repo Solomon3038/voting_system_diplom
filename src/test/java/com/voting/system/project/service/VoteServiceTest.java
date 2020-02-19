@@ -9,13 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.ValidationUtil.VOTE_MAX_TIME;
 import static com.voting.system.project.util.VoteTestUtil.*;
 import static com.voting.system.project.util.VoteUtil.getToFrom;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class VoteServiceTest extends AbstractServiceTest {
 
@@ -24,7 +22,7 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void save() {
-        checkIfRunTest();
+        checkIfBeforeTime();
         final VoteTo voteTo = getToFrom(getNewVote());
         Vote saved = voteService.createOrUpdate(voteTo);
         checkSave(saved);
@@ -32,7 +30,7 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void update() {
-        checkIfRunTest();
+        checkIfBeforeTime();
         final VoteTo voteTo = getToFrom(getUpdatedVote(VOTE_USER_2));
         Vote updated = voteService.createOrUpdate(voteTo);
         checkUpdate(updated);
@@ -47,7 +45,7 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void createOrUpdateRestaurantNotExist() {
-        checkIfRunTest();
+        checkIfBeforeTime();
         Assertions.assertThrows(NotExistException.class, () -> voteService.createOrUpdate(new VoteTo(VOTE_ID_1, USER_ID_1, NOT_EXIST_ID)));
     }
 
@@ -66,8 +64,7 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void createOrUpdateNotInTime() {
-        assumeTrue(LocalTime.now().compareTo(VOTE_MAX_TIME) > 0,
-                "text execution time is from " + VOTE_MAX_TIME + "AM till 23:59:59AM");
+        checkIfAfterTime();
         Vote vote = getNewVote();
         final VoteException exception = Assertions.assertThrows(VoteException.class,
                 () -> voteService.createOrUpdate(getToFrom(vote)));

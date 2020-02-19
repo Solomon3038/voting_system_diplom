@@ -88,21 +88,21 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void createExistError() throws Exception {
-        final String restaurant = objectMapper.writeValueAsString(new Restaurant(RESTAURANT_ID_1, "New Name", "New Address"));
+    void createNotNew() throws Exception {
+        final String restaurant = objectMapper.writeValueAsString(new Restaurant(RESTAURANT_ID_NEXT, "New Name", "New Address"));
         doPostErr(restaurant, ADMIN_REST_URL_TEST, status().isUnprocessableEntity());
         Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(RESTAURANT_ID_NEXT));
     }
 
     @Test
-    void createDuplicateDataError() throws Exception {
+    void createDuplicateData() throws Exception {
         final String restaurant = objectMapper.writeValueAsString(new Restaurant(null, RESTAURANT_1.getName(), RESTAURANT_1.getAddress()));
         doPostErr(restaurant, ADMIN_REST_URL_TEST, status().isConflict());
         Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(RESTAURANT_ID_NEXT));
     }
 
     @Test
-    void createInvalidDataError() throws Exception {
+    void createInvalidData() throws Exception {
         final String restaurant = objectMapper.writeValueAsString(getInvalidNewRestaurantWithMenuAndDishesTo());
         doPostErr(restaurant, ADMIN_REST_URL_TEST, status().isUnprocessableEntity());
         Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(RESTAURANT_ID_NEXT));
@@ -121,13 +121,19 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void updateDuplicateDataError() throws Exception {
+    void updateNotExist() throws Exception {
+        doPutErr(new RestaurantTo(NOT_EXIST_ID, "Updated Name", "Updated Address"), status().isUnprocessableEntity());
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicateData() throws Exception {
         doPutErr(new RestaurantTo(RESTAURANT_ID_1, RESTAURANT_2.getName(), RESTAURANT_2.getAddress()), status().isConflict());
     }
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void updateInvalidDataError() throws Exception {
+    void updateInvalidData() throws Exception {
         doPutErr(new RestaurantTo(RESTAURANT_ID_1, "U", "A"), status().isUnprocessableEntity());
     }
 

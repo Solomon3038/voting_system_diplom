@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AdminMenuControllerTest extends AbstractControllerTest {
 
     public static final String ADMIN_MENU_URL_TEST = ADMIN_REST_URL + "/" + RESTAURANT_ID_1 + "/menus/";
-    public static final String ADMIN_MENU_NOT_EXIST_URL_TEST = ADMIN_REST_URL + "/" + NOT_EXIST_ID + "/menus/";
+    public static final String ADMIN_MENU_NOT_EXIST_URL_TEST = ADMIN_REST_URL + "/" + RESTAURANT_ID_NEXT + "/menus/";
 
     @Autowired
     private MenuService menuService;
@@ -82,15 +82,22 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void createNotNew() throws Exception {
+        final String menu = objectMapper.writeValueAsString(new MenuTo(MENU_ID_NEXT, LocalDate.now()));
+        doPostErr(menu, ADMIN_MENU_URL_TEST, status().isUnprocessableEntity());
+        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
+    }
+
+    @Test
     void createNotExist() throws Exception {
         final String menu = objectMapper.writeValueAsString(getNewMenuWithDishesTo());
         doPostErr(menu, ADMIN_MENU_NOT_EXIST_URL_TEST, status().isUnprocessableEntity());
-        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, NOT_EXIST_ID));
+        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
     }
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void createDuplicateDataError() throws Exception {
+    void createDuplicateData() throws Exception {
         doPostErr("{}", ADMIN_MENU_URL_TEST, status().isConflict());
         Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
     }
@@ -130,7 +137,7 @@ class AdminMenuControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void updateDuplicateDataError() throws Exception {
+    void updateDuplicateData() throws Exception {
         final String menu = objectMapper.writeValueAsString(new MenuTo(MENU_ID_1, LocalDate.now()));
         doPutErr(menu, ADMIN_MENU_URL_TEST + MENU_ID_1, status().isConflict());
         assertMatch(menuService.get(MENU_ID_1, RESTAURANT_ID_1), MENU_1);
