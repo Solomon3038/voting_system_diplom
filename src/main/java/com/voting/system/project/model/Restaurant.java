@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +28,8 @@ public class Restaurant extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.PERSIST)
     @OrderBy("registered DESC")
+    //https://stackoverflow.com/a/39878618/12805042
+    @Valid
     private List<Menu> menus;
 
     public Restaurant(Integer id, String name, String address) {

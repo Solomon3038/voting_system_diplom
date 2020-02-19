@@ -1,19 +1,19 @@
 package com.voting.system.project.web;
 
-import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.service.DishService;
+import com.voting.system.project.service.MenuService;
 import com.voting.system.project.service.RestaurantService;
-import com.voting.system.project.to.*;
+import com.voting.system.project.to.RestaurantTo;
+import com.voting.system.project.to.RestaurantWithMenusTo;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.TestDataTo.*;
@@ -30,6 +30,9 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
 
     @Autowired
     private RestaurantService restaurantService;
+
+    @Autowired
+    private MenuService menuService;
 
     @Autowired
     private DishService dishService;
@@ -87,26 +90,24 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
     @Test
     void createExistError() throws Exception {
         final String restaurant = objectMapper.writeValueAsString(new Restaurant(RESTAURANT_ID_1, "New Name", "New Address"));
-        doPostUnprocessable(restaurant, ADMIN_REST_URL_TEST, status().isUnprocessableEntity());
+        doPostErr(restaurant, ADMIN_REST_URL_TEST, status().isUnprocessableEntity());
+        Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(RESTAURANT_ID_NEXT));
     }
 
     @Test
-    void createSameDataError() throws Exception {
+    void createDuplicateDataError() throws Exception {
         final String restaurant = objectMapper.writeValueAsString(new Restaurant(null, RESTAURANT_1.getName(), RESTAURANT_1.getAddress()));
-        doPostUnprocessable(restaurant, ADMIN_REST_URL_TEST, status().isConflict());
+        doPostErr(restaurant, ADMIN_REST_URL_TEST, status().isConflict());
+        Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(RESTAURANT_ID_NEXT));
     }
 
     @Test
-    @Transactional(propagation = Propagation.NEVER)
-    void createDishDataError() throws Exception {
-        final RestaurantWithMenusTo newRestaurant = getNewRestaurantWithMenuTo();
-        final MenuWithDishesTo menuWithDishesTo = new MenuWithDishesTo(null);
-        menuWithDishesTo.setDishes(Arrays.asList(new DishTo(null, "", 0)));
-        newRestaurant.setMenus(Arrays.asList(menuWithDishesTo));
-        final String restaurant = objectMapper.writeValueAsString(newRestaurant);
-        doPostUnprocessable(restaurant, ADMIN_REST_URL_TEST, status().isUnprocessableEntity());
-        Assertions.assertThrows(NotExistException.class,
-                () -> dishService.get(DISH_ID_15 + 1, MENU_ID_6 + 1));
+    void createInvalidDataError() throws Exception {
+        final String restaurant = objectMapper.writeValueAsString(getInvalidNewRestaurantWithMenuAndDishesTo());
+        doPostErr(restaurant, ADMIN_REST_URL_TEST, status().isUnprocessableEntity());
+        Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(RESTAURANT_ID_NEXT));
+        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
+        Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_NEXT));
     }
 
     @Test
@@ -116,5 +117,23 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
         final String restaurant = objectMapper.writeValueAsString(updatedRestaurant);
         doPut(restaurant, ADMIN_REST_URL_TEST + RESTAURANT_ID_1);
         assertMatch(restaurantService.get(RESTAURANT_ID_1), updatedRestaurant);
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicateDataError() throws Exception {
+        doPutErr(new RestaurantTo(RESTAURANT_ID_1, RESTAURANT_2.getName(), RESTAURANT_2.getAddress()), status().isConflict());
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateInvalidDataError() throws Exception {
+        doPutErr(new RestaurantTo(RESTAURANT_ID_1, "U", "A"), status().isUnprocessableEntity());
+    }
+
+    private void doPutErr(RestaurantTo updatedRestaurant, ResultMatcher status) throws Exception {
+        final String restaurant = objectMapper.writeValueAsString(updatedRestaurant);
+        doPutErr(restaurant, ADMIN_REST_URL_TEST + RESTAURANT_ID_1, status);
+        assertMatch(restaurantService.get(RESTAURANT_ID_1), RESTAURANT_1);
     }
 }

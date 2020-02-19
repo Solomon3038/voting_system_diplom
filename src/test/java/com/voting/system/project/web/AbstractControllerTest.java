@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -18,7 +16,6 @@ import javax.annotation.PostConstruct;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -88,8 +85,15 @@ public abstract class AbstractControllerTest extends AbstractTest {
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    protected void doPostUnprocessable(String jsonObject, String url, ResultMatcher status) throws Exception {
+    protected void doPostErr(String jsonObject, String url, ResultMatcher status) throws Exception {
         mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonObject))
+                .andExpect(status);
+    }
+
+    protected void doPutErr(String jsonObject, String url, ResultMatcher status) throws Exception {
+        mockMvc.perform(put(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObject))
                 .andExpect(status);

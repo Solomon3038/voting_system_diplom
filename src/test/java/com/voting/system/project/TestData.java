@@ -28,6 +28,7 @@ public class TestData {
     public static final int RESTAURANT_ID_2 = RESTAURANT_ID_1 + 1;
     public static final int RESTAURANT_ID_3 = RESTAURANT_ID_2 + 1;
     public static final int RESTAURANT_ID_4 = RESTAURANT_ID_3 + 1;
+    public static final int RESTAURANT_ID_NEXT = RESTAURANT_ID_4 + 1;
 
     public static final Restaurant RESTAURANT_1 = new Restaurant(RESTAURANT_ID_1, "Manhattan-skybar", "вулиця Соборна, 112, Рівне, Рівненська область, 33000");
     public static final Restaurant RESTAURANT_2 = new Restaurant(RESTAURANT_ID_2, "Gastro", "проспект Миру, 10, Рівне, Рівненська область, 33013");
@@ -40,6 +41,7 @@ public class TestData {
     public static final int MENU_ID_4 = MENU_ID_3 + 1;
     public static final int MENU_ID_5 = MENU_ID_4 + 1;
     public static final int MENU_ID_6 = MENU_ID_5 + 1;
+    public static final int MENU_ID_NEXT = MENU_ID_6 + 1;
 
     public static final Menu MENU_1 = new Menu(MENU_ID_1, LocalDate.of(2020, 1, 1), RESTAURANT_1);
     public static final Menu MENU_2 = new Menu(MENU_ID_2, LocalDate.of(2020, 1, 1), RESTAURANT_2);
@@ -64,6 +66,7 @@ public class TestData {
     public static final int DISH_ID_13 = DISH_ID_12 + 1;
     public static final int DISH_ID_14 = DISH_ID_13 + 1;
     public static final int DISH_ID_15 = DISH_ID_14 + 1;
+    public static final int DISH_ID_NEXT = DISH_ID_15 + 1;
 
     public static final Dish DISH_1_1 = new Dish(DISH_ID_1, "Шатобріан", 99_00, MENU_1);
     public static final Dish DISH_1_2 = new Dish(DISH_ID_2, "Червоний борщ", 38_00, MENU_1);

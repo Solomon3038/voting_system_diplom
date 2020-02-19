@@ -28,6 +28,15 @@ public class TestDataTo {
         return restaurant;
     }
 
+    public static RestaurantWithMenusTo getInvalidNewRestaurantWithMenuAndDishesTo() {
+        RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
+        MenuWithDishesTo menu = new MenuWithDishesTo(null);
+        DishTo dish1 = new DishTo(null, "", 0);
+        menu.setDishes(Arrays.asList(dish1));
+        restaurant.setMenus(Arrays.asList(menu));
+        return restaurant;
+    }
+
     public static RestaurantTo getNewRestaurantTo() {
         return new RestaurantTo(null, "New Restaurant", "new Address");
     }
@@ -47,6 +56,13 @@ public class TestDataTo {
     public static MenuWithDishesTo getNewMenuWithDishesTo() {
         MenuWithDishesTo menu = new MenuWithDishesTo(null, LocalDate.of(2020, 3, 1));
         DishTo dish = new DishTo(null, "dish 1", 10_00);
+        menu.setDishes(Collections.singletonList(dish));
+        return menu;
+    }
+
+    public static MenuWithDishesTo getInvalidNewMenuWithDishesTo() {
+        MenuWithDishesTo menu = new MenuWithDishesTo(null, LocalDate.of(2020, 3, 1));
+        DishTo dish = new DishTo(null, "d", 10_00);
         menu.setDishes(Collections.singletonList(dish));
         return menu;
     }

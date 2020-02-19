@@ -43,7 +43,6 @@ public class MenuService {
         return tos;
     }
 
-    //TODO check transaction roll back dishes not valid
     @Transactional
     public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");

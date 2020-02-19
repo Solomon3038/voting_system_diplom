@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class Menu extends AbstractBaseEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu", cascade = CascadeType.PERSIST)
     @OrderBy("name ASC")
     @BatchSize(size = 200)
+    @Valid
     private List<Dish> dishes = new ArrayList<>();
 
     public Menu(Integer id, Restaurant restaurant) {
