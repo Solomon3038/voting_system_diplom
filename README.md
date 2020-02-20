@@ -52,7 +52,12 @@
           <td> PUT </td>
           <td> restaurants/1/votes </td>
           <td> 204 No Content </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 408 Request Timeout </p>
+          </td>
  </tr>
 <tr>
 <td>
@@ -79,7 +84,7 @@ curl --location --request PUT 'http://localhost:8080/restaurants/1/votes' \
         <td> GET </td>
         <td> /restaurants </td>
         <td> 200 OK</td>
-        <td> - </td>
+        <td></td>
     </tr>
       <tr>
       <td></td>
@@ -298,7 +303,12 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1' \
           <td> POST </td>
           <td> /admin/restaurants </td>
           <td> 201 Created </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td>
@@ -354,7 +364,12 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants' \
           <td> POST </td>
           <td> /admin/restaurants </td>
           <td> 201 Created </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td>
@@ -423,7 +438,12 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants' \
           <td> POST </td>
           <td> /admin/restaurants </td>
           <td> 201 Created </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td>
@@ -526,7 +546,12 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants' \
           <td> PUT </td>
           <td> /admin/restaurants/1 </td>
           <td> 204 No Content </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td>
@@ -712,7 +737,12 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1/menus/1
           <td> POST </td>
           <td> /admin/restaurants/4/menus </td>
           <td> 201 Created </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td> 
@@ -767,7 +797,12 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants/1/menus'
           <td> POST </td>
           <td> /admin/restaurants/4/menus </td>
           <td> 201 Created </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td> 
@@ -884,7 +919,12 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants/4/menus'
           <td> PUT </td>
           <td> /admin/restaurants/4/menus/1 </td>
           <td> 204 No Content </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td> 
@@ -1016,7 +1056,12 @@ curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes/1' \
           <td> POST </td>
           <td> admin/menus/1/dishes </td>
           <td> 201 Created </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td> 
@@ -1070,7 +1115,12 @@ curl --location --request POST 'http://localhost:8080/admin/menus/1/dishes' \
           <td> PUT </td>
           <td> admin/menus/1/dishes/3 </td>
           <td> 204 No Content </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
+          </td>
       </tr>
 <tr>
 <td> 
@@ -1111,10 +1161,14 @@ curl --location --request PUT 'http://localhost:8080/admin/menus/1/dishes/3' \
 <tr>
           <td><b> Delete dish </b></td>
           <td> ROLE_ADMIN </td>
-          <td> PUT </td>
+          <td> DELETE </td>
           <td> admin/menus/1/dishes/1 </td>
           <td> 204 No Content </td>
-          <td>  </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          </td>
       </tr>
 <tr>
 <td> 
