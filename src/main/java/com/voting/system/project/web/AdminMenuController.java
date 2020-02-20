@@ -15,20 +15,25 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.voting.system.project.util.ControllerUtil.getResponseEntity;
 import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.assureIdConsistent;
 import static com.voting.system.project.util.ValidationUtil.checkNew;
+import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
 
 @Log4j2
 @RestController
 @RequestMapping(value = AdminMenuController.ADMIN_MENU_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminMenuController extends AbstractAdminController {
+public class AdminMenuController {
+
+    public static final String ADMIN_MENU_URL = ADMIN_REST_URL + "/{restId}/menus";
 
     private final MenuService menuService;
+    protected final ModelMapper mapper;
 
-    public AdminMenuController(MenuService menuService, ModelMapper mapper) {
-        super(mapper);
+    public AdminMenuController(MenuService menuService, ModelMapper mapper, ModelMapper mapper1) {
         this.menuService = menuService;
+        this.mapper = mapper1;
     }
 
     @GetMapping

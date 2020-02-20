@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.voting.system.project.util.ControllerUtil.getResponseEntity;
 import static com.voting.system.project.util.RestaurantUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.assureIdConsistent;
 import static com.voting.system.project.util.ValidationUtil.checkNew;
@@ -23,13 +24,16 @@ import static com.voting.system.project.util.ValidationUtil.checkNew;
 @Log4j2
 @RestController
 @RequestMapping(value = AdminRestaurantController.ADMIN_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestaurantController extends AbstractAdminController {
+public class AdminRestaurantController {
+
+    public static final String ADMIN_REST_URL = "/admin/restaurants";
 
     private final RestaurantService restaurantService;
+    protected final ModelMapper mapper;
 
-    public AdminRestaurantController(RestaurantService restaurantService, ModelMapper mapper) {
-        super(mapper);
+    public AdminRestaurantController(RestaurantService restaurantService, ModelMapper mapper, ModelMapper mapper1) {
         this.restaurantService = restaurantService;
+        this.mapper = mapper1;
     }
 
     @GetMapping

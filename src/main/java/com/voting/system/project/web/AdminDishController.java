@@ -13,19 +13,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.voting.system.project.util.ControllerUtil.getResponseEntity;
 import static com.voting.system.project.util.ValidationUtil.assureIdConsistent;
 import static com.voting.system.project.util.ValidationUtil.checkNew;
 
 @Log4j2
 @RestController
 @RequestMapping(value = AdminDishController.ADMIN_DISH_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminDishController extends AbstractAdminController {
+public class AdminDishController {
+
+    public static final String ADMIN_DISH_URL = "admin/menus/{menuId}/dishes";
 
     private final DishService dishService;
+    protected final ModelMapper mapper;
 
-    public AdminDishController(DishService dishService, ModelMapper mapper) {
-        super(mapper);
+    public AdminDishController(DishService dishService, ModelMapper mapper, ModelMapper mapper1) {
         this.dishService = dishService;
+        this.mapper = mapper1;
     }
 
     @GetMapping
