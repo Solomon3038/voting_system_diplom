@@ -1051,7 +1051,7 @@ curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes/1' \
 <td></td>
 </tr>
       <tr>
-          <td><b> Create menu </b></td>
+          <td><b> Create dish </b></td>
           <td> ROLE_ADMIN </td>
           <td> POST </td>
           <td> admin/menus/1/dishes </td>
