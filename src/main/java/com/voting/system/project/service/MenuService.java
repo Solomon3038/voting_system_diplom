@@ -7,6 +7,7 @@ import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.MenuTo;
 import com.voting.system.project.to.MenuWithDishesTo;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -43,6 +44,7 @@ public class MenuService {
         return tos;
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
@@ -50,6 +52,7 @@ public class MenuService {
         return menuRepository.save(menu);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(MenuTo menuTo, int id, int restaurantId) {
         Assert.notNull(menuTo, "menu must not be null");

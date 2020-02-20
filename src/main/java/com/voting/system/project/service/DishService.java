@@ -6,6 +6,7 @@ import com.voting.system.project.repository.DishRepository;
 import com.voting.system.project.repository.MenuRepository;
 import com.voting.system.project.to.DishTo;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -41,6 +42,7 @@ public class DishService {
         return mapper.map(dish, DishTo.class);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public Dish create(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
@@ -49,6 +51,7 @@ public class DishService {
         return dishRepository.save(dish);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(Dish dish, int id, int menuId) {
         Assert.notNull(dish, "dish must not be null");
@@ -56,6 +59,7 @@ public class DishService {
         dishRepository.setValue(id, menuId, dish.getName(), dish.getPrice());
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id, int menuId) {
         checkNotExistWithId(dishRepository.deleteByIdAndMenuId(id, menuId) == 1, id);
     }

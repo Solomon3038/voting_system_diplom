@@ -5,6 +5,8 @@ import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -38,7 +40,7 @@ public class RestaurantService {
         return restaurantTos;
     }
 
-    //TODO add cache
+    @Cacheable("restaurants")
     public List<RestaurantWithMenusTo> getAllWithMenusOnCurrentDate() {
         final List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnCurrentDate();
         final List<RestaurantWithMenusTo> restaurantTos = new ArrayList<>();
@@ -46,12 +48,14 @@ public class RestaurantService {
         return restaurantTos;
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public Restaurant create(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(RestaurantTo restaurantTo, int id) {
         Assert.notNull(restaurantTo, "restaurant must not be null");
