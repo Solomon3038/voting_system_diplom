@@ -1,7 +1,6 @@
 package com.voting.system.project.service;
 
 import com.voting.system.project.model.Dish;
-import com.voting.system.project.model.Menu;
 import com.voting.system.project.repository.DishRepository;
 import com.voting.system.project.repository.MenuRepository;
 import com.voting.system.project.to.DishTo;
@@ -46,8 +45,7 @@ public class DishService {
     @Transactional
     public Dish create(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        final Menu menu = checkNotExistWithId(menuRepository.findById(menuId).orElse(null), menuId);
-        dish.setMenu(menu);
+        dish.setMenu(menuRepository.getOne(menuId));
         return dishRepository.save(dish);
     }
 
@@ -56,7 +54,8 @@ public class DishService {
     public void update(Dish dish, int id, int menuId) {
         Assert.notNull(dish, "dish must not be null");
         checkNotExistWithId(dishRepository.findDishByIdAndMenuId(id, menuId), id);
-        dishRepository.setValue(id, menuId, dish.getName(), dish.getPrice());
+        dish.setMenu(menuRepository.getOne(menuId));
+        dishRepository.save(dish);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

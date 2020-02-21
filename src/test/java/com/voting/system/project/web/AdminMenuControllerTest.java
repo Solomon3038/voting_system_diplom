@@ -89,9 +89,10 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void createNotExist() throws Exception {
         final String menu = objectMapper.writeValueAsString(getNewMenuWithDishesTo());
-        doPostErr(menu, ADMIN_MENU_NOT_EXIST_URL_TEST, status().isUnprocessableEntity());
+        doPostErr(menu, ADMIN_MENU_NOT_EXIST_URL_TEST, status().isConflict());
         Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
     }
 

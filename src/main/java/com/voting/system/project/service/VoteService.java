@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import static com.voting.system.project.util.ValidationUtil.*;
+import static com.voting.system.project.util.ValidationUtil.checkDate;
+import static com.voting.system.project.util.ValidationUtil.checkTime;
 import static com.voting.system.project.util.VoteUtil.getFromTo;
 
 @Service
@@ -32,7 +33,7 @@ public class VoteService {
         Assert.notNull(voteTo, "vote must not be null");
         checkDate(voteTo.getDate());
         checkTime();
-        final Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(voteTo.getRestaurantId().intValue()), voteTo.getRestaurantId());
+        final Restaurant restaurant = restaurantRepository.getOne(voteTo.getRestaurantId());
         final User user = userRepository.getOne(voteTo.getUserId());
         final Vote existed = voteRepository.findVoteByUserIdOnCurrentDate(voteTo.getUserId());
         if (existed != null) {

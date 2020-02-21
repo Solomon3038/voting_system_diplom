@@ -46,6 +46,12 @@ class MenuServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    void getAllNotExist() {
+        final List<MenuWithDishesTo> tos = menuService.getAll(NOT_EXIST_ID);
+        Assertions.assertTrue(tos.isEmpty());
+    }
+
+    @Test
     void create() {
         final Menu saved = menuService.create(getNewMenu(), RESTAURANT_ID_4);
         checkSave(saved);
@@ -62,12 +68,6 @@ class MenuServiceTest extends AbstractServiceTest {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> menuService.create(null, RESTAURANT_ID_4));
         Assertions.assertEquals("menu must not be null", exception.getMessage());
-    }
-
-    @Test
-    void createNotExistError() {
-        Assertions.assertThrows(NotExistException.class,
-                () -> menuService.create(getNewMenuWithDishes(), NOT_EXIST_ID));
     }
 
     @Test

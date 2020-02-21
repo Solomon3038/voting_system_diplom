@@ -70,9 +70,10 @@ class AdminDishControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void createNotExist() throws Exception {
         final String dish = objectMapper.writeValueAsString(new DishTo(null, "New Name", 15_00));
-        doPostErr(dish, ADMIN_DISH_NOT_EXIST_URL_TEST, status().isUnprocessableEntity());
+        doPostErr(dish, ADMIN_DISH_NOT_EXIST_URL_TEST, status().isConflict());
         Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_NEXT));
     }
 

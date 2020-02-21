@@ -1,7 +1,6 @@
 package com.voting.system.project.service;
 
 import com.voting.system.project.model.Menu;
-import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.MenuRepository;
 import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.MenuTo;
@@ -15,6 +14,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.voting.system.project.util.MenuUtil.getFromTo;
 import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
@@ -48,7 +48,7 @@ public class MenuService {
     @Transactional
     public Menu create(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu must not be null");
-        setRestaurant(menu, restaurantId);
+        menu.setRestaurant(restaurantRepository.getOne(restaurantId));
         return menuRepository.save(menu);
     }
 
@@ -57,11 +57,8 @@ public class MenuService {
     public void update(MenuTo menuTo, int id, int restaurantId) {
         Assert.notNull(menuTo, "menu must not be null");
         checkNotExistWithId(menuRepository.findByIdAndRestaurantId(id, restaurantId), id);
-        menuRepository.setValue(id, menuTo.getId(), menuTo.getRegistered());
-    }
-
-    private void setRestaurant(Menu menu, int restaurantId) {
-        final Restaurant restaurant = checkNotExistWithId(restaurantRepository.findById(restaurantId), restaurantId);
-        menu.setRestaurant(restaurant);
+        final Menu menu = getFromTo(menuTo);
+        menu.setRestaurant(restaurantRepository.getOne(restaurantId));
+        menuRepository.save(menu);
     }
 }

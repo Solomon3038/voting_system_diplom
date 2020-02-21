@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
@@ -38,9 +40,10 @@ class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(USER_1_EMAIL)
+    @Transactional(propagation = Propagation.NEVER)
     void createOrUpdateNotExist() throws Exception {
         checkIfBeforeTime();
-        doPutErr("", VOTE_NOT_EXIST_URL_TEST, status().isUnprocessableEntity());
+        doPutErr("", VOTE_NOT_EXIST_URL_TEST, status().isConflict());
         Assertions.assertNull(voteRepository.findVoteByUserIdOnCurrentDate(USER_ID_1));
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 import static com.voting.system.project.TestData.*;
 import static com.voting.system.project.util.DishTestUtil.checkSave;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DishRepositoryTest extends AbstractRepositoryTest {
 
@@ -53,28 +52,9 @@ class DishRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void update() {
-        final Dish expected = getUpdatedDish(DISH_1_1);
-        int rows = dishRepository.setValue(DISH_ID_1, MENU_ID_1, expected.getName(), expected.getPrice());
-        assertEquals(1, rows);
-        Dish actual = dishRepository.findDishByIdAndMenuId(DISH_ID_1, MENU_ID_1);
+        Dish actual = dishRepository.save(getUpdatedDish(DISH_1_1));
+        Dish expected = getUpdatedDish(DISH_1_1);
         assertMatch(actual, expected);
-    }
-
-    @Test
-    void updateNotExist() {
-        int rows = dishRepository.setValue(NOT_EXIST_ID, MENU_ID_1, "not exist", 100);
-        assertEquals(0, rows);
-        Dish actual = dishRepository.findDishByIdAndMenuId(NOT_EXIST_ID, MENU_ID_1);
-        Assertions.assertNull(actual);
-    }
-
-    @Test
-    void updateNotOwn() {
-        final Dish expected = getUpdatedDish(DISH_1_1);
-        int rows = dishRepository.setValue(DISH_ID_1, MENU_ID_2, expected.getName(), expected.getPrice());
-        assertEquals(0, rows);
-        Dish actual = dishRepository.findDishByIdAndMenuId(DISH_ID_1, MENU_ID_1);
-        assertMatch(actual, DISH_1_1);
     }
 
     @Test

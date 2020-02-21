@@ -2,7 +2,6 @@ package com.voting.system.project.service;
 
 import com.voting.system.project.model.Vote;
 import com.voting.system.project.to.VoteTo;
-import com.voting.system.project.util.exception.NotExistException;
 import com.voting.system.project.util.exception.VoteException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -41,12 +40,6 @@ class VoteServiceTest extends AbstractServiceTest {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> voteService.createOrUpdate(null));
         Assertions.assertEquals("vote must not be null", exception.getMessage());
-    }
-
-    @Test
-    void createOrUpdateRestaurantNotExist() {
-        checkIfBeforeTime();
-        Assertions.assertThrows(NotExistException.class, () -> voteService.createOrUpdate(new VoteTo(VOTE_ID_1, USER_ID_1, NOT_EXIST_ID)));
     }
 
     @Test

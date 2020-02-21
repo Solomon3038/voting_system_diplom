@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.voting.system.project.util.RestaurantUtil.getFromTo;
 import static com.voting.system.project.util.RestaurantUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 
@@ -60,6 +61,7 @@ public class RestaurantService {
     public void update(RestaurantTo restaurantTo, int id) {
         Assert.notNull(restaurantTo, "restaurant must not be null");
         checkNotExistWithId(restaurantRepository.findById(restaurantTo.getId().intValue()), id);
-        restaurantRepository.setValue(id, restaurantTo.getName(), restaurantTo.getAddress());
+        Restaurant restaurant = getFromTo(restaurantTo);
+        restaurantRepository.save(restaurant);
     }
 }

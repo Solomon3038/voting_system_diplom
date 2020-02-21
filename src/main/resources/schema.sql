@@ -31,7 +31,7 @@ create table dishes
     NAME    VARCHAR(100) not null,
     PRICE   BIGINT       not null,
     MENU_ID INTEGER      not null,
-    constraint USERS_UNIQUE_EMAIL_IDX unique (NAME, MENU_ID),
+    constraint USERS_UNIQUE_NAME_IDX unique (NAME, MENU_ID),
     constraint FK_MENU_ID foreign key (MENU_ID) references MENUS (ID)
 );
 

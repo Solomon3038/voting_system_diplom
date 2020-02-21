@@ -29,6 +29,12 @@ class DishServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    void getAllNotExist() {
+        final List<DishTo> dishTos = dishService.getAll(NOT_EXIST_ID);
+        Assertions.assertTrue(dishTos.isEmpty());
+    }
+
+    @Test
     void get() {
         assertMatch(dishService.get(DISH_ID_1, MENU_ID_1), DISH_1_1);
     }
@@ -54,11 +60,6 @@ class DishServiceTest extends AbstractServiceTest {
         final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> dishService.create(null, MENU_ID_1));
         Assertions.assertEquals("dish must not be null", exception.getMessage());
-    }
-
-    @Test
-    void saveNotExist() {
-        Assertions.assertThrows(NotExistException.class, () -> dishService.create(getNewDish(), NOT_EXIST_ID));
     }
 
     @Test

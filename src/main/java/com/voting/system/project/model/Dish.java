@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString(callSuper = true, exclude = "menu")
-@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "menu_id"}, name = "users_unique_email_idx")})
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "menu_id"}, name = "users_unique_name_idx")})
 public class Dish extends AbstractNamedEntity {
 
     @Column(name = "price", nullable = false)

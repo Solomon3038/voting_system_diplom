@@ -205,7 +205,10 @@ curl --location --request GET 'http://localhost:8080/restaurants' \
         <td> GET </td>
         <td> /admin/restaurants </td>
         <td> 200 OK</td>
-        <td> 401 Unauthorized </td>
+        <td> 
+           <p> 401 Unauthorized </p>
+           <p> 403 Forbidden </p>
+        </td>
     </tr>
     <tr>
     <td></td>
@@ -264,7 +267,11 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants' \
           <td> GET </td>
           <td> /admin/restaurants/1 </td>
           <td> 200 OK</td>
-          <td> 401 Unauthorized </td>
+          <td>
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+           </td>
       </tr>
 <tr>
 <td></td>
@@ -594,7 +601,10 @@ curl --location --request PUT 'http://localhost:8080/admin/restaurants/1' \
           <td> GET </td>
           <td> admin/restaurants/1/menus </td>
           <td> 200 OK</td>
-          <td> 401 Unauthorized </td>
+          <td>
+               <p> 401 Unauthorized </p>
+               <p> 403 Forbidden </p>
+          </td>
       </tr>
 <tr>
 <td></td>
@@ -679,7 +689,11 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1/menus' 
           <td> GET </td>
           <td> admin/restaurants/1/menus/1 </td>
           <td> 200 OK</td>
-          <td> 401 Unauthorized </td>
+          <td> 
+              <p> 401 Unauthorized </p>
+              <p> 403 Forbidden </p>
+              <p> 422 Unprocessable Entity </p>
+          </td>
       </tr>
 <tr>
 <td></td>
@@ -917,7 +931,7 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants/4/menus'
           <td><b> Update menu </b></td>
           <td> ROLE_ADMIN </td>
           <td> PUT </td>
-          <td> /admin/restaurants/4/menus/1 </td>
+          <td> /admin/restaurants/1/menus/1 </td>
           <td> 204 No Content </td>
           <td>
           <p> 401 Unauthorized </p>
@@ -964,7 +978,10 @@ curl --location --request PUT 'http://localhost:8080/admin/restaurants/1/menus/1
           <td> GET </td>
           <td> admin/menus/1/dishes </td>
           <td> 200 OK</td>
-          <td> 401 Unauthorized </td>
+          <td> 
+            <p> 401 Unauthorized </p>
+            <p> 403 Forbidden </p>       
+           </td>
       </tr>
 <tr>
 <td></td>
@@ -1017,7 +1034,11 @@ curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes' \
           <td> GET </td>
           <td> admin/menus/1/dishes/1 </td>
           <td> 200 OK</td>
-          <td> 401 Unauthorized </td>
+          <td> 
+          <p> 401 Unauthorized </p>
+          <p> 403 Forbidden </p>
+          <p> 422 Unprocessable Entity </p>
+          </td>
       </tr>
 <tr>
 <td></td>
