@@ -1,5 +1,7 @@
 # voting_system_diplom
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0dbc929729a7430aa89705795eda5ac8)](https://app.codacy.com/manual/gagarina6794/voting_system_diplom?utm_source=github.com&utm_medium=referral&utm_content=gagarina6794/voting_system_diplom&utm_campaign=Badge_Grade_Dashboard)
+
 ### Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
 **The task is:**
