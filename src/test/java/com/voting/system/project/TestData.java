@@ -43,9 +43,9 @@ public class TestData {
     public static final int MENU_ID_6 = MENU_ID_5 + 1;
     public static final int MENU_ID_NEXT = MENU_ID_6 + 1;
 
-    public static final Menu MENU_1 = new Menu(MENU_ID_1, LocalDate.of(2020, 1, 1), RESTAURANT_1);
-    public static final Menu MENU_2 = new Menu(MENU_ID_2, LocalDate.of(2020, 1, 1), RESTAURANT_2);
-    public static final Menu MENU_3 = new Menu(MENU_ID_3, LocalDate.of(2020, 1, 1), RESTAURANT_3);
+    public static final Menu MENU_1 = new Menu(MENU_ID_1, LocalDate.of(2021, 6, 1), RESTAURANT_1);
+    public static final Menu MENU_2 = new Menu(MENU_ID_2, LocalDate.of(2021, 6, 1), RESTAURANT_2);
+    public static final Menu MENU_3 = new Menu(MENU_ID_3, LocalDate.of(2021, 6, 1), RESTAURANT_3);
 
     public static final Menu MENU_1_NOW = new Menu(MENU_ID_4, RESTAURANT_1);
     public static final Menu MENU_2_NOW = new Menu(MENU_ID_5, RESTAURANT_2);
@@ -97,7 +97,7 @@ public class TestData {
     public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_4_NO_MENU, RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
 
     public static final List<Menu> MENUS_NOW = List.of(MENU_1_NOW, MENU_2_NOW, MENU_3_NOW);
-    public static final List<Menu> RESTAURANT_1_MENUS = List.of(MENU_1_NOW, MENU_1);
+    public static final List<Menu> RESTAURANT_1_MENUS = List.of(MENU_1, MENU_1_NOW);
 
     public static final List<Dish> RESTAURANT_1_MENU_1_DISHES = List.of(DISH_1_3, DISH_1_2, DISH_1_1);
     public static final List<Dish> RESTAURANT_1_MENU_1_NOW_DISHES = List.of(DISH_1_3_NOW, DISH_1_2_NOW, DISH_1_1_NOW);

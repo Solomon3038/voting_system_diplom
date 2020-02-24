@@ -28,11 +28,11 @@ public class MenuTestUtil {
         List<Dish> dishesNow = actual.get(0).getDishes().stream()
                 .sorted(Comparator.comparing(Dish::getName))
                 .collect(Collectors.toList());
-        assertMatch(dishesNow, RESTAURANT_1_MENU_1_NOW_DISHES);
+        assertMatch(dishesNow, RESTAURANT_1_MENU_1_DISHES);
         List<Dish> dishes = actual.get(1).getDishes().stream()
                 .sorted(Comparator.comparing(Dish::getName))
                 .collect(Collectors.toList());
-        assertMatch(dishes, RESTAURANT_1_MENU_1_DISHES);
+        assertMatch(dishes, RESTAURANT_1_MENU_1_NOW_DISHES);
     }
 
     public static void checkSaveWithDishes(Menu saved) {

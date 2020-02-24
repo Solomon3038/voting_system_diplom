@@ -50,12 +50,12 @@
           <td><b> Vote </b></td>
           <td> ROLE_USER </td>
           <td> PUT </td>
-          <td> restaurants/1/votes </td>
+          <td> /restaurants/1/votes </td>
           <td> 204 No Content </td>
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
+          <p> 409 Conflict </p>
           <p> 408 Request Timeout </p>
           </td>
  </tr>
@@ -599,7 +599,7 @@ curl --location --request PUT 'http://localhost:8080/admin/restaurants/1' \
           <td><b> Get all menus with dishes for restaurant </b></td>
           <td> ROLE_ADMIN </td>
           <td> GET </td>
-          <td> admin/restaurants/1/menus </td>
+          <td> /admin/restaurants/1/menus </td>
           <td> 200 OK</td>
           <td>
                <p> 401 Unauthorized </p>
@@ -687,7 +687,7 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1/menus' 
           <td><b> Get one menu with dishes for restaurant </b></td>
           <td> ROLE_ADMIN </td>
           <td> GET </td>
-          <td> admin/restaurants/1/menus/1 </td>
+          <td> /admin/restaurants/1/menus/1 </td>
           <td> 200 OK</td>
           <td> 
               <p> 401 Unauthorized </p>
@@ -1032,7 +1032,7 @@ curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes' \
           <td><b> Get one dish for menu </b></td>
           <td> ROLE_ADMIN </td>
           <td> GET </td>
-          <td> admin/menus/1/dishes/1 </td>
+          <td> /admin/menus/1/dishes/1 </td>
           <td> 200 OK</td>
           <td> 
           <p> 401 Unauthorized </p>
@@ -1075,7 +1075,7 @@ curl --location --request GET 'http://localhost:8080/admin/menus/1/dishes/1' \
           <td><b> Create dish </b></td>
           <td> ROLE_ADMIN </td>
           <td> POST </td>
-          <td> admin/menus/1/dishes </td>
+          <td> /admin/menus/1/dishes </td>
           <td> 201 Created </td>
           <td>
           <p> 401 Unauthorized </p>
@@ -1134,7 +1134,7 @@ curl --location --request POST 'http://localhost:8080/admin/menus/1/dishes' \
           <td><b> Update dish </b></td>
           <td> ROLE_ADMIN </td>
           <td> PUT </td>
-          <td> admin/menus/1/dishes/3 </td>
+          <td> /admin/menus/1/dishes/3 </td>
           <td> 204 No Content </td>
           <td>
           <p> 401 Unauthorized </p>
@@ -1183,7 +1183,7 @@ curl --location --request PUT 'http://localhost:8080/admin/menus/1/dishes/3' \
           <td><b> Delete dish </b></td>
           <td> ROLE_ADMIN </td>
           <td> DELETE </td>
-          <td> admin/menus/1/dishes/1 </td>
+          <td> /admin/menus/1/dishes/1 </td>
           <td> 204 No Content </td>
           <td>
           <p> 401 Unauthorized </p>

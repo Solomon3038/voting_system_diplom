@@ -41,7 +41,7 @@ class MenuRepositoryTest extends AbstractRepositoryTest {
     void findAllByRestaurantIdOrderByRegisteredDesc() {
         List<Menu> actual = menuRepository.findAllByRestaurantIdOrderByRegisteredDesc(RESTAURANT_ID_1);
         checkEntityFieldLoadingType(Menu.class, "dishes", false);
-        assertMatch(actual, MENU_1_NOW, MENU_1);
+        assertMatch(actual, MENU_1, MENU_1_NOW);
     }
 
     @Test

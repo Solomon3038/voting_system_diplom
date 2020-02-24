@@ -17,9 +17,9 @@ VALUES (1, 'Manhattan-skybar', 'вулиця Соборна, 112, Рівне, Р
        (4, 'Closed', 'вулиця Грушевського, 120, Рівне, Рівненська область, 33000');
 
 INSERT INTO MENUS (id, registered, restaurant_id)
-VALUES (1, '2020-01-01', 1),
-       (2, '2020-01-01', 2),
-       (3, '2020-01-01', 3);
+VALUES (1, '2021-06-01', 1),
+       (2, '2021-06-01', 2),
+       (3, '2021-06-01', 3);
 
 INSERT INTO MENUS (id, restaurant_id)
 VALUES (4, 1),
