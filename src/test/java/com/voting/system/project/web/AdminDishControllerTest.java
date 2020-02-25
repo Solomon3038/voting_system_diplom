@@ -29,6 +29,7 @@ import static com.voting.system.project.TestDataHelper.NOT_EXIST_ID;
 import static com.voting.system.project.TestDataToHelper.getNewDishTo;
 import static com.voting.system.project.TestDataToHelper.getUpdatedDishTo;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -77,7 +78,7 @@ class AdminDishControllerTest extends AbstractControllerTest {
     void createNotNew() throws Exception {
         final String dish = objectMapper.writeValueAsString(new DishTo(DISH_ID_NEXT, "New Name", 15_00));
         doPostErr(dish, ADMIN_DISH_URL_TEST, status().isUnprocessableEntity());
-        Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_1));
+        assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_1));
     }
 
     @Test
@@ -85,7 +86,7 @@ class AdminDishControllerTest extends AbstractControllerTest {
     void createNotExist() throws Exception {
         final String dish = objectMapper.writeValueAsString(new DishTo(null, "New Name", 15_00));
         doPostErr(dish, ADMIN_DISH_NOT_EXIST_URL_TEST, status().isConflict());
-        Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_NEXT));
+        assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_NEXT));
     }
 
     @Test
@@ -93,14 +94,14 @@ class AdminDishControllerTest extends AbstractControllerTest {
     void createDuplicateData() throws Exception {
         final String dish = objectMapper.writeValueAsString(new DishTo(null, DISH_1_1.getName(), 123_00));
         doPostErr(dish, ADMIN_DISH_URL_TEST, status().isConflict());
-        Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_1));
+        assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_1));
     }
 
     @Test
     void createInvalidData() throws Exception {
         final String dish = objectMapper.writeValueAsString(new DishTo(null, "D", 3));
         doPostErr(dish, ADMIN_DISH_URL_TEST, status().isUnprocessableEntity());
-        Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_1));
+        assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_1));
     }
 
     @Test

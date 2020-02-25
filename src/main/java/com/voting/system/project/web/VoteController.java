@@ -1,6 +1,5 @@
 package com.voting.system.project.web;
 
-import com.voting.system.project.service.RestaurantService;
 import com.voting.system.project.service.VoteService;
 import com.voting.system.project.to.VoteTo;
 import com.voting.system.project.util.SecurityUtil;

@@ -20,7 +20,7 @@ public class MenuUtil {
         return new MenuWithDishesTo(menu.getId(), menu.getRegistered(), dishesTos);
     }
 
-    static List<DishTo> getDishTos(Menu menu, ModelMapper mapper) {
+    public static List<DishTo> getDishTos(Menu menu, ModelMapper mapper) {
         final List<DishTo> dishesTos = new ArrayList<>();
         final List<Dish> dishes = menu.getDishes();
         if (dishes != null && !dishes.isEmpty()) {
