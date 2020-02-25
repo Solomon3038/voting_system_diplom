@@ -1,6 +1,10 @@
 package com.voting.system.project.to;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;

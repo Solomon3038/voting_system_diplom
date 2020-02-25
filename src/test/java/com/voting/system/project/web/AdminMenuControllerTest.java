@@ -6,7 +6,6 @@ import com.voting.system.project.service.MenuService;
 import com.voting.system.project.to.MenuTo;
 import com.voting.system.project.to.MenuWithDishesTo;
 import com.voting.system.project.util.exception.NotExistException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -16,13 +15,28 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestDataTo.*;
+import static com.voting.system.project.TestDataHelper.ADMIN_1_EMAIL;
+import static com.voting.system.project.TestDataHelper.DISH_ID_NEXT;
+import static com.voting.system.project.TestDataHelper.MENU_1;
+import static com.voting.system.project.TestDataHelper.MENU_1_NOW;
+import static com.voting.system.project.TestDataHelper.MENU_2;
+import static com.voting.system.project.TestDataHelper.MENU_ID_1;
+import static com.voting.system.project.TestDataHelper.MENU_ID_2;
+import static com.voting.system.project.TestDataHelper.MENU_ID_NEXT;
+import static com.voting.system.project.TestDataHelper.NOT_EXIST_ID;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_1;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_2;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_NEXT;
+import static com.voting.system.project.TestDataHelper.getNewMenu;
+import static com.voting.system.project.TestDataToHelper.getInvalidNewMenuWithDishesTo;
+import static com.voting.system.project.TestDataToHelper.getNewMenuWithDishesTo;
+import static com.voting.system.project.TestDataToHelper.getUpdatedMenuTo;
 import static com.voting.system.project.util.MenuTestUtil.checkSave;
 import static com.voting.system.project.util.MenuTestUtil.checkSaveWithDishes;
 import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WithUserDetails(ADMIN_1_EMAIL)
@@ -85,7 +99,7 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     void createNotNew() throws Exception {
         final String menu = objectMapper.writeValueAsString(new MenuTo(MENU_ID_NEXT, LocalDate.now()));
         doPostErr(menu, ADMIN_MENU_URL_TEST, status().isUnprocessableEntity());
-        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
+        assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
     }
 
     @Test
@@ -93,22 +107,22 @@ class AdminMenuControllerTest extends AbstractControllerTest {
     void createNotExist() throws Exception {
         final String menu = objectMapper.writeValueAsString(getNewMenuWithDishesTo());
         doPostErr(menu, ADMIN_MENU_NOT_EXIST_URL_TEST, status().isConflict());
-        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
+        assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
     }
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
     void createDuplicateData() throws Exception {
         doPostErr("{}", ADMIN_MENU_URL_TEST, status().isConflict());
-        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
+        assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
     }
 
     @Test
     void createInvalidDataError() throws Exception {
         final String menu = objectMapper.writeValueAsString(getInvalidNewMenuWithDishesTo());
         doPostErr(menu, ADMIN_MENU_URL_TEST, status().isUnprocessableEntity());
-        Assertions.assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
-        Assertions.assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_NEXT));
+        assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_1));
+        assertThrows(NotExistException.class, () -> dishService.get(DISH_ID_NEXT, MENU_ID_NEXT));
     }
 
     @Test

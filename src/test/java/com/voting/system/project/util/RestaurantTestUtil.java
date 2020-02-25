@@ -7,7 +7,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.voting.system.project.TestData.*;
+import static com.voting.system.project.TestDataHelper.MENUS_NOW;
+import static com.voting.system.project.TestDataHelper.RESTAURANTS_WITH_MENU_ON_CURRENT_DATE;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_1;
+import static com.voting.system.project.TestDataHelper.getNewRestaurant;
+import static com.voting.system.project.TestDataHelper.getNewRestaurantWithMenu;
+import static com.voting.system.project.TestDataHelper.getNewRestaurantWithMenuAndDishes;
+import static com.voting.system.project.TestDataHelper.getUpdatedRestaurant;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 public class RestaurantTestUtil {
@@ -17,7 +23,7 @@ public class RestaurantTestUtil {
 
     public static void checkAllWithMenusOnCurrentDate(List<Restaurant> actual) {
         assertMatch(actual, RESTAURANTS_WITH_MENU_ON_CURRENT_DATE);
-        List<Menu> menus = actual.stream()
+        final List<Menu> menus = actual.stream()
                 .map(Restaurant::getMenus)
                 .flatMap(List::stream)
                 .sorted(Comparator.comparing(Menu::getId))
@@ -29,30 +35,30 @@ public class RestaurantTestUtil {
     }
 
     public static void checkSaveWithMenu(Restaurant saved) {
-        Restaurant expected = getNewRestaurantWithMenu();
+        final Restaurant expected = getNewRestaurantWithMenu();
         checkSaveWith(saved, expected);
     }
 
     public static void checkSaveWithMenuAndDishes(Restaurant saved) {
-        Restaurant expected = getNewRestaurantWithMenuAndDishes();
+        final Restaurant expected = getNewRestaurantWithMenuAndDishes();
         checkSaveWith(saved, expected);
     }
 
     public static void checkSave(Restaurant saved) {
-        Restaurant expected = getNewRestaurant();
+        final Restaurant expected = getNewRestaurant();
         expected.setId(saved.getId());
         assertMatch(saved, expected);
     }
 
     public static void checkUpdate(Restaurant updated) {
-        Restaurant expected = getUpdatedRestaurant(RESTAURANT_1);
+        final Restaurant expected = getUpdatedRestaurant(RESTAURANT_1);
         assertMatch(updated, expected);
     }
 
     private static void checkSaveWith(Restaurant saved, Restaurant expected) {
-        int id = saved.getId();
+        final int id = saved.getId();
         expected.setId(id);
-        int menuId = saved.getMenus().iterator().next().getId();
+        final int menuId = saved.getMenus().iterator().next().getId();
         expected.getMenus().iterator().next().setId(menuId);
         assertMatch(saved, expected);
         assertMatch(saved.getMenus(), expected.getMenus());

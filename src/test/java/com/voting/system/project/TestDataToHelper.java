@@ -3,35 +3,42 @@ package com.voting.system.project;
 import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.Menu;
 import com.voting.system.project.model.Restaurant;
-import com.voting.system.project.to.*;
+import com.voting.system.project.to.DishTo;
+import com.voting.system.project.to.MenuTo;
+import com.voting.system.project.to.MenuWithDishesTo;
+import com.voting.system.project.to.RestaurantTo;
+import com.voting.system.project.to.RestaurantWithMenusTo;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class TestDataTo {
+public class TestDataToHelper {
+
+    private TestDataToHelper() {
+    }
 
     public static RestaurantWithMenusTo getNewRestaurantWithMenuTo() {
-        RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
-        MenuWithDishesTo menu = new MenuWithDishesTo(null);
+        final RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
+        final MenuWithDishesTo menu = new MenuWithDishesTo(null);
         restaurant.setMenus(Arrays.asList(menu));
         return restaurant;
     }
 
     public static RestaurantWithMenusTo getNewRestaurantWithMenuAndDishesTo() {
-        RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
-        MenuWithDishesTo menu = new MenuWithDishesTo(null);
-        DishTo dish1 = new DishTo(null, "dish 1", 10_00);
-        DishTo dish2 = new DishTo(null, "dish 2", 20_00);
+        final RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
+        final MenuWithDishesTo menu = new MenuWithDishesTo(null);
+        final DishTo dish1 = new DishTo(null, "dish 1", 10_00);
+        final DishTo dish2 = new DishTo(null, "dish 2", 20_00);
         menu.setDishes(Arrays.asList(dish1, dish2));
         restaurant.setMenus(Arrays.asList(menu));
         return restaurant;
     }
 
     public static RestaurantWithMenusTo getInvalidNewRestaurantWithMenuAndDishesTo() {
-        RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
-        MenuWithDishesTo menu = new MenuWithDishesTo(null);
-        DishTo dish1 = new DishTo(null, "", 0);
+        final RestaurantWithMenusTo restaurant = new RestaurantWithMenusTo(null, "New Restaurant", "new Address");
+        final MenuWithDishesTo menu = new MenuWithDishesTo(null);
+        final DishTo dish1 = new DishTo(null, "", 0);
         menu.setDishes(Arrays.asList(dish1));
         restaurant.setMenus(Arrays.asList(menu));
         return restaurant;
@@ -54,15 +61,15 @@ public class TestDataTo {
     }
 
     public static MenuWithDishesTo getNewMenuWithDishesTo() {
-        MenuWithDishesTo menu = new MenuWithDishesTo(null, LocalDate.of(2020, 3, 1));
-        DishTo dish = new DishTo(null, "dish 1", 10_00);
+        final MenuWithDishesTo menu = new MenuWithDishesTo(null, LocalDate.of(2020, 3, 1));
+        final DishTo dish = new DishTo(null, "dish 1", 10_00);
         menu.setDishes(Collections.singletonList(dish));
         return menu;
     }
 
     public static MenuWithDishesTo getInvalidNewMenuWithDishesTo() {
-        MenuWithDishesTo menu = new MenuWithDishesTo(null, LocalDate.of(2020, 3, 1));
-        DishTo dish = new DishTo(null, "d", 10_00);
+        final MenuWithDishesTo menu = new MenuWithDishesTo(null, LocalDate.of(2020, 3, 1));
+        final DishTo dish = new DishTo(null, "d", 10_00);
         menu.setDishes(Collections.singletonList(dish));
         return menu;
     }

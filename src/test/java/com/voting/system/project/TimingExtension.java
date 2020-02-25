@@ -1,6 +1,10 @@
 package com.voting.system.project;
 
-import org.junit.jupiter.api.extension.*;
+import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
@@ -19,7 +23,7 @@ public class TimingExtension implements
 
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) {
-        String testName = extensionContext.getDisplayName();
+        final String testName = extensionContext.getDisplayName();
         log.info("\nStart " + testName);
         stopWatch.start(testName);
     }

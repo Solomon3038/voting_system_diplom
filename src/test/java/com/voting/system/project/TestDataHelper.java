@@ -1,13 +1,18 @@
 package com.voting.system.project;
 
-import com.voting.system.project.model.*;
+import com.voting.system.project.model.Dish;
+import com.voting.system.project.model.Menu;
+import com.voting.system.project.model.Restaurant;
+import com.voting.system.project.model.Role;
+import com.voting.system.project.model.User;
+import com.voting.system.project.model.Vote;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TestData {
+public class TestDataHelper {
     public static final String ADMIN_1_EMAIL = "admin.one@gmail.com";
     public static final String USER_1_EMAIL = "user.one@ukr.net";
     public static final String USER_2_EMAIL = "user.two@ukr.net";
@@ -115,18 +120,21 @@ public class TestData {
         RESTAURANT_3.setMenus(Arrays.asList(MENU_3_NOW));
     }
 
+    private TestDataHelper() {
+    }
+
     public static Restaurant getNewRestaurantWithMenu() {
-        Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
-        Menu menu = new Menu(null, restaurant);
+        final Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
+        final Menu menu = new Menu(null, restaurant);
         restaurant.setMenu(menu);
         return restaurant;
     }
 
     public static Restaurant getNewRestaurantWithMenuAndDishes() {
-        Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
-        Menu menu = new Menu(null, restaurant);
-        Dish dish1 = new Dish(null, "dish 1", 10_00, menu);
-        Dish dish2 = new Dish(null, "dish 2", 20_00, menu);
+        final Restaurant restaurant = new Restaurant(null, "New Restaurant", "new Address");
+        final Menu menu = new Menu(null, restaurant);
+        final Dish dish1 = new Dish(null, "dish 1", 10_00, menu);
+        final Dish dish2 = new Dish(null, "dish 2", 20_00, menu);
         menu.setDishes(Arrays.asList(dish1, dish2));
         restaurant.setMenu(menu);
         return restaurant;
@@ -149,8 +157,8 @@ public class TestData {
     }
 
     public static Menu getNewMenuWithDishes() {
-        Menu menu = new Menu(null, LocalDate.of(2020, 3, 1), null);
-        Dish dish = new Dish(null, "dish 1", 10_00, menu);
+        final Menu menu = new Menu(null, LocalDate.of(2020, 3, 1), null);
+        final Dish dish = new Dish(null, "dish 1", 10_00, menu);
         menu.setDishes(Collections.singletonList(dish));
         return menu;
     }

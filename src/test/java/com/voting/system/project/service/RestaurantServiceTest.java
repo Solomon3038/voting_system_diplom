@@ -4,7 +4,6 @@ import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import com.voting.system.project.util.exception.NotExistException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,12 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestDataTo.getNewRestaurantTo;
-import static com.voting.system.project.TestDataTo.getUpdatedRestaurantTo;
-import static com.voting.system.project.util.RestaurantTestUtil.*;
+import static com.voting.system.project.TestDataHelper.NOT_EXIST_ID;
+import static com.voting.system.project.TestDataHelper.RESTAURANTS;
+import static com.voting.system.project.TestDataHelper.RESTAURANTS_WITH_MENU_ON_CURRENT_DATE;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_1;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_1;
+import static com.voting.system.project.TestDataHelper.getNewRestaurant;
+import static com.voting.system.project.TestDataHelper.getNewRestaurantWithMenu;
+import static com.voting.system.project.TestDataHelper.getNewRestaurantWithMenuAndDishes;
+import static com.voting.system.project.TestDataToHelper.getNewRestaurantTo;
+import static com.voting.system.project.TestDataToHelper.getUpdatedRestaurantTo;
+import static com.voting.system.project.util.RestaurantTestUtil.checkAllWithMenusOnCurrentDate;
+import static com.voting.system.project.util.RestaurantTestUtil.checkSave;
+import static com.voting.system.project.util.RestaurantTestUtil.checkSaveWithMenu;
+import static com.voting.system.project.util.RestaurantTestUtil.checkSaveWithMenuAndDishes;
+import static com.voting.system.project.util.RestaurantTestUtil.checkUpdate;
 import static com.voting.system.project.util.RestaurantUtil.getFromTo;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RestaurantServiceTest extends AbstractServiceTest {
 
@@ -32,7 +44,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void getNotExist() {
-        Assertions.assertThrows(NotExistException.class, () -> restaurantService.get(NOT_EXIST_ID));
+        assertThrows(NotExistException.class, () -> restaurantService.get(NOT_EXIST_ID));
     }
 
     @Test
@@ -57,9 +69,9 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void createNullError() {
-        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> restaurantService.create(null));
-        Assertions.assertEquals("restaurant must not be null", exception.getMessage());
+        assertEquals("restaurant must not be null", exception.getMessage());
     }
 
     @Test
@@ -76,9 +88,9 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void createWithMenuAndDishesNullError() {
-        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> restaurantService.create(null));
-        Assertions.assertEquals("restaurant must not be null", exception.getMessage());
+        assertEquals("restaurant must not be null", exception.getMessage());
     }
 
     @Test
@@ -91,15 +103,15 @@ class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     void updateNullError() {
-        final IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> restaurantService.update(null, RESTAURANT_ID_1));
-        Assertions.assertEquals("restaurant must not be null", exception.getMessage());
+        assertEquals("restaurant must not be null", exception.getMessage());
     }
 
     @Test
     void updateNotExist() {
         final RestaurantTo created = getNewRestaurantTo();
         created.setId(NOT_EXIST_ID);
-        Assertions.assertThrows(NotExistException.class, () -> restaurantService.update(created, RESTAURANT_ID_1));
+        assertThrows(NotExistException.class, () -> restaurantService.update(created, RESTAURANT_ID_1));
     }
 }

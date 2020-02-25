@@ -1,12 +1,14 @@
 package com.voting.system.project.repository;
 
 import com.voting.system.project.AbstractTest;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceUnitUtil;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //https://www.baeldung.com/spring-boot-testing
 @DataJpaTest
@@ -17,12 +19,12 @@ abstract class AbstractRepositoryTest extends AbstractTest {
 
     //https://stackoverflow.com/a/4400236
     protected <T> void checkEntityFieldLoadingType(Class<T> tClass, String attributeName, boolean isLazy) {
-        PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
-        T entity = em.find(tClass, 1);
+        final PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
+        final T entity = em.find(tClass, 1);
         if (isLazy) {
-            Assertions.assertFalse(unitUtil.isLoaded(entity, attributeName));
+            assertFalse(unitUtil.isLoaded(entity, attributeName));
         } else {
-            Assertions.assertTrue(unitUtil.isLoaded(entity, attributeName));
+            assertTrue(unitUtil.isLoaded(entity, attributeName));
         }
     }
 }

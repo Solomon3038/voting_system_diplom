@@ -27,7 +27,7 @@ public class AppConfiguration {
     //https://habr.com/ru/post/438808/
     @Bean
     public ModelMapper modelMapper() {
-        ModelMapper mapper = new ModelMapper();
+        final ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setFieldMatchingEnabled(true)

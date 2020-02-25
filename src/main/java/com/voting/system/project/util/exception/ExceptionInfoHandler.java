@@ -17,8 +17,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.function.Function;
 
-import static com.voting.system.project.util.exception.ErrorType.*;
-
 @Log4j2
 @ControllerAdvice
 @RestController
@@ -26,35 +24,35 @@ public class ExceptionInfoHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({NotExistException.class})
     public final ResponseEntity<?> handleNotExistException(NotExistException ex, WebRequest request) throws Exception {
-        return getResponseEntity(request, ex.getMessage(), DATA_NOT_EXIST, HttpStatus.UNPROCESSABLE_ENTITY);
+        return getResponseEntity(request, ex.getMessage(), ErrorType.DATA_NOT_EXIST, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler({VoteException.class})
     public final ResponseEntity<?> handleVoteException(VoteException ex, WebRequest request) throws Exception {
-        return getResponseEntity(request, ex.getMessage(), VOTE_ERROR, HttpStatus.REQUEST_TIMEOUT);
+        return getResponseEntity(request, ex.getMessage(), ErrorType.VOTE_ERROR, HttpStatus.REQUEST_TIMEOUT);
     }
 
     @ExceptionHandler({IllegalRequestDataException.class})
     public final ResponseEntity<?> handleVoteException(IllegalRequestDataException ex, WebRequest request) throws Exception {
-        return getResponseEntity(request, ex.getMessage(), VALIDATION_ERROR, HttpStatus.UNPROCESSABLE_ENTITY);
+        return getResponseEntity(request, ex.getMessage(), ErrorType.VALIDATION_ERROR, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler({ConstraintViolationException.class})
     public final ResponseEntity<?> handleVoteException(ConstraintViolationException ex, WebRequest request) throws Exception {
-        return getResponseEntity(request, ex.getMessage(), VALIDATION_ERROR, HttpStatus.UNPROCESSABLE_ENTITY);
+        return getResponseEntity(request, ex.getMessage(), ErrorType.VALIDATION_ERROR, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler({DataIntegrityViolationException.class})
     public final ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) throws Exception {
         log.error(ex.getMessage());
         String[] details = ex.getMessage().split(";");
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), request.getDescription(false), DATA_ERROR, details);
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), request.getDescription(false), ErrorType.DATA_ERROR, details);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT); //409
     }
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<?> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
-        return getResponseEntity(request, ex.getMessage(), APP_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getResponseEntity(request, ex.getMessage(), ErrorType.APP_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -65,7 +63,7 @@ public class ExceptionInfoHandler extends ResponseEntityExceptionHandler {
                 .map(fe -> Arrays.stream(fe.toString().split(";")))
                 .flatMap(Function.identity())
                 .toArray(String[]::new);
-        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), request.getDescription(false), VALIDATION_ERROR, details);
+        final ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), request.getDescription(false), ErrorType.VALIDATION_ERROR, details);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 

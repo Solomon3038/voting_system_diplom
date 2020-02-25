@@ -12,16 +12,16 @@ public class SecurityUtil {
     }
 
     public static UserPrincipal safeGet() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) {
             return null;
         }
-        Object principal = auth.getPrincipal();
+        final Object principal = auth.getPrincipal();
         return (principal instanceof UserPrincipal) ? (UserPrincipal) principal : null;
     }
 
     public static UserPrincipal get() {
-        UserPrincipal user = safeGet();
+        final UserPrincipal user = safeGet();
         requireNonNull(user, "No authorized user found");
         return user;
     }

@@ -1,12 +1,12 @@
 package com.voting.system.project.repository;
 
 import com.voting.system.project.model.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.voting.system.project.TestData.USER_1;
+import static com.voting.system.project.TestDataHelper.USER_1;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class UserRepositoryTest extends AbstractRepositoryTest {
 
@@ -15,13 +15,13 @@ class UserRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     void findUserByEmail() {
-        User actual = userRepository.findUserByEmail(USER_1.getEmail());
+        final User actual = userRepository.findUserByEmail(USER_1.getEmail());
         assertMatch(actual, USER_1);
     }
 
     @Test
     void findUserByEmailNotExist() {
-        User userNotExist = userRepository.findUserByEmail("emailNotExist");
-        Assertions.assertNull(userNotExist);
+        final User userNotExist = userRepository.findUserByEmail("emailNotExist");
+        assertNull(userNotExist);
     }
 }

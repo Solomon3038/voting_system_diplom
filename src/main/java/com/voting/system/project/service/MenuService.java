@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.List;
 import static com.voting.system.project.util.MenuUtil.getFromTo;
 import static com.voting.system.project.util.MenuUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
+import static org.springframework.util.Assert.notNull;
 
 @Service
 public class MenuService {
@@ -47,7 +47,7 @@ public class MenuService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public Menu create(Menu menu, int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
+        notNull(menu, "menu must not be null");
         menu.setRestaurant(restaurantRepository.getOne(restaurantId));
         return menuRepository.save(menu);
     }
@@ -55,7 +55,7 @@ public class MenuService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(MenuTo menuTo, int id, int restaurantId) {
-        Assert.notNull(menuTo, "menu must not be null");
+        notNull(menuTo, "menu must not be null");
         checkNotExistWithId(menuRepository.findByIdAndRestaurantId(id, restaurantId), id);
         final Menu menu = getFromTo(menuTo);
         menu.setRestaurant(restaurantRepository.getOne(restaurantId));

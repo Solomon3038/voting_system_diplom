@@ -3,7 +3,7 @@ package com.voting.system.project.web;
 import com.voting.system.project.to.RestaurantWithMenusTo;
 import org.junit.jupiter.api.Test;
 
-import static com.voting.system.project.TestData.RESTAURANTS_WITH_MENU_ON_CURRENT_DATE;
+import static com.voting.system.project.TestDataHelper.RESTAURANTS_WITH_MENU_ON_CURRENT_DATE;
 import static com.voting.system.project.web.RestaurantController.REST_URL;
 
 class RestaurantControllerTest extends AbstractControllerTest {

@@ -14,9 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
-import static com.voting.system.project.TestData.*;
-import static com.voting.system.project.TestDataTo.getNewDishTo;
-import static com.voting.system.project.TestDataTo.getUpdatedDishTo;
+import static com.voting.system.project.TestDataHelper.ADMIN_1_EMAIL;
+import static com.voting.system.project.TestDataHelper.DISH_1_1;
+import static com.voting.system.project.TestDataHelper.DISH_1_2;
+import static com.voting.system.project.TestDataHelper.DISH_1_3;
+import static com.voting.system.project.TestDataHelper.DISH_2_1;
+import static com.voting.system.project.TestDataHelper.DISH_ID_1;
+import static com.voting.system.project.TestDataHelper.DISH_ID_4;
+import static com.voting.system.project.TestDataHelper.DISH_ID_NEXT;
+import static com.voting.system.project.TestDataHelper.MENU_ID_1;
+import static com.voting.system.project.TestDataHelper.MENU_ID_2;
+import static com.voting.system.project.TestDataHelper.MENU_ID_NEXT;
+import static com.voting.system.project.TestDataHelper.NOT_EXIST_ID;
+import static com.voting.system.project.TestDataToHelper.getNewDishTo;
+import static com.voting.system.project.TestDataToHelper.getUpdatedDishTo;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

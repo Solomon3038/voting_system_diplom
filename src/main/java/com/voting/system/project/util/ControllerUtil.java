@@ -8,8 +8,11 @@ import java.net.URI;
 
 public class ControllerUtil {
 
+    private ControllerUtil() {
+    }
+
     public static <T extends HasId> ResponseEntity<T> getResponseEntity(T created, String url, Integer... ids) {
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+        final URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(url)
                 .buildAndExpand(ids).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);

@@ -8,12 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
+import static org.springframework.util.Assert.notNull;
 
 @Service
 public class DishService {
@@ -44,7 +44,7 @@ public class DishService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public Dish create(Dish dish, int menuId) {
-        Assert.notNull(dish, "dish must not be null");
+        notNull(dish, "dish must not be null");
         dish.setMenu(menuRepository.getOne(menuId));
         return dishRepository.save(dish);
     }
@@ -52,7 +52,7 @@ public class DishService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(Dish dish, int id, int menuId) {
-        Assert.notNull(dish, "dish must not be null");
+        notNull(dish, "dish must not be null");
         checkNotExistWithId(dishRepository.findDishByIdAndMenuId(id, menuId), id);
         dish.setMenu(menuRepository.getOne(menuId));
         dishRepository.save(dish);
