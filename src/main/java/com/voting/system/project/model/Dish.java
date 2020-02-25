@@ -25,7 +25,6 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true, exclude = "menu")
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "menu_id"}, name = "users_unique_name_idx")})
 public class Dish extends AbstractNamedEntity {
-
     @Column(name = "price", nullable = false)
     @NotNull
     @Range(min = 100)

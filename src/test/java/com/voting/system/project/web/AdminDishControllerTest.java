@@ -3,7 +3,6 @@ package com.voting.system.project.web;
 import com.voting.system.project.service.DishService;
 import com.voting.system.project.to.DishTo;
 import com.voting.system.project.util.exception.NotExistException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -29,7 +28,6 @@ import static com.voting.system.project.TestDataHelper.NOT_EXIST_ID;
 import static com.voting.system.project.TestDataToHelper.getNewDishTo;
 import static com.voting.system.project.TestDataToHelper.getUpdatedDishTo;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

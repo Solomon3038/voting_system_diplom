@@ -33,7 +33,6 @@ import java.util.List;
 @ToString(callSuper = true, exclude = {"restaurant", "dishes"})
 @Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"registered", "restaurant_id"}, name = "menus_unique_registered_idx")})
 public class Menu extends AbstractBaseEntity {
-
     @Column(name = "registered", nullable = false, columnDefinition = "date default now()")
     @NotNull
     private LocalDate registered = LocalDate.now();

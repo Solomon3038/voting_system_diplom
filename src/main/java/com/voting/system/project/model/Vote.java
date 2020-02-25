@@ -23,7 +23,6 @@ import java.time.LocalDate;
 @ToString(callSuper = true, exclude = {"restaurant", "user"})
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "user_id"}, name = "date_unique_user_idx")})
 public class Vote extends AbstractBaseEntity {
-
     @Column(name = "date", nullable = false, columnDefinition = "date default now()")
     @NotNull
     private LocalDate date = LocalDate.now();

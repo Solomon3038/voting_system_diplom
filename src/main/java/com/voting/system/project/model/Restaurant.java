@@ -27,7 +27,6 @@ import java.util.List;
 @ToString(callSuper = true, exclude = "menus")
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address"}, name = "name_address_unique_idx")})
 public class Restaurant extends AbstractNamedEntity {
-
     @NotBlank
     @Size(min = 2, max = 100)
     @Column(name = "address", nullable = false)
