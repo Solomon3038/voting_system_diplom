@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ValidationUtil {
-    public static final LocalTime VOTE_MAX_TIME = LocalTime.of(11, 00, 00);
+    public static final LocalTime VOTE_MAX_TIME = LocalTime.of(11, 0, 0);
 
     private ValidationUtil() {
     }

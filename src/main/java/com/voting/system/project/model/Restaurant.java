@@ -1,12 +1,11 @@
 package com.voting.system.project.model;
 
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,40 +20,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
-@ToString(callSuper = true, exclude = "menus")
+@ToString(callSuper = true, exclude = "menuItems")
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address"}, name = "name_address_unique_idx")})
 public class Restaurant extends AbstractNamedEntity {
     @NotBlank
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 500)
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.PERSIST)
-    @OrderBy("registered DESC")
-    //https://stackoverflow.com/a/39878618/12805042
-    @Valid
-    private List<Menu> menus;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy("date DESC")
+    @JsonIgnore
+    private List<MenuItem> menuItems;
 
     public Restaurant(Integer id, String name, String address) {
         this(id, name, address, new ArrayList<>());
     }
 
-    public Restaurant(Integer id, String name, String address, List<Menu> menus) {
+    public Restaurant(Integer id, String name, String address, List<MenuItem> menuItems) {
         super(id, name);
         this.address = address;
-        setMenus(menus);
+        setMenus(menuItems);
     }
 
-    public void setMenus(List<Menu> menus) {
-        this.menus = CollectionUtils.isEmpty(menus) ? new ArrayList<>() : new ArrayList<>(menus);
+    public void setMenus(List<MenuItem> menuItems) {
+        this.menuItems = CollectionUtils.isEmpty(menuItems) ? new ArrayList<>() : new ArrayList<>(menuItems);
     }
 
-    public void setMenu(@NotNull Menu menu) {
-        if (menus == null) {
-            menus = new ArrayList<>();
+    public void setMenu(@NotNull MenuItem menuItem) {
+        if (menuItems == null) {
+            menuItems = new ArrayList<>();
         }
-        menus.add(menu);
+        menuItems.add(menuItem);
     }
 }

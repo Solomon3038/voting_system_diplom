@@ -1,5 +1,6 @@
 package com.voting.system.project.service;
 
+import com.voting.system.project.AbstractTest;
 import com.voting.system.project.model.Vote;
 import com.voting.system.project.to.VoteTo;
 import com.voting.system.project.util.exception.VoteException;
@@ -20,7 +21,7 @@ import static com.voting.system.project.util.VoteUtil.getToFrom;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class VoteServiceTest extends AbstractServiceTest {
+class VoteServiceTest extends AbstractTest {
 
     @Autowired
     private VoteService voteService;

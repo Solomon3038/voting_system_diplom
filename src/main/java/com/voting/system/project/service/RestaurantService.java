@@ -1,20 +1,16 @@
 package com.voting.system.project.service;
 
+import com.voting.system.project.mapper.OrikaMapper;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.RestaurantTo;
-import com.voting.system.project.to.RestaurantWithMenusTo;
-import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.voting.system.project.util.RestaurantUtil.getFromTo;
-import static com.voting.system.project.util.RestaurantUtil.getToFrom;
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 import static org.springframework.util.Assert.notNull;
 
@@ -22,31 +18,26 @@ import static org.springframework.util.Assert.notNull;
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
-    private final ModelMapper mapper;
+    private final OrikaMapper mapper;
 
-    public RestaurantService(RestaurantRepository restaurantRepository, ModelMapper mapper) {
+    public RestaurantService(RestaurantRepository restaurantRepository, OrikaMapper mapper) {
         this.restaurantRepository = restaurantRepository;
         this.mapper = mapper;
     }
 
-    public RestaurantTo get(int id) {
+    public Restaurant get(int id) {
         final Restaurant restaurant = restaurantRepository.findById(id);
-        return mapper.map(checkNotExistWithId(restaurant, id), RestaurantTo.class);
+        return checkNotExistWithId(restaurant, id);
     }
 
-    public List<RestaurantTo> getAll() {
-        final List<Restaurant> restaurants = restaurantRepository.findAll();
-        final List<RestaurantTo> restaurantTos = new ArrayList<>();
-        restaurants.forEach(restaurant -> restaurantTos.add(mapper.map(restaurant, RestaurantTo.class)));
-        return restaurantTos;
+    public List<Restaurant> getAll() {
+        return restaurantRepository.findAll();
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantWithMenusTo> getAllWithMenusOnCurrentDate() {
-        final List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnCurrentDate();
-        final List<RestaurantWithMenusTo> restaurantTos = new ArrayList<>();
-        restaurants.forEach(restaurant -> restaurantTos.add(getToFrom(restaurant, mapper)));
-        return restaurantTos;
+    public List<RestaurantTo> getAllWithMenusOnCurrentDate() {
+        List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnCurrentDate();
+        return mapper.mapAsList(restaurants, RestaurantTo.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
@@ -58,10 +49,9 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public void update(RestaurantTo restaurantTo, int id) {
-        notNull(restaurantTo, "restaurant must not be null");
-        checkNotExistWithId(restaurantRepository.findById(restaurantTo.getId().intValue()), id);
-        final Restaurant restaurant = getFromTo(restaurantTo);
+    public void update(Restaurant restaurant, int id) {
+        notNull(restaurant, "restaurant must not be null");
+        checkNotExistWithId(restaurantRepository.findById(restaurant.getId().intValue()), id);
         restaurantRepository.save(restaurant);
     }
 }

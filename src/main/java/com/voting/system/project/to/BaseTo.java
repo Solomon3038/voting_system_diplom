@@ -9,7 +9,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class BaseTo implements HasId, Serializable {
-
     protected Integer id;
 
     @Override

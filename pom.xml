@@ -48,7 +48,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-<!--        https://spring.io/guides/gs/caching/-->
+        <!--        https://spring.io/guides/gs/caching/-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
@@ -60,11 +60,11 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+        <!--        https://github.com/akihyro/orika-spring-boot-starter-->
         <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>2.3.6</version>
+            <groupId>net.rakugakibox.spring.boot</groupId>
+            <artifactId>orika-spring-boot-starter</artifactId>
+            <version>1.9.0</version>
         </dependency>
 
         <dependency>
@@ -84,7 +84,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!--        https://stackoverflow.com/a/46150034-->
+        <!--        https://stackoverflow.com/a/46150034-->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>

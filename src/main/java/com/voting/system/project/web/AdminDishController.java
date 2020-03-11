@@ -2,13 +2,10 @@ package com.voting.system.project.web;
 
 import com.voting.system.project.model.Dish;
 import com.voting.system.project.service.DishService;
-import com.voting.system.project.to.DishTo;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,48 +27,39 @@ import static com.voting.system.project.util.ValidationUtil.checkNew;
 @RequestMapping(value = AdminDishController.ADMIN_DISH_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminDishController {
 
-    public static final String ADMIN_DISH_URL = "admin/menus/{menuId}/dishes";
+    public static final String ADMIN_DISH_URL = "/admin/dishes";
 
     private final DishService dishService;
-    protected final ModelMapper mapper;
 
-    public AdminDishController(DishService dishService, ModelMapper mapper) {
+    public AdminDishController(DishService dishService) {
         this.dishService = dishService;
-        this.mapper = mapper;
     }
 
     @GetMapping
-    public List<DishTo> getAll(@PathVariable int menuId) {
-        log.info("getDishes for menu with id {}", menuId);
-        return dishService.getAll(menuId);
+    public List<Dish> getAll() {
+        log.info("getDishes");
+        return dishService.getAll();
     }
 
     @GetMapping("/{id}")
-    public DishTo get(@PathVariable int menuId, @PathVariable int id) {
-        log.info("getDish with id {} for restaurant with id {}", id, menuId);
-        return dishService.get(id, menuId);
+    public Dish get(@PathVariable int id) {
+        log.info("getDish with id {} ", id);
+        return dishService.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DishTo> createWithLocation(@Valid @RequestBody Dish dish, @PathVariable int menuId) {
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish) {
         log.info("create {}", dish);
         checkNew(dish);
-        final DishTo created = mapper.map(dishService.create(dish, menuId), DishTo.class);
-        return getResponseEntity(created, ADMIN_DISH_URL + "/{id}", menuId, created.getId());
+        final Dish created = dishService.create(dish);
+        return getResponseEntity(created, ADMIN_DISH_URL + "/{id}", created.getId());
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Dish dish, @PathVariable int menuId, @PathVariable int id) {
+    public void update(@Valid @RequestBody Dish dish, @PathVariable int id) {
         log.info("update {}", dish);
         assureIdConsistent(dish, id);
-        dishService.update(dish, id, menuId);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int menuId, @PathVariable int id) {
-        log.info("delete dish {} in menu {}", id, menuId);
-        dishService.delete(id, menuId);
+        dishService.update(dish, id);
     }
 }

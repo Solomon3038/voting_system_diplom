@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class VoteTo extends BaseTo {
-
     @NotNull
     private LocalDate date = LocalDate.now();
 

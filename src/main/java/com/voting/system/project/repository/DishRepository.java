@@ -12,11 +12,11 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface DishRepository extends JpaRepository<Dish, Integer> {
 
-    Dish findDishByIdAndMenuId(int id, int menuId);
+    List<Dish> getAllByOrderByNameAsc();
 
-    List<Dish> findAllByMenuIdOrderByNameAsc(int menuId);
+    Dish findDishById(int id);
 
     @Transactional
     @Modifying
-    int deleteByIdAndMenuId(int id, int menuId);
+    int deleteById(int id);
 }

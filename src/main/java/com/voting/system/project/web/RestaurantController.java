@@ -1,7 +1,7 @@
 package com.voting.system.project.web;
 
 import com.voting.system.project.service.RestaurantService;
-import com.voting.system.project.to.RestaurantWithMenusTo;
+import com.voting.system.project.to.RestaurantTo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<RestaurantWithMenusTo> getAllWithMenusAndDishes() {
+    public List<RestaurantTo> getAllWithMenusAndDishes() {
         return restaurantService.getAllWithMenusOnCurrentDate();
     }
 }
