@@ -6,6 +6,7 @@ import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.model.Role;
 import com.voting.system.project.model.User;
 import com.voting.system.project.model.Vote;
+import com.voting.system.project.to.MenuItemDishIdTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,16 +47,18 @@ public class TestDataHelper {
     public static final int DISH_ID_6 = DISH_ID_5 + 1;
     public static final int DISH_ID_7 = DISH_ID_6 + 1;
     public static final int DISH_ID_8 = DISH_ID_7 + 1;
-    public static final int DISH_ID_NEXT = DISH_ID_8 + 1;
+    public static final int DISH_ID_9 = DISH_ID_8 + 1;
+    public static final int DISH_ID_NEXT = DISH_ID_9 + 1;
 
-    public static final Dish DISH_1 = new Dish(DISH_ID_1, "Шатобріан");
-    public static final Dish DISH_2 = new Dish(DISH_ID_2, "Червоний борщ");
-    public static final Dish DISH_3 = new Dish(DISH_ID_3, "Салат з тигровими креветками під кисло-солодким соусом");
-    public static final Dish DISH_4 = new Dish(DISH_ID_4, "Карпаччо з лосося");
-    public static final Dish DISH_5 = new Dish(DISH_ID_5, "Салат цезар");
-    public static final Dish DISH_6 = new Dish(DISH_ID_6, "Хінкалі з баранини");
-    public static final Dish DISH_7 = new Dish(DISH_ID_7, "Шашлик із телятини");
-    public static final Dish DISH_8 = new Dish(DISH_ID_8, "Курча тапака");
+    public static final Dish DISH_1 = new Dish(DISH_ID_1, "Шатобріан", RESTAURANT_1);
+    public static final Dish DISH_2 = new Dish(DISH_ID_2, "Червоний борщ", RESTAURANT_1);
+    public static final Dish DISH_3 = new Dish(DISH_ID_3, "Салат з тигровими креветками під кисло-солодким соусом", RESTAURANT_1);
+    public static final Dish DISH_4 = new Dish(DISH_ID_4, "Карпаччо з лосося", RESTAURANT_2);
+    public static final Dish DISH_5 = new Dish(DISH_ID_5, "Салат цезар", RESTAURANT_2);
+    public static final Dish DISH_6 = new Dish(DISH_ID_6, "Хінкалі з баранини", RESTAURANT_2);
+    public static final Dish DISH_7 = new Dish(DISH_ID_7, "Шашлик із телятини", RESTAURANT_3);
+    public static final Dish DISH_8 = new Dish(DISH_ID_8, "Курча тапака", RESTAURANT_3);
+    public static final Dish DISH_9 = new Dish(DISH_ID_9, "Торт", RESTAURANT_3);
 
     public static final int MENU_ID_1 = 1;
     public static final int MENU_ID_2 = MENU_ID_1 + 1;
@@ -81,26 +84,26 @@ public class TestDataHelper {
     public static final MenuItem MENU_2_3 = new MenuItem(MENU_ID_6, LocalDate.of(2019, 6, 1), 97_00, DISH_6, RESTAURANT_2);
     public static final MenuItem MENU_3_1 = new MenuItem(MENU_ID_7, LocalDate.of(2019, 6, 1), 85_00, DISH_7, RESTAURANT_3);
     public static final MenuItem MENU_3_2 = new MenuItem(MENU_ID_8, LocalDate.of(2019, 6, 1), 70_00, DISH_8, RESTAURANT_3);
-    public static final MenuItem MENU_3_3 = new MenuItem(MENU_ID_9, LocalDate.of(2019, 6, 1), 99_98, DISH_4, RESTAURANT_3);
+    public static final MenuItem MENU_3_3 = new MenuItem(MENU_ID_9, LocalDate.of(2019, 6, 1), 30_000, DISH_9, RESTAURANT_3);
 
     public static final MenuItem MENU_1_1_NOW = new MenuItem(MENU_ID_10, 90_00, DISH_1, RESTAURANT_1);
     public static final MenuItem MENU_1_2_NOW = new MenuItem(MENU_ID_11, 38_00, DISH_2, RESTAURANT_1);
     public static final MenuItem MENU_2_1_NOW = new MenuItem(MENU_ID_12, 99_98, DISH_4, RESTAURANT_2);
     public static final MenuItem MENU_2_2_NOW = new MenuItem(MENU_ID_13, 97_00, DISH_6, RESTAURANT_2);
-    public static final MenuItem MENU_3_1_NOW = new MenuItem(MENU_ID_14, 99_98, DISH_4, RESTAURANT_3);
+    public static final MenuItem MENU_3_1_NOW = new MenuItem(MENU_ID_14, 30_000, DISH_9, RESTAURANT_3);
 
     public static final List<Restaurant> RESTAURANTS_WITH_MENU_ON_CURRENT_DATE = List.of(RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
     public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_4_NO_MENU, RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
 
-    public static final List<MenuItem> RESTAURANT_1_MENUS = List.of(MENU_1_3, MENU_1_2, MENU_1_1);
-    public static final List<MenuItem> RESTAURANT_2_MENUS = List.of(MENU_2_1, MENU_2_2, MENU_2_3);
-    public static final List<MenuItem> RESTAURANT_3_MENUS = List.of(MENU_3_3, MENU_3_2, MENU_3_1);
-
-    public static final List<Dish> DISHES = List.of(DISH_4, DISH_8, DISH_3, DISH_5, DISH_6, DISH_2, DISH_1, DISH_7);
+    public static final List<MenuItem> RESTAURANT_1_MENUS = List.of(MENU_1_2_NOW, MENU_1_1_NOW, MENU_1_3, MENU_1_2, MENU_1_1);
+    public static final List<MenuItem> RESTAURANT_2_MENUS = List.of(MENU_2_1_NOW, MENU_2_2_NOW, MENU_2_1, MENU_2_2, MENU_2_3);
+    public static final List<MenuItem> RESTAURANT_3_MENUS = List.of(MENU_3_1_NOW, MENU_3_2, MENU_3_3, MENU_3_1);
 
     public static final List<MenuItem> RESTAURANT_1_MENUS_NOW = List.of(MENU_1_2_NOW, MENU_1_1_NOW);
     public static final List<MenuItem> RESTAURANT_2_MENUS_NOW = List.of(MENU_2_1_NOW, MENU_2_2_NOW);
     public static final List<MenuItem> RESTAURANT_3_MENUS_NOW = List.of(MENU_3_1_NOW);
+
+    public static final List<Dish> DISHES = List.of(DISH_4, DISH_8, DISH_3, DISH_9, DISH_5, DISH_6, DISH_2, DISH_1, DISH_7);
 
     public static final int VOTE_ID_1 = 1;
 
@@ -124,20 +127,23 @@ public class TestDataHelper {
     }
 
     public static Dish getNewDish() {
-        return new Dish(null, "new name");
+        return new Dish(null, "new name", RESTAURANT_1);
     }
 
     public static Dish getUpdatedDish(Dish dish) {
-        return new Dish(dish.getId(), "updated name");
+        return new Dish(dish.getId(), "updated name", RESTAURANT_1);
     }
 
-    public static MenuItem getNewMenuItem() {
-        return new MenuItem(null, 251_00, DISH_5, RESTAURANT_1);
+    public static MenuItemDishIdTo getNewMenuItemDishIdTo() {
+        MenuItemDishIdTo to = new MenuItemDishIdTo();
+        to.setDishId(5);
+        to.setPrice(56_00);
+        return to;
     }
 
-    public static MenuItem getUpdatedMenuItem(MenuItem menuItem) {
-        return new MenuItem(menuItem.getId(), LocalDate.of(2019, 7, 12),
-                menuItem.getPrice(), menuItem.getDish(), menuItem.getRestaurant());
+    public static MenuItemDishIdTo getUpdatedMenuItemDishIdTo(MenuItem menuItem) {
+        return new MenuItemDishIdTo(menuItem.getId(), LocalDate.of(2019, 7, 12),
+                menuItem.getPrice(), menuItem.getDish().getId());
     }
 
     public static Vote getNewVote() {

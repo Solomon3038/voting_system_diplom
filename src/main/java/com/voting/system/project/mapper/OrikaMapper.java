@@ -2,6 +2,7 @@ package com.voting.system.project.mapper;
 
 import com.voting.system.project.model.MenuItem;
 import com.voting.system.project.model.Restaurant;
+import com.voting.system.project.to.MenuItemDishIdTo;
 import com.voting.system.project.to.MenuItemDishNameTo;
 import com.voting.system.project.to.RestaurantTo;
 import ma.glasnost.orika.MapperFactory;
@@ -15,7 +16,8 @@ public class OrikaMapper extends ConfigurableMapper {
     @Override
     protected void configure(MapperFactory mapperFactory) {
         ConverterFactory converterFactory = mapperFactory.getConverterFactory();
-        converterFactory.registerConverter(new DishConverter());
+        converterFactory.registerConverter(new DishStringConverter());
+        converterFactory.registerConverter(new DishIntegerConverter());
 
         mapperFactory.classMap(Restaurant.class, RestaurantTo.class)
                 .field("id", "id")
@@ -29,6 +31,13 @@ public class OrikaMapper extends ConfigurableMapper {
                 .field("date", "date")
                 .field("price", "price")
                 .field("dish", "dishName")
+                .register();
+
+        mapperFactory.classMap(MenuItem.class, MenuItemDishIdTo.class)
+                .field("id", "id")
+                .field("date", "date")
+                .field("price", "price")
+                .field("dish", "dishId")
                 .register();
     }
 }

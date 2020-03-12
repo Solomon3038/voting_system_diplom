@@ -58,7 +58,7 @@ public class MenuItemService {
     }
 
     private MenuItemDishNameTo getMenuItem(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
-        notNull(menuItemDishIdTo, "menuItemTo must not be null");
+        notNull(menuItemDishIdTo, "menuItemDishIdTo must not be null");
         MenuItem menuItem = mapper.map(menuItemDishIdTo, MenuItem.class);
         menuItem.setDish(dishRepository.getOne(menuItemDishIdTo.getDishId()));
         menuItem.setRestaurant(restaurantRepository.getOne(restaurantId));

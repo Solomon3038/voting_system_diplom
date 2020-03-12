@@ -14,7 +14,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +46,5 @@ public class Restaurant extends AbstractNamedEntity {
 
     public void setMenus(List<MenuItem> menuItems) {
         this.menuItems = CollectionUtils.isEmpty(menuItems) ? new ArrayList<>() : new ArrayList<>(menuItems);
-    }
-
-    public void setMenu(@NotNull MenuItem menuItem) {
-        if (menuItems == null) {
-            menuItems = new ArrayList<>();
-        }
-        menuItems.add(menuItem);
     }
 }

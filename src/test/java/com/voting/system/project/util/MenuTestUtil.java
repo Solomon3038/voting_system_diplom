@@ -1,11 +1,17 @@
 package com.voting.system.project.util;
 
+import com.voting.system.project.to.MenuItemDishIdTo;
+import com.voting.system.project.to.MenuItemDishNameTo;
+
+import static com.voting.system.project.TestDataHelper.getNewMenuItemDishIdTo;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
+
 public class MenuTestUtil {
 
     private MenuTestUtil() {
     }
 
-//    public static void checkWithDishes(Menu actual) {
+    //    public static void checkWithDishes(Menu actual) {
 //        assertMatch(actual, MENU_1);
 //        final List<Dish> dishes = actual.getDishes().stream()
 //                .sorted(Comparator.comparing(Dish::getName))
@@ -35,9 +41,9 @@ public class MenuTestUtil {
 //        assertMatch(saved.getDishes(), expected.getDishes());
 //    }
 //
-//    public static void checkSave(Menu saved) {
-//        final Menu expected = getNewMenu();
-//        expected.setId(saved.getId());
-//        assertMatch(saved, expected);
-//    }
+    public static void checkSave(MenuItemDishNameTo saved) {
+        final MenuItemDishIdTo expected = getNewMenuItemDishIdTo();
+        expected.setId(saved.getId());
+        assertMatch(saved, expected);
+    }
 }

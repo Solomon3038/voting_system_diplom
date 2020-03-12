@@ -7,7 +7,7 @@ import ma.glasnost.orika.metadata.Type;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DishConverter extends CustomConverter<Dish, String> {
+public class DishStringConverter extends CustomConverter<Dish, String> {
 
     @Override
     public String convert(Dish source, Type<? extends String> destinationType, MappingContext mappingContext) {

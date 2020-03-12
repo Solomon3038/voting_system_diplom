@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.voting.system.project.TestDataHelper.ADMIN_1_EMAIL;
 import static com.voting.system.project.TestDataHelper.USER_1_EMAIL;
 import static com.voting.system.project.web.AdminDishControllerTest.ADMIN_DISH_URL_TEST;
-import static com.voting.system.project.web.AdminMenuControllerTest.ADMIN_MENU_URL_TEST;
+import static com.voting.system.project.web.AdminMenuItemControllerTest.ADMIN_MENU_URL_TEST;
 import static com.voting.system.project.web.AdminRestaurantControllerTest.ADMIN_REST_URL_TEST;
 import static com.voting.system.project.web.VoteControllerTest.VOTE_URL_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
