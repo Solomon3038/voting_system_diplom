@@ -1,6 +1,6 @@
 package com.voting.system.project;
 
-import com.voting.system.project.mapper.OrikaMapper;
+import com.voting.system.project.util.mapper.OrikaMapper;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

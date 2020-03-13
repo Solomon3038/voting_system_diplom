@@ -1,4 +1,4 @@
-package com.voting.system.project.mapper;
+package com.voting.system.project.util.mapper;
 
 import com.voting.system.project.model.Dish;
 import ma.glasnost.orika.CustomConverter;

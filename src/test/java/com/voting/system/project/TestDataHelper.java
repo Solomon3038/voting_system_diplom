@@ -103,7 +103,7 @@ public class TestDataHelper {
     public static final List<MenuItem> RESTAURANT_2_MENUS_NOW = List.of(MENU_2_1_NOW, MENU_2_2_NOW);
     public static final List<MenuItem> RESTAURANT_3_MENUS_NOW = List.of(MENU_3_1_NOW);
 
-    public static final List<Dish> DISHES = List.of(DISH_4, DISH_8, DISH_3, DISH_9, DISH_5, DISH_6, DISH_2, DISH_1, DISH_7);
+    public static final List<Dish> RESTAURANT_1_DISHES = List.of(DISH_3, DISH_2, DISH_1);
 
     public static final int VOTE_ID_1 = 1;
 

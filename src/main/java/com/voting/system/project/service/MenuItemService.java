@@ -1,12 +1,12 @@
 package com.voting.system.project.service;
 
-import com.voting.system.project.mapper.OrikaMapper;
 import com.voting.system.project.model.MenuItem;
 import com.voting.system.project.repository.DishRepository;
 import com.voting.system.project.repository.MenuItemRepository;
 import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.MenuItemDishIdTo;
 import com.voting.system.project.to.MenuItemDishNameTo;
+import com.voting.system.project.util.mapper.OrikaMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,10 +59,10 @@ public class MenuItemService {
 
     private MenuItemDishNameTo getMenuItem(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
         notNull(menuItemDishIdTo, "menuItemDishIdTo must not be null");
-        MenuItem menuItem = mapper.map(menuItemDishIdTo, MenuItem.class);
+        final MenuItem menuItem = mapper.map(menuItemDishIdTo, MenuItem.class);
         menuItem.setDish(dishRepository.getOne(menuItemDishIdTo.getDishId()));
         menuItem.setRestaurant(restaurantRepository.getOne(restaurantId));
-        MenuItem saved = menuItemRepository.save(menuItem);
+        final MenuItem saved = menuItemRepository.save(menuItem);
         return mapper.map(saved, MenuItemDishNameTo.class);
     }
 }

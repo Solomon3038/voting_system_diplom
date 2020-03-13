@@ -1,9 +1,9 @@
 package com.voting.system.project.service;
 
-import com.voting.system.project.mapper.OrikaMapper;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.RestaurantTo;
+import com.voting.system.project.util.mapper.OrikaMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
