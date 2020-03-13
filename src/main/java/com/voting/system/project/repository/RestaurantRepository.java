@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -17,6 +18,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Query("SELECT r FROM Restaurant r ORDER BY r.name ASC")
     List<Restaurant> findAll();
 
-    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menuItems mi LEFT JOIN FETCH mi.dish WHERE mi.date = current_date ORDER BY r.name ASC")
-    List<Restaurant> findAllWithMenusOnCurrentDate();
+    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menuItems mi LEFT JOIN FETCH mi.dish d WHERE mi.date=:date ORDER BY r.name ASC, d.name ASC")
+    List<Restaurant> findAllWithMenusOnDate(LocalDate date);
 }

@@ -7,6 +7,7 @@ import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.model.User;
 import com.voting.system.project.to.MenuItemDishIdTo;
 import com.voting.system.project.to.MenuItemDishNameTo;
+import com.voting.system.project.to.RestaurantTo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ public class TestMatcherUtil {
     static {
         ignoreFieldsMap.put(User.class, new String[]{"registered"});
         ignoreFieldsMap.put(Restaurant.class, new String[]{"menuItems"});
+        ignoreFieldsMap.put(RestaurantTo.class, new String[]{"menuItemDishNameTos"});
         ignoreFieldsMap.put(MenuItem.class, new String[]{"dish", "restaurant"});
         ignoreFieldsMap.put(MenuItemDishIdTo.class, new String[]{"dishId"});
         ignoreFieldsMap.put(MenuItemDishNameTo.class, new String[]{"dishName"});

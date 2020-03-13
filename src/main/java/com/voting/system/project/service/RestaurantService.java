@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
@@ -35,8 +36,8 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantTo> getAllWithMenusOnCurrentDate() {
-        List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnCurrentDate();
+    public List<RestaurantTo> getAllWithMenusOnDate(LocalDate date) {
+        List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnDate(date);
         return mapper.mapAsList(restaurants, RestaurantTo.class);
     }
 

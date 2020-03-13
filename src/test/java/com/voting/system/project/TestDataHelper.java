@@ -136,7 +136,7 @@ public class TestDataHelper {
 
     public static MenuItemDishIdTo getNewMenuItemDishIdTo() {
         MenuItemDishIdTo to = new MenuItemDishIdTo();
-        to.setDishId(5);
+        to.setDishId(DISH_ID_5);
         to.setPrice(56_00);
         return to;
     }

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.voting.system.project.TestDataHelper.ADMIN_1_EMAIL;
+import static com.voting.system.project.TestDataHelper.DISH_ID_NEXT;
 import static com.voting.system.project.TestDataHelper.MENU_1_1;
 import static com.voting.system.project.TestDataHelper.MENU_1_1_NOW;
 import static com.voting.system.project.TestDataHelper.MENU_1_2;
@@ -28,7 +29,6 @@ import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_2;
 import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_NEXT;
 import static com.voting.system.project.TestDataHelper.getNewMenuItemDishIdTo;
 import static com.voting.system.project.TestDataHelper.getUpdatedMenuItemDishIdTo;
-import static com.voting.system.project.util.MenuTestUtil.checkSave;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,8 +72,8 @@ class AdminMenuItemControllerTest extends AbstractControllerTest {
         final String menu = objectMapper.writeValueAsString(newMenu);
         final String result = doPost(menu, ADMIN_MENU_URL_TEST);
         final MenuItemDishNameTo created = objectMapper.readValue(result, MenuItemDishNameTo.class);
-        checkSave(created);
         newMenu.setId(created.getId());
+        assertMatch(created, newMenu);
         assertMatch(menuService.get(created.getId(), RESTAURANT_ID_1), newMenu);
     }
 
@@ -87,9 +87,18 @@ class AdminMenuItemControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void createNotExist() throws Exception {
-        final String menu = objectMapper.writeValueAsString(getNewMenuItemDishIdTo());
-        doPostErr(menu, ADMIN_MENU_NOT_EXIST_URL_TEST, status().isConflict());
+    void createNotExistRestaurant() throws Exception {
+        final MenuItemDishIdTo itemDishIdTo = getNewMenuItemDishIdTo();
+        doPostErr(objectMapper.writeValueAsString(itemDishIdTo), ADMIN_MENU_NOT_EXIST_URL_TEST, status().isConflict());
+        assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void createNotExistDish() throws Exception {
+        final MenuItemDishIdTo itemDishIdTo = getNewMenuItemDishIdTo();
+        itemDishIdTo.setDishId(DISH_ID_NEXT);
+        doPostErr(objectMapper.writeValueAsString(itemDishIdTo), ADMIN_MENU_URL_TEST, status().isConflict());
         assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
     }
 

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @ExtendWith(TimingExtension.class)
-@SpringBootTest(properties = "vote.h2.tcp_server.enable=false")
+@SpringBootTest
 public class AbstractTest {
     @Autowired
     protected OrikaMapper mapper;

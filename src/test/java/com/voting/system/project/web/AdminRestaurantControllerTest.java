@@ -19,7 +19,6 @@ import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_1;
 import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_NEXT;
 import static com.voting.system.project.TestDataHelper.getNewRestaurant;
 import static com.voting.system.project.TestDataHelper.getUpdatedRestaurant;
-import static com.voting.system.project.util.RestaurantTestUtil.checkSave;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.AdminRestaurantController.ADMIN_REST_URL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -59,7 +58,7 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
         final Restaurant created = objectMapper.readValue(result, Restaurant.class);
         final Integer id = created.getId();
         newRestaurant.setId(id);
-        checkSave(mapper.map(created, Restaurant.class));
+        assertMatch(created, newRestaurant);
         assertMatch(restaurantService.get(id), newRestaurant);
     }
 
