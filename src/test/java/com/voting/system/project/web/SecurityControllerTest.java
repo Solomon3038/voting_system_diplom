@@ -51,21 +51,21 @@ public class SecurityControllerTest extends AbstractControllerTest {
 
     @Test
     void createVoteUnauthorized() throws Exception {
-        doPut(status().isUnauthorized());
+        doPost(status().isUnauthorized());
     }
 
     @Test
     @WithUserDetails(ADMIN_1_EMAIL)
     void createVoteForbidden() throws Exception {
-        doPut(status().isForbidden());
+        doPost(status().isForbidden());
     }
 
     private void doGet(String url, ResultMatcher status) throws Exception {
         mockMvc.perform(get(url)).andExpect(status);
     }
 
-    private void doPut(ResultMatcher status) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put(VOTE_URL_TEST))
+    private void doPost(ResultMatcher status) throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post(VOTE_URL_TEST))
                 .andExpect(status);
     }
 }

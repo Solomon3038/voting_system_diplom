@@ -1,16 +1,17 @@
 package com.voting.system.project.to;
 
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class VoteTo extends BaseTo {
@@ -24,17 +25,9 @@ public class VoteTo extends BaseTo {
     private Integer restaurantId;
 
     public VoteTo(Integer id, LocalDate date, Integer userId, Integer restaurantId) {
-        this(id, userId, restaurantId);
-        this.date = date;
-    }
-
-    public VoteTo(Integer id, Integer userId, Integer restaurantId) {
         super(id);
+        this.date = date;
         this.userId = userId;
         this.restaurantId = restaurantId;
-    }
-
-    public VoteTo(Integer userId, Integer restaurantId) {
-        this(null, userId, restaurantId);
     }
 }

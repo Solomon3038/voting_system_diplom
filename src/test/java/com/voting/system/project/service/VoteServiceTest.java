@@ -1,25 +1,21 @@
 package com.voting.system.project.service;
 
 import com.voting.system.project.AbstractTest;
-import com.voting.system.project.model.Vote;
 import com.voting.system.project.to.VoteTo;
-import com.voting.system.project.util.exception.VoteException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
+import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_2;
+import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_3;
+import static com.voting.system.project.TestDataHelper.USER_ID_1;
+import static com.voting.system.project.TestDataHelper.USER_ID_2;
+import static com.voting.system.project.TestDataHelper.VOTE_ID_1;
 import static com.voting.system.project.TestDataHelper.VOTE_USER_2;
-import static com.voting.system.project.TestDataHelper.getNewVote;
-import static com.voting.system.project.TestDataHelper.getUpdatedVote;
-import static com.voting.system.project.util.ValidationUtil.VOTE_MAX_TIME;
-import static com.voting.system.project.util.VoteTestUtil.checkIfAfterTime;
-import static com.voting.system.project.util.VoteTestUtil.checkIfBeforeTime;
-import static com.voting.system.project.util.VoteTestUtil.checkSave;
-import static com.voting.system.project.util.VoteTestUtil.checkUpdate;
-import static com.voting.system.project.util.VoteUtil.getToFrom;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 
 class VoteServiceTest extends AbstractTest {
 
@@ -27,47 +23,23 @@ class VoteServiceTest extends AbstractTest {
     private VoteService voteService;
 
     @Test
+    void get() {
+        final VoteTo actual = voteService.get(VOTE_ID_1, USER_ID_2, LocalDate.now());
+        assertMatch(actual, mapper.map(VOTE_USER_2, VoteTo.class));
+    }
+
+    @Test
     void save() {
-        checkIfBeforeTime();
-        final VoteTo voteTo = getToFrom(getNewVote());
-        final Vote saved = voteService.createOrUpdate(voteTo);
-        checkSave(saved);
+        final VoteTo saved = voteService.create(USER_ID_1, RESTAURANT_ID_2, null);
+        final VoteTo expected = new VoteTo(saved.getId(), LocalDate.now(), USER_ID_1, RESTAURANT_ID_2);
+        assertMatch(saved, expected);
     }
 
     @Test
     void update() {
-        checkIfBeforeTime();
-        final VoteTo voteTo = getToFrom(getUpdatedVote(VOTE_USER_2));
-        final Vote updated = voteService.createOrUpdate(voteTo);
-        checkUpdate(updated);
-    }
-
-    @Test
-    void createOrUpdateNullError() {
-        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> voteService.createOrUpdate(null));
-        assertEquals("vote must not be null", exception.getMessage());
-    }
-
-    @Test
-    void createOrUpdateNotCurrentDate() {
-        final Vote vote = getNewVote();
-        vote.setDate(LocalDate.MIN);
-        final VoteException lessDateException = assertThrows(VoteException.class,
-                () -> voteService.createOrUpdate(getToFrom(vote)));
-        assertEquals("vote date " + vote.getDate() + " must be equal current date", lessDateException.getMessage());
-        vote.setDate(LocalDate.MAX);
-        final VoteException greaterDateException = assertThrows(VoteException.class,
-                () -> voteService.createOrUpdate(getToFrom(vote)));
-        assertEquals("vote date " + vote.getDate() + " must be equal current date", greaterDateException.getMessage());
-    }
-
-    @Test
-    void createOrUpdateNotInTime() {
-        checkIfAfterTime();
-        final Vote vote = getNewVote();
-        final VoteException exception = assertThrows(VoteException.class,
-                () -> voteService.createOrUpdate(getToFrom(vote)));
-        assertEquals("vote can't be accepted after " + VOTE_MAX_TIME + "AM", exception.getMessage());
+        voteService.update(VOTE_ID_1, USER_ID_2, RESTAURANT_ID_3, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
+        VoteTo updated = voteService.get(VOTE_ID_1, USER_ID_2, LocalDate.now());
+        VoteTo expected = new VoteTo(VOTE_ID_1, LocalDate.now(), USER_ID_2, RESTAURANT_ID_3);
+        assertMatch(updated, expected);
     }
 }

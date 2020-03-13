@@ -4,14 +4,24 @@ import com.voting.system.project.service.VoteService;
 import com.voting.system.project.to.VoteTo;
 import com.voting.system.project.util.SecurityUtil;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.voting.system.project.util.ValidationUtil.checkNew;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static com.voting.system.project.util.ControllerUtil.getResponseEntity;
 import static com.voting.system.project.web.RestaurantController.REST_URL;
 
 @Log4j2
@@ -27,13 +37,31 @@ public class VoteController {
         this.voteService = voteService;
     }
 
-    @PutMapping
+    @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@PathVariable int restId) {
+    public void get(@PathVariable int id,
+                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         int userId = SecurityUtil.authUserId();
-        log.info("create vote for user with id {} and restaurant with id {}", userId, restId);
-        final VoteTo voteTo = new VoteTo(userId, restId);
-        checkNew(voteTo);
-        voteService.createOrUpdate(voteTo);
+        log.info("get vote for user with id {} on date {}", userId, date);
+        voteService.get(id, userId, date);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VoteTo> createWithLocation(@PathVariable int restId,
+                                                     @RequestBody(required = false) LocalDate date) {
+        int userId = SecurityUtil.authUserId();
+        log.info("create vote for user with id {} and restaurant with id {} on date {}", userId, restId, date);
+        final VoteTo created = voteService.create(userId, restId, date);
+        return getResponseEntity(created, VOTE_URL + "/{id}", restId, created.getId());
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void update(@PathVariable int id,
+                       @PathVariable int restId,
+                       @RequestBody LocalDateTime dateTime) {
+        int userId = SecurityUtil.authUserId();
+        log.info("update vote for user with id {} and restaurant with id {} on date {}", userId, restId, dateTime);
+        voteService.update(id, userId, restId, dateTime);
     }
 }

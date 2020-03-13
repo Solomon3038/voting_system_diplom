@@ -42,7 +42,6 @@ public class RestaurantService {
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
-    @Transactional
     public Restaurant create(Restaurant restaurant) {
         notNull(restaurant, "restaurant must not be null");
         return restaurantRepository.save(restaurant);

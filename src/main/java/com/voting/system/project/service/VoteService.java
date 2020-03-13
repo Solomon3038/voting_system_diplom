@@ -7,13 +7,16 @@ import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.repository.UserRepository;
 import com.voting.system.project.repository.VoteRepository;
 import com.voting.system.project.to.VoteTo;
+import com.voting.system.project.util.mapper.OrikaMapper;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
-import static com.voting.system.project.util.ValidationUtil.checkDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
 import static com.voting.system.project.util.ValidationUtil.checkTime;
-import static com.voting.system.project.util.VoteUtil.getFromTo;
 
 @Service
 public class VoteService {
@@ -21,25 +24,38 @@ public class VoteService {
     private final VoteRepository voteRepository;
     private final UserRepository userRepository;
     private final RestaurantRepository restaurantRepository;
+    private final OrikaMapper mapper;
 
-    public VoteService(VoteRepository voteRepository, UserRepository userRepository, RestaurantRepository restaurantRepository) {
+    public VoteService(VoteRepository voteRepository,
+                       UserRepository userRepository,
+                       RestaurantRepository restaurantRepository,
+                       OrikaMapper mapper) {
         this.voteRepository = voteRepository;
         this.userRepository = userRepository;
         this.restaurantRepository = restaurantRepository;
+        this.mapper = mapper;
+    }
+
+    public VoteTo get(int id, int userId, LocalDate date) {
+        Vote vote = checkNotExistWithId(voteRepository.findVoteById(id, userId, date), id);
+        return mapper.map(vote, VoteTo.class);
     }
 
     @Transactional
-    public Vote createOrUpdate(VoteTo voteTo) {
-        Assert.notNull(voteTo, "vote must not be null");
-        checkDate(voteTo.getDate());
-        checkTime();
-        final Restaurant restaurant = restaurantRepository.getOne(voteTo.getRestaurantId());
-        final User user = userRepository.getOne(voteTo.getUserId());
-        final Vote existed = voteRepository.findVoteByUserIdOnCurrentDate(voteTo.getUserId());
-        if (existed != null) {
-            voteTo.setId(existed.getId());
-        }
-        final Vote vote = getFromTo(voteTo, user, restaurant);
-        return voteRepository.save(vote);
+    public VoteTo create(int userId, int restId, @Nullable LocalDate date) {
+        final User user = userRepository.getOne(userId);
+        final Restaurant restaurant = restaurantRepository.getOne(restId);
+        Vote vote = voteRepository.save(new Vote(null, date, user, restaurant));
+        return mapper.map(vote, VoteTo.class);
+    }
+
+    @Transactional
+    public void update(int id, int userId, int restId, LocalDateTime dateTime) {
+        checkTime(dateTime.toLocalTime());
+        final User user = userRepository.getOne(userId);
+        final Restaurant restaurant = restaurantRepository.getOne(restId);
+        final LocalDate date = dateTime.toLocalDate();
+        checkNotExistWithId(voteRepository.findVoteById(id, userId, date), id);
+        voteRepository.save(new Vote(id, date, user, restaurant));
     }
 }

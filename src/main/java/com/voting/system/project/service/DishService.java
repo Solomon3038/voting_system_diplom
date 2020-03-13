@@ -33,6 +33,7 @@ public class DishService {
         return dish;
     }
 
+    @Transactional
     public Dish create(Dish dish, int restId) {
         notNull(dish, "dish must not be null");
         dish.setRestaurant(restaurantRepository.getOne(restId));

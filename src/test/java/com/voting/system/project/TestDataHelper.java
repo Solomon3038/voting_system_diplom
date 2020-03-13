@@ -107,7 +107,7 @@ public class TestDataHelper {
 
     public static final int VOTE_ID_1 = 1;
 
-    public static final Vote VOTE_USER_2 = new Vote(VOTE_ID_1, RESTAURANT_1, USER_2);
+    public static final Vote VOTE_USER_2 = new Vote(VOTE_ID_1, null, USER_2, RESTAURANT_1);
 
     static {
         RESTAURANT_1.setMenus(RESTAURANT_1_MENUS_NOW);
@@ -144,13 +144,5 @@ public class TestDataHelper {
     public static MenuItemDishIdTo getUpdatedMenuItemDishIdTo(MenuItem menuItem) {
         return new MenuItemDishIdTo(menuItem.getId(), LocalDate.of(2019, 7, 12),
                 menuItem.getPrice(), menuItem.getDish().getId());
-    }
-
-    public static Vote getNewVote() {
-        return new Vote(null, RESTAURANT_2, USER_1);
-    }
-
-    public static Vote getUpdatedVote(Vote vote) {
-        return new Vote(vote.getId(), RESTAURANT_3, vote.getUser());
     }
 }
