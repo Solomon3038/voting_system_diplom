@@ -106,8 +106,13 @@ public class TestDataHelper {
     public static final List<Dish> RESTAURANT_1_DISHES = List.of(DISH_3, DISH_2, DISH_1);
 
     public static final int VOTE_ID_1 = 1;
+    public static final int VOTE_ID_2 = VOTE_ID_1 + 1;
+    public static final int VOTE_ID_3 = VOTE_ID_2 + 1;
+    public static final int VOTE_ID_NEXT = VOTE_ID_3 + 1;
 
-    public static final Vote VOTE_USER_2 = new Vote(VOTE_ID_1, null, USER_2, RESTAURANT_1);
+    public static final Vote VOTE_USER_2_NOW = new Vote(VOTE_ID_1, null, USER_2, RESTAURANT_1);
+    public static final Vote VOTE_USER_1 = new Vote(VOTE_ID_2, LocalDate.of(2020, 1, 1), USER_1, RESTAURANT_3);
+    public static final Vote VOTE_USER_2 = new Vote(VOTE_ID_3, LocalDate.of(2020, 1, 1), USER_2, RESTAURANT_2);
 
     static {
         RESTAURANT_1.setMenus(RESTAURANT_1_MENUS_NOW);

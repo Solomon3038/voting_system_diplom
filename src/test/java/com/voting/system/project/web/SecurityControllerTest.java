@@ -10,7 +10,8 @@ import static com.voting.system.project.TestDataHelper.USER_1_EMAIL;
 import static com.voting.system.project.web.AdminDishControllerTest.ADMIN_DISH_URL_TEST;
 import static com.voting.system.project.web.AdminMenuItemControllerTest.ADMIN_MENU_URL_TEST;
 import static com.voting.system.project.web.AdminRestaurantControllerTest.ADMIN_REST_URL_TEST;
-import static com.voting.system.project.web.VoteControllerTest.VOTE_URL_TEST;
+import static com.voting.system.project.web.VoteController.VOTE_URL;
+import static com.voting.system.project.web.VoteControllerTest.VOTE_REST_URL_TEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,6 +51,11 @@ public class SecurityControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getVoteUnauthorized() throws Exception {
+        doGet(VOTE_URL, status().isUnauthorized());
+    }
+
+    @Test
     void createVoteUnauthorized() throws Exception {
         doPost(status().isUnauthorized());
     }
@@ -65,7 +71,7 @@ public class SecurityControllerTest extends AbstractControllerTest {
     }
 
     private void doPost(ResultMatcher status) throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post(VOTE_URL_TEST))
+        mockMvc.perform(MockMvcRequestBuilders.post(VOTE_REST_URL_TEST))
                 .andExpect(status);
     }
 }

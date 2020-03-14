@@ -6,6 +6,7 @@ import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.util.mapper.OrikaMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +37,8 @@ public class RestaurantService {
     }
 
     @Cacheable("restaurants")
-    public List<RestaurantTo> getAllWithMenusOnDate(LocalDate date) {
-        List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnDate(date);
+    public List<RestaurantTo> getAllWithMenusOnDate(@Nullable LocalDate date) {
+        List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnDate(date == null ? LocalDate.now() : date);
         return mapper.mapAsList(restaurants, RestaurantTo.class);
     }
 

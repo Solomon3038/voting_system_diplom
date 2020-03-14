@@ -29,7 +29,8 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<RestaurantTo> getAllWithMenusAndDishes(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<RestaurantTo> getAllWithMenusAndDishes(@RequestParam(required = false)
+                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return restaurantService.getAllWithMenusOnDate(date);
     }
 }
