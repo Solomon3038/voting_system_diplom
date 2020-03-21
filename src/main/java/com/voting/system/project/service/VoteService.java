@@ -14,9 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import static com.voting.system.project.util.ValidationUtil.checkNotExistWithId;
+import static com.voting.system.project.util.ValidationUtil.checkNotExist;
 import static com.voting.system.project.util.ValidationUtil.checkTime;
 
 @Service
@@ -37,12 +36,9 @@ public class VoteService {
         this.mapper = mapper;
     }
 
-    public List<VoteTo> getAll(int userId) {
-        return mapper.mapAsList(voteRepository.findAll(userId), VoteTo.class);
-    }
-
-    public VoteTo get(int id, int userId, LocalDate date) {
-        Vote vote = checkNotExistWithId(voteRepository.findVoteById(id, userId, date), id);
+    public VoteTo get(int userId, LocalDate date) {
+        Vote vote = checkNotExist(voteRepository.findVoteByUserIdAndDate(userId, date),
+                "Vote for user with id " + userId + " on date " + date + " not exist");
         return mapper.map(vote, VoteTo.class);
     }
 
@@ -55,12 +51,13 @@ public class VoteService {
     }
 
     @Transactional
-    public void update(int id, int userId, int restId, LocalDateTime dateTime) {
+    public void update(int userId, int restId, LocalDateTime dateTime) {
         checkTime(dateTime.toLocalTime());
         final LocalDate date = dateTime.toLocalDate();
-        checkNotExistWithId(voteRepository.findVoteById(id, userId, date), id);
+        final Vote vote = checkNotExist(voteRepository.findVoteByUserIdAndDate(userId, date),
+                "Vote for user with id " + userId + " on date " + date + " not exist");
         final User user = userRepository.getOne(userId);
         final Restaurant restaurant = restaurantRepository.getOne(restId);
-        voteRepository.save(new Vote(id, date, user, restaurant));
+        voteRepository.save(new Vote(vote.getId(), date, user, restaurant));
     }
 }

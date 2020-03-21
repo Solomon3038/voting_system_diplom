@@ -13,6 +13,7 @@ import java.util.List;
 
 public class TestDataHelper {
     public static final int NOT_EXIST_ID = -1;
+    public static final LocalDate NOT_EXIST_DATE = LocalDate.of(2000, 1, 1);
 
     public static final int USER_ID_1 = 1;
     public static final int USER_ID_2 = USER_ID_1 + 1;

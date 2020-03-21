@@ -26,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/restaurants").permitAll()
-                .antMatchers("/restaurants/**", "/votes/**").hasAuthority(Role.ROLE_USER.getAuthority())
+                .antMatchers("/restaurants/**").hasAuthority(Role.ROLE_USER.getAuthority())
                 .antMatchers("/actuator/**", "/admin/**").hasAuthority(Role.ROLE_ADMIN.getAuthority())
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
