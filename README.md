@@ -1,7 +1,7 @@
 # voting_system_diplom
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0dbc929729a7430aa89705795eda5ac8)](https://app.codacy.com/manual/gagarina6794/voting_system_diplom?utm_source=github.com&utm_medium=referral&utm_content=gagarina6794/voting_system_diplom&utm_campaign=Badge_Grade_Dashboard)
-<a href="https://travis-ci.org/gagarina6794/voting_system_diplom" rel="nofollow"><img src="https://camo.githubusercontent.com/36aef9dad8478b5ff55a66261aabc1cfbf4b1880/68747470733a2f2f7472617669732d63692e6f72672f4a617661576562696e61722f746f706a6176612e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://api.travis-ci.org/gagarina6794/voting_system_diplom.svg?branch=master" style="max-width:100%;"></a>
+<a href="https://travis-ci.org/gagarina6794/voting_system_diplom" rel="nofollow"><img src="https://camo.githubusercontent.com/36aef9dad8478b5ff55a66261aabc1cfbf4b1880/68747470733a2f2f7472617669732d63692e6f72672f4a617661576562696e61722f746f706a6176612e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/gagarina6794/voting_system_diplom.svg?branch=master" style="max-width:100%;"></a>
 
 ### Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
@@ -422,8 +422,8 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1' \
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
           <p> 409 Conflict </p>
+          <p> 422 Unprocessable Entity </p>
           </td>
       </tr>
 <tr>
@@ -481,8 +481,8 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants' \
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
           <p> 409 Conflict </p>
+          <p> 422 Unprocessable Entity </p>
           </td>
       </tr>
 <tr>
@@ -644,8 +644,8 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1/menu-it
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
           <p> 409 Conflict </p>
+          <p> 422 Unprocessable Entity </p>
           </td>
       </tr>
 <tr>
@@ -706,8 +706,8 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants/1/menu-i
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
           <p> 409 Conflict </p>
+          <p> 422 Unprocessable Entity </p>
           </td>
       </tr>
 <tr>
@@ -850,8 +850,8 @@ curl --location --request GET 'http://localhost:8080/admin/restaurants/1/dishes/
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
           <p> 409 Conflict </p>
+          <p> 422 Unprocessable Entity </p>
           </td>
       </tr>
 <tr>
@@ -906,8 +906,8 @@ curl --location --request POST 'http://localhost:8080/admin/restaurants/1/dishes
           <td>
           <p> 401 Unauthorized </p>
           <p> 403 Forbidden </p>
-          <p> 422 Unprocessable Entity </p>
           <p> 409 Conflict </p>
+          <p> 422 Unprocessable Entity </p>
           </td>
       </tr>
 <tr>
