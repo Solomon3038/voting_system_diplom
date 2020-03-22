@@ -5,6 +5,7 @@ import com.voting.system.project.util.exception.IllegalRequestDataException;
 import com.voting.system.project.util.exception.NotExistException;
 import com.voting.system.project.util.exception.VoteException;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ValidationUtil {
@@ -46,9 +47,15 @@ public class ValidationUtil {
         }
     }
 
+    public static void checkDate(LocalDate date) {
+        if (date != null && date.compareTo(LocalDate.now()) < 0) {
+            throw new VoteException("Vote date must be current date or future date");
+        }
+    }
+
     public static void checkTime(LocalTime time) {
         if (time.compareTo(VOTE_MAX_TIME) > 0) {
-            throw new VoteException("vote can't be accepted after " + VOTE_MAX_TIME + "AM");
+            throw new VoteException("Vote can't be accepted after " + VOTE_MAX_TIME + "AM");
         }
     }
 }

@@ -57,7 +57,7 @@ class VoteControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(USER_1_EMAIL)
     void createWithLocation() throws Exception {
-        final LocalDate date = LocalDate.of(2020, 3, 14);
+        final LocalDate date = LocalDate.of(2022, 3, 14);
         final String value = objectMapper.writeValueAsString(date);
         final String result = doPost(value, VOTE_REST_URL_TEST);
         final VoteTo created = objectMapper.readValue(result, VoteTo.class);
@@ -79,6 +79,13 @@ class VoteControllerTest extends AbstractControllerTest {
     @Transactional(propagation = Propagation.NEVER)
     void createDuplicateData() throws Exception {
         doPostErr("", VOTE_REST_URL_TEST, status().isConflict());
+    }
+
+    @Test
+    @WithUserDetails(USER_2_EMAIL)
+    void createDateLessCurrentDate() throws Exception {
+        final String value = objectMapper.writeValueAsString(LocalDate.of(2020, 1, 3));
+        doPostErr(value, VOTE_REST_URL_TEST, status().isRequestTimeout());
     }
 
     @Test

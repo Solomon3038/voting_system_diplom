@@ -43,13 +43,15 @@ public class AdminDishController {
     }
 
     @GetMapping("/{id}")
-    public Dish get(@PathVariable int id, @PathVariable int restId) {
+    public Dish get(@PathVariable int id,
+                    @PathVariable int restId) {
         log.info("getDish with id {} for restaurant with id {} ", id, restId);
         return dishService.get(id, restId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish, @PathVariable int restId) {
+    public ResponseEntity<Dish> createWithLocation(@Valid @RequestBody Dish dish,
+                                                   @PathVariable int restId) {
         log.info("create {} for restaurant with id {} ", dish, restId);
         checkNew(dish);
         final Dish created = dishService.create(dish, restId);
@@ -58,7 +60,9 @@ public class AdminDishController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Dish dish, @PathVariable int id, @PathVariable int restId) {
+    public void update(@Valid @RequestBody Dish dish,
+                       @PathVariable int id,
+                       @PathVariable int restId) {
         log.info("update {} for restaurant with id {} ", dish, restId);
         assureIdConsistent(dish, id);
         dishService.update(dish, id, restId);

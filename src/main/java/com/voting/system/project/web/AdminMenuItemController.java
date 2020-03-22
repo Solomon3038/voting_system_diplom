@@ -44,13 +44,15 @@ public class AdminMenuItemController {
     }
 
     @GetMapping("/{id}")
-    public MenuItemDishNameTo get(@PathVariable int restId, @PathVariable int id) {
+    public MenuItemDishNameTo get(@PathVariable int restId,
+                                  @PathVariable int id) {
         log.info("getMenu with id {} for restaurant with id {}", id, restId);
         return menuItemService.get(id, restId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MenuItemDishNameTo> createWithLocation(@Valid @RequestBody MenuItemDishIdTo menuItemDishIdTo, @PathVariable int restId) {
+    public ResponseEntity<MenuItemDishNameTo> createWithLocation(@Valid @RequestBody MenuItemDishIdTo menuItemDishIdTo,
+                                                                 @PathVariable int restId) {
         log.info("create {}", menuItemDishIdTo);
         checkNew(menuItemDishIdTo);
         final MenuItemDishNameTo created = menuItemService.create(menuItemDishIdTo, restId);
@@ -59,7 +61,9 @@ public class AdminMenuItemController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody MenuItemDishIdTo menuItemDishIdTo, @PathVariable int restId, @PathVariable int id) {
+    public void update(@Valid @RequestBody MenuItemDishIdTo menuItemDishIdTo,
+                       @PathVariable int restId,
+                       @PathVariable int id) {
         log.info("update {}", menuItemDishIdTo);
         assureIdConsistent(menuItemDishIdTo, id);
         menuItemService.update(menuItemDishIdTo, id, restId);

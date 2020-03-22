@@ -45,6 +45,12 @@ class VoteServiceTest extends AbstractTest {
     }
 
     @Test
+    void saveDateLessCurrentDate() {
+        assertThrows(VoteException.class,
+                () -> voteService.create(USER_ID_1, RESTAURANT_ID_2, LocalDate.of(2020, 1, 1)));
+    }
+
+    @Test
     void update() {
         voteService.update(USER_ID_2, RESTAURANT_ID_3, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
         final VoteTo updated = voteService.get(USER_ID_2, LocalDate.now());
