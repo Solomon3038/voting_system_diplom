@@ -108,12 +108,13 @@ curl --location --request GET 'http://localhost:8080/restaurants/3/votes?date=20
 <tr>
 <td>
 <details>
-  <summary>Data params:</summary><p>
+  <summary>Form data:</summary><p>
   
 ```
-"2022-02-20"
+Key: date
+Value: 2022-02-20
 
-if data is not exist vote will be create on current date
+if parameter is not exist vote will be create on current date
 ```
 </p></details>
 </td>

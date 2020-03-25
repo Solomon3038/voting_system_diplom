@@ -5,6 +5,7 @@ import com.voting.system.project.to.VoteTo;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,8 @@ import static com.voting.system.project.TestDataHelper.VOTE_USER_2;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
 import static com.voting.system.project.web.RestaurantController.REST_URL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class VoteControllerTest extends AbstractControllerTest {
@@ -57,10 +60,14 @@ class VoteControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(USER_1_EMAIL)
     void createWithLocation() throws Exception {
-        final LocalDate date = LocalDate.of(2022, 3, 14);
-        final String value = objectMapper.writeValueAsString(date);
-        final String result = doPost(value, VOTE_REST_URL_TEST);
+        final String result = mockMvc.perform(post(VOTE_REST_URL_TEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("date", "2022-03-14"))
+                .andDo(print())
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+
         final VoteTo created = objectMapper.readValue(result, VoteTo.class);
+        final LocalDate date = LocalDate.of(2022, 3, 14);
         VoteTo expected = new VoteTo(created.getId(), date, USER_ID_1, RESTAURANT_ID_2);
         assertMatch(created, expected);
         assertMatch(voteService.get(USER_ID_1, date), expected);
@@ -84,8 +91,11 @@ class VoteControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(USER_2_EMAIL)
     void createDateLessCurrentDate() throws Exception {
-        final String value = objectMapper.writeValueAsString(LocalDate.of(2020, 1, 3));
-        doPostErr(value, VOTE_REST_URL_TEST, status().isRequestTimeout());
+        mockMvc.perform(post(VOTE_REST_URL_TEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("date", "2020-01-03"))
+                .andDo(print())
+                .andExpect(status().isRequestTimeout());
     }
 
     @Test

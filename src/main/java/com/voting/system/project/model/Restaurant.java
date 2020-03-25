@@ -33,7 +33,7 @@ public class Restaurant extends AbstractNamedEntity {
     private List<MenuItem> menuItems;
 
     public Restaurant(Integer id, String name, String address) {
-        this(id, name, address, new ArrayList<>());
+        this(id, name, address, null);
     }
 
     public Restaurant(Integer id, String name, String address, List<MenuItem> menuItems) {

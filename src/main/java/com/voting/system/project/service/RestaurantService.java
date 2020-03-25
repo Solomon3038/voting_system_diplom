@@ -38,7 +38,7 @@ public class RestaurantService {
 
     @Cacheable("restaurants")
     public List<RestaurantTo> getAllWithMenusOnDate(@Nullable LocalDate date) {
-        final List<Restaurant> restaurants = restaurantRepository.findAllWithMenusOnDate(date == null ? LocalDate.now() : date);
+        final List<Restaurant> restaurants = restaurantRepository.findAllWithMenuItemsOnDate(date == null ? LocalDate.now() : date);
         return mapper.mapAsList(restaurants, RestaurantTo.class);
     }
 

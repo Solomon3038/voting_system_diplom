@@ -45,9 +45,10 @@ public class VoteController {
         return voteService.get(userId, date);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<VoteTo> createWithLocation(@PathVariable int restId,
-                                                     @RequestBody(required = false) LocalDate date) {
+                                                     @RequestParam(value = "date", required = false)
+                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         int userId = SecurityUtil.authUserId();
         log.info("create vote for user with id {} and restaurant with id {} on date {}", userId, restId, date);
         final VoteTo created = voteService.create(userId, restId, date);

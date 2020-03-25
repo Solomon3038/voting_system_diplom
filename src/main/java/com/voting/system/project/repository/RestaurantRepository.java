@@ -19,5 +19,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     List<Restaurant> findAll();
 
     @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.menuItems mi LEFT JOIN FETCH mi.dish d WHERE mi.date=:date ORDER BY r.name ASC, d.name ASC")
-    List<Restaurant> findAllWithMenusOnDate(LocalDate date);
+    List<Restaurant> findAllWithMenuItemsOnDate(LocalDate date);
 }

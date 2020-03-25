@@ -53,8 +53,7 @@ public class User extends AbstractNamedEntity {
     @CollectionTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            uniqueConstraints = {
-                    @UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_user_id_idx")})
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_user_id_idx")})
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)

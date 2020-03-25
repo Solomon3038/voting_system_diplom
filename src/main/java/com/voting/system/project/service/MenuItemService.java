@@ -47,17 +47,17 @@ public class MenuItemService {
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public MenuItemDishNameTo create(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
-        return getMenuItem(menuItemDishIdTo, restaurantId);
+        return createMenuItem(menuItemDishIdTo, restaurantId);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(MenuItemDishIdTo menuItemDishIdTo, int id, int restaurantId) {
         checkNotExistWithId(menuItemRepository.findByIdAndRestaurantId(id, restaurantId), id);
-        getMenuItem(menuItemDishIdTo, restaurantId);
+        createMenuItem(menuItemDishIdTo, restaurantId);
     }
 
-    private MenuItemDishNameTo getMenuItem(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
+    private MenuItemDishNameTo createMenuItem(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
         notNull(menuItemDishIdTo, "menuItemDishIdTo must not be null");
         final MenuItem menuItem = mapper.map(menuItemDishIdTo, MenuItem.class);
         menuItem.setDish(dishRepository.getOne(menuItemDishIdTo.getDishId()));
