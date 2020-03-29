@@ -37,7 +37,7 @@ public class VoteService {
         this.mapper = mapper;
     }
 
-    public VoteTo get(int userId, LocalDate date) {
+    public VoteTo getOnDate(int userId, LocalDate date) {
         final Vote vote = checkNotExist(voteRepository.findVoteByUserIdAndDate(userId, date),
                 "Vote for user with id " + userId + " on date " + date + " not exist");
         return mapper.map(vote, VoteTo.class);

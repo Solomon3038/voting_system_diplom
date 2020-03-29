@@ -38,14 +38,14 @@ public class AdminDishController {
 
     @GetMapping
     public List<Dish> getAll(@PathVariable int restId) {
-        log.info("getDishes");
+        log.info("get dishes for restaurant with id {}", restId);
         return dishService.getAll(restId);
     }
 
     @GetMapping("/{id}")
     public Dish get(@PathVariable int id,
                     @PathVariable int restId) {
-        log.info("getDish with id {} for restaurant with id {} ", id, restId);
+        log.info("get dish with id {} for restaurant with id {} ", id, restId);
         return dishService.get(id, restId);
     }
 

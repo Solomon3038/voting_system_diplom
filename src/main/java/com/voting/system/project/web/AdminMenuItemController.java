@@ -44,9 +44,9 @@ public class AdminMenuItemController {
     }
 
     @GetMapping("/{id}")
-    public MenuItemDishNameTo get(@PathVariable int restId,
-                                  @PathVariable int id) {
-        log.info("getMenu with id {} for restaurant with id {}", id, restId);
+    public MenuItemDishNameTo get(@PathVariable int id,
+                                  @PathVariable int restId) {
+        log.info("getMenuItem with id {} for restaurant with id {}", id, restId);
         return menuItemService.get(id, restId);
     }
 
@@ -62,8 +62,8 @@ public class AdminMenuItemController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody MenuItemDishIdTo menuItemDishIdTo,
-                       @PathVariable int restId,
-                       @PathVariable int id) {
+                       @PathVariable int id,
+                       @PathVariable int restId) {
         log.info("update {}", menuItemDishIdTo);
         assureIdConsistent(menuItemDishIdTo, id);
         menuItemService.update(menuItemDishIdTo, id, restId);

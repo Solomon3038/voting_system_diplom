@@ -70,7 +70,7 @@ class VoteControllerTest extends AbstractControllerTest {
         final LocalDate date = LocalDate.of(2022, 3, 14);
         VoteTo expected = new VoteTo(created.getId(), date, USER_ID_1, RESTAURANT_ID_2);
         assertMatch(created, expected);
-        assertMatch(voteService.get(USER_ID_1, date), expected);
+        assertMatch(voteService.getOnDate(USER_ID_1, date), expected);
     }
 
     @Test
@@ -78,7 +78,7 @@ class VoteControllerTest extends AbstractControllerTest {
     @Transactional(propagation = Propagation.NEVER)
     void createNotExist() throws Exception {
         doPostErr("", VOTE_NOT_EXIST_REST_URL_TEST, status().isConflict());
-        assertThrows(NotExistException.class, () -> voteService.get(USER_ID_1, LocalDate.now()));
+        assertThrows(NotExistException.class, () -> voteService.getOnDate(USER_ID_1, LocalDate.now()));
     }
 
     @Test
@@ -104,7 +104,7 @@ class VoteControllerTest extends AbstractControllerTest {
         final LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0));
         final String value = objectMapper.writeValueAsString(date);
         doPut(value, REST_URL + "/" + RESTAURANT_ID_3 + "/votes/");
-        assertMatch(voteService.get(USER_ID_2, date.toLocalDate()), new VoteTo(VOTE_ID_1, date.toLocalDate(), USER_ID_2, RESTAURANT_ID_3));
+        assertMatch(voteService.getOnDate(USER_ID_2, date.toLocalDate()), new VoteTo(VOTE_ID_1, date.toLocalDate(), USER_ID_2, RESTAURANT_ID_3));
     }
 
     @Test
@@ -113,7 +113,7 @@ class VoteControllerTest extends AbstractControllerTest {
         final LocalDateTime date = LocalDateTime.of(NOT_EXIST_DATE, LocalTime.of(9, 0));
         final String value = objectMapper.writeValueAsString(date);
         doPutErr(value, REST_URL + "/" + RESTAURANT_ID_3 + "/votes/", status().isUnprocessableEntity());
-        assertMatch(voteService.get(USER_ID_1, VOTE_USER_1.getDate()), new VoteTo(VOTE_ID_2, VOTE_USER_1.getDate(), USER_ID_1, RESTAURANT_ID_3));
+        assertMatch(voteService.getOnDate(USER_ID_1, VOTE_USER_1.getDate()), new VoteTo(VOTE_ID_2, VOTE_USER_1.getDate(), USER_ID_1, RESTAURANT_ID_3));
     }
 
     @Test
@@ -123,7 +123,7 @@ class VoteControllerTest extends AbstractControllerTest {
         final LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0));
         final String value = objectMapper.writeValueAsString(date);
         doPutErr(value, VOTE_NOT_EXIST_REST_URL_TEST, status().isConflict());
-        assertMatch(voteService.get(USER_ID_2, LocalDate.now()), new VoteTo(VOTE_ID_1, LocalDate.now(), USER_ID_2, RESTAURANT_ID_1));
+        assertMatch(voteService.getOnDate(USER_ID_2, LocalDate.now()), new VoteTo(VOTE_ID_1, LocalDate.now(), USER_ID_2, RESTAURANT_ID_1));
     }
 
     @Test
@@ -132,6 +132,6 @@ class VoteControllerTest extends AbstractControllerTest {
         final LocalDateTime date = LocalDateTime.of(VOTE_USER_2.getDate(), LocalTime.of(11, 0, 1));
         final String value = objectMapper.writeValueAsString(date);
         doPutErr(value, VOTE_REST_URL_TEST, status().isRequestTimeout());
-        assertMatch(voteService.get(USER_ID_2, date.toLocalDate()), new VoteTo(VOTE_ID_3, date.toLocalDate(), USER_ID_2, RESTAURANT_ID_2));
+        assertMatch(voteService.getOnDate(USER_ID_2, date.toLocalDate()), new VoteTo(VOTE_ID_3, date.toLocalDate(), USER_ID_2, RESTAURANT_ID_2));
     }
 }

@@ -28,13 +28,13 @@ class VoteServiceTest extends AbstractTest {
 
     @Test
     void get() {
-        final VoteTo actual = voteService.get(USER_ID_2, LocalDate.now());
+        final VoteTo actual = voteService.getOnDate(USER_ID_2, LocalDate.now());
         assertMatch(actual, mapper.map(VOTE_USER_2_NOW, VoteTo.class));
     }
 
     @Test
     void getNotExist() {
-        assertThrows(NotExistException.class, () -> voteService.get(USER_ID_2, NOT_EXIST_DATE));
+        assertThrows(NotExistException.class, () -> voteService.getOnDate(USER_ID_2, NOT_EXIST_DATE));
     }
 
     @Test
@@ -53,7 +53,7 @@ class VoteServiceTest extends AbstractTest {
     @Test
     void update() {
         voteService.update(USER_ID_2, RESTAURANT_ID_3, LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0)));
-        final VoteTo updated = voteService.get(USER_ID_2, LocalDate.now());
+        final VoteTo updated = voteService.getOnDate(USER_ID_2, LocalDate.now());
         final VoteTo expected = new VoteTo(VOTE_ID_1, LocalDate.now(), USER_ID_2, RESTAURANT_ID_3);
         assertMatch(updated, expected);
     }

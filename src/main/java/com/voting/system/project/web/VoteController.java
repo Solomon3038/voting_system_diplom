@@ -42,7 +42,7 @@ public class VoteController {
                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         int userId = SecurityUtil.authUserId();
         log.info("get vote for user with id {} on date {}", userId, date);
-        return voteService.get(userId, date);
+        return voteService.getOnDate(userId, date);
     }
 
     @PostMapping
