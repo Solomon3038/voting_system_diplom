@@ -55,7 +55,7 @@ public class AdminMenuItemController {
                                                                  @PathVariable int restId) {
         log.info("create {}", menuItemDishIdTo);
         checkNew(menuItemDishIdTo);
-        final MenuItemDishNameTo created = menuItemService.create(menuItemDishIdTo, restId);
+        final MenuItemDishNameTo created = menuItemService.create(menuItemDishIdTo);
         return getResponseEntity(created, ADMIN_MENU_URL + "/{id}", restId, created.getId());
     }
 

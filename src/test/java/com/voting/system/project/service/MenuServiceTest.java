@@ -61,7 +61,7 @@ class MenuServiceTest extends AbstractTest {
 
     @Test
     void create() {
-        final MenuItemDishNameTo saved = menuService.create(getNewMenuItemDishIdTo(), RESTAURANT_ID_4);
+        final MenuItemDishNameTo saved = menuService.create(getNewMenuItemDishIdTo());
         final MenuItemDishIdTo expected = getNewMenuItemDishIdTo();
         expected.setId(saved.getId());
         assertMatch(saved, expected);
@@ -70,7 +70,7 @@ class MenuServiceTest extends AbstractTest {
     @Test
     void createNullError() {
         final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> menuService.create(null, RESTAURANT_ID_4));
+                () -> menuService.create(null));
         assertEquals("menuItemDishIdTo must not be null", exception.getMessage());
     }
 

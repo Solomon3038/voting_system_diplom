@@ -1,11 +1,9 @@
 package com.voting.system.project.util.mapper;
 
 import com.voting.system.project.model.MenuItem;
-import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.model.Vote;
 import com.voting.system.project.to.MenuItemDishIdTo;
 import com.voting.system.project.to.MenuItemDishNameTo;
-import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.to.VoteTo;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.converter.ConverterFactory;
@@ -22,13 +20,6 @@ public class OrikaMapper extends ConfigurableMapper {
         converterFactory.registerConverter(new DishIntegerConverter());
         converterFactory.registerConverter(new UserIntegerConverter());
         converterFactory.registerConverter(new RestaurantIntegerConverter());
-
-        mapperFactory.classMap(Restaurant.class, RestaurantTo.class)
-                .field("id", "id")
-                .field("name", "name")
-                .field("address", "address")
-                .field("menuItems", "menuItemDishNameTos")
-                .register();
 
         mapperFactory.classMap(MenuItem.class, MenuItemDishNameTo.class)
                 .field("id", "id")

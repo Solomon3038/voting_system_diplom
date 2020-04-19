@@ -12,9 +12,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
 
-    @Query("SELECT mi FROM MenuItem mi LEFT JOIN FETCH mi.dish d WHERE mi.restaurant.id=:restaurantId ORDER BY mi.date DESC, d.name ASC")
+    @Query("SELECT mi FROM MenuItem mi LEFT JOIN FETCH mi.dish d WHERE mi.dish.restaurant.id=:restaurantId ORDER BY mi.date DESC, d.name ASC")
     List<MenuItem> findAllByRestaurantId(int restaurantId);
 
-    @Query("SELECT mi FROM MenuItem mi LEFT JOIN FETCH mi.dish d WHERE mi.id=:id and mi.restaurant.id=:restaurantId")
+    @Query("SELECT mi FROM MenuItem mi LEFT JOIN FETCH mi.dish d WHERE mi.id=:id and mi.dish.restaurant.id=:restaurantId")
     MenuItem findByIdAndRestaurantId(int id, int restaurantId);
 }

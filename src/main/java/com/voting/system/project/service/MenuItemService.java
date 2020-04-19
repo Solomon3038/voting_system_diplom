@@ -3,7 +3,6 @@ package com.voting.system.project.service;
 import com.voting.system.project.model.MenuItem;
 import com.voting.system.project.repository.DishRepository;
 import com.voting.system.project.repository.MenuItemRepository;
-import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.MenuItemDishIdTo;
 import com.voting.system.project.to.MenuItemDishNameTo;
 import com.voting.system.project.util.mapper.OrikaMapper;
@@ -21,16 +20,13 @@ public class MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
     private final DishRepository dishRepository;
-    private final RestaurantRepository restaurantRepository;
     private final OrikaMapper mapper;
 
     public MenuItemService(MenuItemRepository menuItemRepository,
                            DishRepository dishRepository,
-                           RestaurantRepository restaurantRepository,
                            OrikaMapper mapper) {
         this.menuItemRepository = menuItemRepository;
         this.dishRepository = dishRepository;
-        this.restaurantRepository = restaurantRepository;
         this.mapper = mapper;
     }
 
@@ -46,22 +42,21 @@ public class MenuItemService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
-    public MenuItemDishNameTo create(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
-        return createMenuItem(menuItemDishIdTo, restaurantId);
+    public MenuItemDishNameTo create(MenuItemDishIdTo menuItemDishIdTo) {
+        return createMenuItem(menuItemDishIdTo);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Transactional
     public void update(MenuItemDishIdTo menuItemDishIdTo, int id, int restaurantId) {
         checkNotExistWithId(menuItemRepository.findByIdAndRestaurantId(id, restaurantId), id);
-        createMenuItem(menuItemDishIdTo, restaurantId);
+        createMenuItem(menuItemDishIdTo);
     }
 
-    private MenuItemDishNameTo createMenuItem(MenuItemDishIdTo menuItemDishIdTo, int restaurantId) {
+    private MenuItemDishNameTo createMenuItem(MenuItemDishIdTo menuItemDishIdTo) {
         notNull(menuItemDishIdTo, "menuItemDishIdTo must not be null");
         final MenuItem menuItem = mapper.map(menuItemDishIdTo, MenuItem.class);
         menuItem.setDish(dishRepository.getOne(menuItemDishIdTo.getDishId()));
-        menuItem.setRestaurant(restaurantRepository.getOne(restaurantId));
         final MenuItem saved = menuItemRepository.save(menuItem);
         return mapper.map(saved, MenuItemDishNameTo.class);
     }

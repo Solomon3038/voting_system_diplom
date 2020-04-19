@@ -1,5 +1,6 @@
 package com.voting.system.project.to;
 
+import com.voting.system.project.model.Restaurant;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +13,6 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
@@ -27,4 +27,10 @@ public class RestaurantTo extends BaseTo {
     private String address;
 
     private List<MenuItemDishNameTo> menuItemDishNameTos;
+
+    public RestaurantTo(Restaurant restaurant, List<MenuItemDishNameTo> menuItemDishNameTos) {
+        super(restaurant.getId());
+        this.name = restaurant.getName();
+        this.menuItemDishNameTos = menuItemDishNameTos;
+    }
 }

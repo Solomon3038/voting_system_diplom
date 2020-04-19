@@ -9,6 +9,7 @@ import com.voting.system.project.model.Vote;
 import com.voting.system.project.to.MenuItemDishIdTo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestDataHelper {
@@ -77,23 +78,22 @@ public class TestDataHelper {
     public static final int MENU_ID_14 = MENU_ID_13 + 1;
     public static final int MENU_ID_NEXT = MENU_ID_14 + 1;
 
-    public static final MenuItem MENU_1_1 = new MenuItem(MENU_ID_1, LocalDate.of(2019, 6, 1), 90_00, DISH_1, RESTAURANT_1);
-    public static final MenuItem MENU_1_2 = new MenuItem(MENU_ID_2, LocalDate.of(2019, 6, 1), 38_00, DISH_2, RESTAURANT_1);
-    public static final MenuItem MENU_1_3 = new MenuItem(MENU_ID_3, LocalDate.of(2019, 6, 1), 146_00, DISH_3, RESTAURANT_1);
-    public static final MenuItem MENU_2_1 = new MenuItem(MENU_ID_4, LocalDate.of(2019, 6, 1), 99_98, DISH_4, RESTAURANT_2);
-    public static final MenuItem MENU_2_2 = new MenuItem(MENU_ID_5, LocalDate.of(2019, 6, 1), 110_50, DISH_5, RESTAURANT_2);
-    public static final MenuItem MENU_2_3 = new MenuItem(MENU_ID_6, LocalDate.of(2019, 6, 1), 97_00, DISH_6, RESTAURANT_2);
-    public static final MenuItem MENU_3_1 = new MenuItem(MENU_ID_7, LocalDate.of(2019, 6, 1), 85_00, DISH_7, RESTAURANT_3);
-    public static final MenuItem MENU_3_2 = new MenuItem(MENU_ID_8, LocalDate.of(2019, 6, 1), 70_00, DISH_8, RESTAURANT_3);
-    public static final MenuItem MENU_3_3 = new MenuItem(MENU_ID_9, LocalDate.of(2019, 6, 1), 30_000, DISH_9, RESTAURANT_3);
+    public static final MenuItem MENU_1_1 = new MenuItem(MENU_ID_1, LocalDate.of(2019, 6, 1), 90_00, DISH_1);
+    public static final MenuItem MENU_1_2 = new MenuItem(MENU_ID_2, LocalDate.of(2019, 6, 1), 38_00, DISH_2);
+    public static final MenuItem MENU_1_3 = new MenuItem(MENU_ID_3, LocalDate.of(2019, 6, 1), 146_00, DISH_3);
+    public static final MenuItem MENU_2_1 = new MenuItem(MENU_ID_4, LocalDate.of(2019, 6, 1), 99_98, DISH_4);
+    public static final MenuItem MENU_2_2 = new MenuItem(MENU_ID_5, LocalDate.of(2019, 6, 1), 110_50, DISH_5);
+    public static final MenuItem MENU_2_3 = new MenuItem(MENU_ID_6, LocalDate.of(2019, 6, 1), 97_00, DISH_6);
+    public static final MenuItem MENU_3_1 = new MenuItem(MENU_ID_7, LocalDate.of(2019, 6, 1), 85_00, DISH_7);
+    public static final MenuItem MENU_3_2 = new MenuItem(MENU_ID_8, LocalDate.of(2019, 6, 1), 70_00, DISH_8);
+    public static final MenuItem MENU_3_3 = new MenuItem(MENU_ID_9, LocalDate.of(2019, 6, 1), 30_000, DISH_9);
 
-    public static final MenuItem MENU_1_1_NOW = new MenuItem(MENU_ID_10, 90_00, DISH_1, RESTAURANT_1);
-    public static final MenuItem MENU_1_2_NOW = new MenuItem(MENU_ID_11, 38_00, DISH_2, RESTAURANT_1);
-    public static final MenuItem MENU_2_1_NOW = new MenuItem(MENU_ID_12, 99_98, DISH_4, RESTAURANT_2);
-    public static final MenuItem MENU_2_2_NOW = new MenuItem(MENU_ID_13, 97_00, DISH_6, RESTAURANT_2);
-    public static final MenuItem MENU_3_1_NOW = new MenuItem(MENU_ID_14, 30_000, DISH_9, RESTAURANT_3);
+    public static final MenuItem MENU_1_1_NOW = new MenuItem(MENU_ID_10, 90_00, DISH_1);
+    public static final MenuItem MENU_1_2_NOW = new MenuItem(MENU_ID_11, 38_00, DISH_2);
+    public static final MenuItem MENU_2_1_NOW = new MenuItem(MENU_ID_12, 99_98, DISH_4);
+    public static final MenuItem MENU_2_2_NOW = new MenuItem(MENU_ID_13, 97_00, DISH_6);
+    public static final MenuItem MENU_3_1_NOW = new MenuItem(MENU_ID_14, 30_000, DISH_9);
 
-    public static final List<Restaurant> RESTAURANTS_WITH_MENU_ON_CURRENT_DATE = List.of(RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
     public static final List<Restaurant> RESTAURANTS = List.of(RESTAURANT_4_NO_MENU, RESTAURANT_2, RESTAURANT_1, RESTAURANT_3);
 
     public static final List<MenuItem> RESTAURANT_1_MENUS = List.of(MENU_1_2_NOW, MENU_1_1_NOW, MENU_1_3, MENU_1_2, MENU_1_1);
@@ -103,6 +103,14 @@ public class TestDataHelper {
     public static final List<MenuItem> RESTAURANT_1_MENUS_NOW = List.of(MENU_1_2_NOW, MENU_1_1_NOW);
     public static final List<MenuItem> RESTAURANT_2_MENUS_NOW = List.of(MENU_2_1_NOW, MENU_2_2_NOW);
     public static final List<MenuItem> RESTAURANT_3_MENUS_NOW = List.of(MENU_3_1_NOW);
+
+    public static final List<MenuItem> RESTAURANTS_WITH_MENU_ON_CURRENT_DATE = new ArrayList<>();
+
+    static {
+        RESTAURANTS_WITH_MENU_ON_CURRENT_DATE.addAll(RESTAURANT_2_MENUS_NOW);
+        RESTAURANTS_WITH_MENU_ON_CURRENT_DATE.addAll(RESTAURANT_1_MENUS_NOW);
+        RESTAURANTS_WITH_MENU_ON_CURRENT_DATE.addAll(RESTAURANT_3_MENUS_NOW);
+    }
 
     public static final List<Dish> RESTAURANT_1_DISHES = List.of(DISH_3, DISH_2, DISH_1);
 
@@ -115,12 +123,6 @@ public class TestDataHelper {
     public static final Vote VOTE_USER_1 = new Vote(VOTE_ID_2, LocalDate.of(2020, 1, 1), USER_1, RESTAURANT_3);
     public static final Vote VOTE_USER_2 = new Vote(VOTE_ID_3, LocalDate.of(2020, 1, 1), USER_2, RESTAURANT_2);
 
-    static {
-        RESTAURANT_1.setMenus(RESTAURANT_1_MENUS_NOW);
-        RESTAURANT_2.setMenus(RESTAURANT_2_MENUS_NOW);
-        RESTAURANT_3.setMenus(RESTAURANT_3_MENUS_NOW);
-    }
-
     private TestDataHelper() {
     }
 
@@ -129,7 +131,7 @@ public class TestDataHelper {
     }
 
     public static Restaurant getUpdatedRestaurant(Restaurant restaurant) {
-        return new Restaurant(restaurant.getId(), "updated name", restaurant.getAddress(), restaurant.getMenuItems());
+        return new Restaurant(restaurant.getId(), "updated name", restaurant.getAddress());
     }
 
     public static Dish getNewDish() {
@@ -142,7 +144,7 @@ public class TestDataHelper {
 
     public static MenuItemDishIdTo getNewMenuItemDishIdTo() {
         MenuItemDishIdTo to = new MenuItemDishIdTo();
-        to.setDishId(DISH_ID_5);
+        to.setDishId(DISH_ID_3);
         to.setPrice(56_00);
         return to;
     }

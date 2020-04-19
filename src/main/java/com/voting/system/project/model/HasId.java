@@ -4,7 +4,7 @@ import org.springframework.util.Assert;
 
 import java.io.Serializable;
 
-public interface HasId extends Serializable {
+public interface HasId {
 
     Integer getId();
 

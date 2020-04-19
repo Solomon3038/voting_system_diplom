@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -21,7 +22,7 @@ import javax.persistence.UniqueConstraint;
 @Setter
 @ToString(callSuper = true, exclude = "restaurant")
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "dish_unique_name_idx")})
-public class Dish extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

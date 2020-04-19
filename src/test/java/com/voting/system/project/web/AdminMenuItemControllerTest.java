@@ -87,14 +87,6 @@ class AdminMenuItemControllerTest extends AbstractControllerTest {
 
     @Test
     @Transactional(propagation = Propagation.NEVER)
-    void createNotExistRestaurant() throws Exception {
-        final MenuItemDishIdTo itemDishIdTo = getNewMenuItemDishIdTo();
-        doPostErr(objectMapper.writeValueAsString(itemDishIdTo), ADMIN_MENU_NOT_EXIST_URL_TEST, status().isConflict());
-        assertThrows(NotExistException.class, () -> menuService.get(MENU_ID_NEXT, RESTAURANT_ID_NEXT));
-    }
-
-    @Test
-    @Transactional(propagation = Propagation.NEVER)
     void createNotExistDish() throws Exception {
         final MenuItemDishIdTo itemDishIdTo = getNewMenuItemDishIdTo();
         itemDishIdTo.setDishId(DISH_ID_NEXT);

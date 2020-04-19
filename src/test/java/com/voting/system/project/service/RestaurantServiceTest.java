@@ -5,6 +5,7 @@ import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.to.MenuItemDishNameTo;
 import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.util.exception.NotExistException;
+import com.voting.system.project.util.mapper.RestaurantToUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,13 +48,13 @@ class RestaurantServiceTest extends AbstractTest {
     @Test
     void getAllWithMenusOnCurrentDate() {
         final List<RestaurantTo> actual = restaurantService.getAllWithMenusOnDate(LocalDate.now());
-        final List<RestaurantTo> tos = mapper.mapAsList(RESTAURANTS_WITH_MENU_ON_CURRENT_DATE, RestaurantTo.class);
+        final List<RestaurantTo> tos = RestaurantToUtil.convert(RESTAURANTS_WITH_MENU_ON_CURRENT_DATE, mapper);
         assertMatch(actual, tos);
-        for (int i = 0; i < actual.size(); i++) {
-            List<MenuItemDishNameTo> menus = actual.get(i).getMenuItemDishNameTos().stream()
+        for (int i = 0; i < tos.size(); i++) {
+            List<MenuItemDishNameTo> menus = tos.get(i).getMenuItemDishNameTos().stream()
                     .sorted(Comparator.comparing(MenuItemDishNameTo::getDishName))
                     .collect(Collectors.toList());
-            assertMatch(menus, tos.get(i).getMenuItemDishNameTos());
+            assertMatch(menus, actual.get(i).getMenuItemDishNameTos());
         }
     }
 

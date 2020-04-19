@@ -1,9 +1,11 @@
 package com.voting.system.project.service;
 
+import com.voting.system.project.model.MenuItem;
 import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.repository.RestaurantRepository;
 import com.voting.system.project.to.RestaurantTo;
 import com.voting.system.project.util.mapper.OrikaMapper;
+import com.voting.system.project.util.mapper.RestaurantToUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.lang.Nullable;
@@ -38,8 +40,8 @@ public class RestaurantService {
 
     @Cacheable("restaurants")
     public List<RestaurantTo> getAllWithMenusOnDate(@Nullable LocalDate date) {
-        final List<Restaurant> restaurants = restaurantRepository.findAllWithMenuItemsOnDate(date == null ? LocalDate.now() : date);
-        return mapper.mapAsList(restaurants, RestaurantTo.class);
+        final List<MenuItem> restaurants = restaurantRepository.findAllOnDate(date == null ? LocalDate.now() : date);
+        return RestaurantToUtil.convert(restaurants, mapper);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
