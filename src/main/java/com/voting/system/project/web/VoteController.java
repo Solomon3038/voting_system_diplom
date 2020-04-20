@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,7 +36,7 @@ public class VoteController {
     }
 
     @GetMapping
-    public VoteTo get(@RequestParam("date")
+    public VoteTo get(@RequestParam(value = "date", required = false)
                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         int userId = SecurityUtil.authUserId();
         log.info("get vote for user with id {} on date {}", userId, date);
@@ -55,10 +53,11 @@ public class VoteController {
         return getResponseEntity(created, VOTE_REST_URL + "?" + date, restId, created.getId());
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/update")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@PathVariable int restId,
-                       @RequestBody LocalDateTime dateTime) {
+                       @RequestParam(value = "dateTime")
+                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) {
         int userId = SecurityUtil.authUserId();
         log.info("update vote for user with id {} and restaurant with id {} on date {}", userId, restId, dateTime);
         voteService.update(userId, restId, dateTime);

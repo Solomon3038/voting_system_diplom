@@ -1,7 +1,6 @@
 package com.voting.system.project.to;
 
 import com.voting.system.project.model.Restaurant;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

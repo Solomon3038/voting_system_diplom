@@ -5,7 +5,6 @@ import com.voting.system.project.to.VoteTo;
 import com.voting.system.project.util.exception.NotExistException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.voting.system.project.TestDataHelper.NOT_EXIST_DATE;
 import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_1;
@@ -61,7 +61,6 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(USER_1_EMAIL)
     void createWithLocation() throws Exception {
         final String result = mockMvc.perform(post(VOTE_REST_URL_TEST)
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("date", "2022-03-14"))
                 .andDo(print())
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
@@ -92,7 +91,6 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(USER_2_EMAIL)
     void createDateLessCurrentDate() throws Exception {
         mockMvc.perform(post(VOTE_REST_URL_TEST)
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("date", "2020-01-03"))
                 .andDo(print())
                 .andExpect(status().isRequestTimeout());
@@ -102,8 +100,10 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(USER_2_EMAIL)
     void update() throws Exception {
         final LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0));
-        final String value = objectMapper.writeValueAsString(date);
-        doPut(value, REST_URL + "/" + RESTAURANT_ID_3 + "/votes/");
+        mockMvc.perform(post(REST_URL + "/" + RESTAURANT_ID_3 + "/votes/update")
+                .param("dateTime", date.format(DateTimeFormatter.ISO_DATE_TIME)))
+                .andDo(print())
+                .andExpect(status().isNoContent());
         assertMatch(voteService.getOnDate(USER_ID_2, date.toLocalDate()), new VoteTo(VOTE_ID_1, date.toLocalDate(), USER_ID_2, RESTAURANT_ID_3));
     }
 
@@ -111,8 +111,10 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(USER_2_EMAIL)
     void updateNotExist() throws Exception {
         final LocalDateTime date = LocalDateTime.of(NOT_EXIST_DATE, LocalTime.of(9, 0));
-        final String value = objectMapper.writeValueAsString(date);
-        doPutErr(value, REST_URL + "/" + RESTAURANT_ID_3 + "/votes/", status().isUnprocessableEntity());
+        mockMvc.perform(post(REST_URL + "/" + RESTAURANT_ID_3 + "/votes/update")
+                .param("dateTime", date.format(DateTimeFormatter.ISO_DATE_TIME)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
         assertMatch(voteService.getOnDate(USER_ID_1, VOTE_USER_1.getDate()), new VoteTo(VOTE_ID_2, VOTE_USER_1.getDate(), USER_ID_1, RESTAURANT_ID_3));
     }
 
@@ -121,8 +123,10 @@ class VoteControllerTest extends AbstractControllerTest {
     @Transactional(propagation = Propagation.NEVER)
     void updateNotExistRestaurant() throws Exception {
         final LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.of(9, 0));
-        final String value = objectMapper.writeValueAsString(date);
-        doPutErr(value, VOTE_NOT_EXIST_REST_URL_TEST, status().isConflict());
+        mockMvc.perform(post(VOTE_NOT_EXIST_REST_URL_TEST + "/update")
+                .param("dateTime", date.format(DateTimeFormatter.ISO_DATE_TIME)))
+                .andDo(print())
+                .andExpect(status().isConflict());
         assertMatch(voteService.getOnDate(USER_ID_2, LocalDate.now()), new VoteTo(VOTE_ID_1, LocalDate.now(), USER_ID_2, RESTAURANT_ID_1));
     }
 
@@ -130,8 +134,10 @@ class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(USER_2_EMAIL)
     void updateNotInTime() throws Exception {
         final LocalDateTime date = LocalDateTime.of(VOTE_USER_2.getDate(), LocalTime.of(11, 0, 1));
-        final String value = objectMapper.writeValueAsString(date);
-        doPutErr(value, VOTE_REST_URL_TEST, status().isRequestTimeout());
+        mockMvc.perform(post(VOTE_REST_URL_TEST + "/update")
+                .param("dateTime", date.format(DateTimeFormatter.ISO_DATE_TIME)))
+                .andDo(print())
+                .andExpect(status().isRequestTimeout());
         assertMatch(voteService.getOnDate(USER_ID_2, date.toLocalDate()), new VoteTo(VOTE_ID_3, date.toLocalDate(), USER_ID_2, RESTAURANT_ID_2));
     }
 }

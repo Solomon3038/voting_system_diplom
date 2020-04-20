@@ -86,6 +86,8 @@ curl --location --request GET 'http://localhost:8080/restaurants/3/votes?date=20
     "restaurantId": 3,
     "new": false
 }
+
+if parameter is not exist returns vote on current date
 ```
 </p></details>
     </td>
@@ -123,10 +125,9 @@ if parameter is not exist vote will be create on current date
   <summary>Curl:</summary><p>
   
 ```
-curl --location --request POST 'http://localhost:8080/restaurants/3/votes' \
+curl --location --request POST 'http://localhost:8080/restaurants/1/votes' \
 --header 'Authorization: Basic dXNlci5vbmVAdWtyLm5ldDpwYXNzd29yZA==' \
---header 'Content-Type: application/json' \
---data-raw '"2022-02-20"
+--form 'date=2022-02-20'
 '
 ```
 </p></details>
@@ -153,8 +154,8 @@ curl --location --request POST 'http://localhost:8080/restaurants/3/votes' \
       <tr>
           <td><b> Update vote </b></td>
           <td> ROLE_USER </td>
-          <td> PUT </td>
-          <td> /restaurants/1/votes </td>
+          <td> POST </td>
+          <td> /restaurants/1/votes/update </td>
           <td> 204 No Content </td>
           <td>
           <p> 401 Unauthorized </p>
@@ -167,10 +168,11 @@ curl --location --request POST 'http://localhost:8080/restaurants/3/votes' \
 <tr>
 <td>
 <details>
-  <summary>Data params:</summary><p>
+  <summary>Form data:</summary><p>
   
 ```
-"2020-01-01T11:00:00"
+Key: dateTime
+Value: 2020-01-01T11:00:00
 ```
 </p></details>
 </td>
@@ -179,10 +181,9 @@ curl --location --request POST 'http://localhost:8080/restaurants/3/votes' \
   <summary>Curl:</summary><p>
 
 ```
-curl --location --request PUT 'http://localhost:8080/restaurants/1/votes' \
+curl --location --request POST 'http://localhost:8080/restaurants/1/votes/update' \
 --header 'Authorization: Basic dXNlci5vbmVAdWtyLm5ldDpwYXNzd29yZA==' \
---header 'Content-Type: application/json' \
---data-raw '"2020-01-01T11:00:00"'
+--form 'dateTime=2020-01-01T11:00:00'
 ```
 </p></details>
 </td>

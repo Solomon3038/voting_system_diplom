@@ -2,8 +2,6 @@ package com.voting.system.project.model;
 
 import org.springframework.util.Assert;
 
-import java.io.Serializable;
-
 public interface HasId {
 
     Integer getId();

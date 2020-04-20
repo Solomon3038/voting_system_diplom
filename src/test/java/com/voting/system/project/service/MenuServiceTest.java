@@ -16,7 +16,6 @@ import static com.voting.system.project.TestDataHelper.NOT_EXIST_ID;
 import static com.voting.system.project.TestDataHelper.RESTAURANT_1_MENUS;
 import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_1;
 import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_2;
-import static com.voting.system.project.TestDataHelper.RESTAURANT_ID_4;
 import static com.voting.system.project.TestDataHelper.getNewMenuItemDishIdTo;
 import static com.voting.system.project.TestDataHelper.getUpdatedMenuItemDishIdTo;
 import static com.voting.system.project.util.TestMatcherUtil.assertMatch;
