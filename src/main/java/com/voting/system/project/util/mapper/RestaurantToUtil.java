@@ -15,12 +15,11 @@ import java.util.Map;
 public class RestaurantToUtil {
 
     public static List<RestaurantTo> convert(List<MenuItem> source, OrikaMapper mapper) {
-
-        Map<Integer, RestaurantTo> map = new HashMap<>();
+        final Map<Integer, RestaurantTo> map = new HashMap<>();
 
         source.forEach(menuItem -> {
-            Restaurant restaurant = menuItem.getDish().getRestaurant();
-            RestaurantTo restaurantTo = new RestaurantTo(restaurant, new ArrayList<>(Collections.singletonList(mapper.map(menuItem, MenuItemDishNameTo.class))));
+            final Restaurant restaurant = menuItem.getDish().getRestaurant();
+            final RestaurantTo restaurantTo = new RestaurantTo(restaurant, new ArrayList<>(Collections.singletonList(mapper.map(menuItem, MenuItemDishNameTo.class))));
 
             map.merge(restaurant.getId(), restaurantTo,
                     (oldItem, newItem) -> {
@@ -29,7 +28,7 @@ public class RestaurantToUtil {
                     });
         });
 
-        List<RestaurantTo> tos = new ArrayList<>(map.values());
+        final List<RestaurantTo> tos = new ArrayList<>(map.values());
         tos.sort(Comparator.comparing(RestaurantTo::getName));
         tos.forEach(items -> items.getMenuItemDishNameTos().sort(Comparator.comparing(MenuItemDishNameTo::getDishName)));
 

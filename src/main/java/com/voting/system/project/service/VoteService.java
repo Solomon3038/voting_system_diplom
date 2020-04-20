@@ -40,7 +40,7 @@ public class VoteService {
     public VoteTo getOnDate(int userId, LocalDate date) {
         final LocalDate searchDate = date == null ? LocalDate.now() : date;
         final Vote vote = checkNotExist(voteRepository.findVoteByUserIdAndDate(userId, searchDate),
-                "Vote for user with id " + userId + " on date " + searchDate + " not exist");
+                "Vote for user with id " + userId + " on date " + searchDate);
         return mapper.map(vote, VoteTo.class);
     }
 
@@ -57,7 +57,7 @@ public class VoteService {
     public void update(int userId, int restId, LocalDateTime dateTime) {
         final LocalDate date = dateTime.toLocalDate();
         final Vote vote = checkNotExist(voteRepository.findVoteByUserIdAndDate(userId, date),
-                "Vote for user with id " + userId + " on date " + date + " not exist");
+                "Vote for user with id " + userId + " on date " + date);
         checkTime(dateTime.toLocalTime());
         final User user = userRepository.getOne(userId);
         final Restaurant restaurant = restaurantRepository.getOne(restId);

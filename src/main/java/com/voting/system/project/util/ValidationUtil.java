@@ -55,7 +55,7 @@ public class ValidationUtil {
 
     public static void checkTime(LocalTime time) {
         if (time.compareTo(VOTE_MAX_TIME) > 0) {
-            throw new VoteException("Vote can't be accepted after " + VOTE_MAX_TIME + "AM");
+            throw new VoteException("Vote can't be accepted after " + VOTE_MAX_TIME + " AM");
         }
     }
 }

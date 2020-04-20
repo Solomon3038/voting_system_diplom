@@ -30,6 +30,7 @@ public class RestaurantTo extends BaseTo {
     public RestaurantTo(Restaurant restaurant, List<MenuItemDishNameTo> menuItemDishNameTos) {
         super(restaurant.getId());
         this.name = restaurant.getName();
+        this.address = restaurant.getAddress();
         this.menuItemDishNameTos = menuItemDishNameTos;
     }
 }
