@@ -3,7 +3,6 @@ package com.voting.system.project.util;
 import com.voting.system.project.model.Dish;
 import com.voting.system.project.model.HasId;
 import com.voting.system.project.model.MenuItem;
-import com.voting.system.project.model.Restaurant;
 import com.voting.system.project.model.User;
 import com.voting.system.project.to.MenuItemDishIdTo;
 import com.voting.system.project.to.MenuItemDishNameTo;
@@ -20,9 +19,8 @@ public class TestMatcherUtil {
 
     static {
         ignoreFieldsMap.put(User.class, new String[]{"registered"});
-        ignoreFieldsMap.put(Restaurant.class, new String[]{"menuItems"});
         ignoreFieldsMap.put(RestaurantTo.class, new String[]{"menuItemDishNameTos"});
-        ignoreFieldsMap.put(MenuItem.class, new String[]{"dish", "restaurant"});
+        ignoreFieldsMap.put(MenuItem.class, new String[]{"dish"});
         ignoreFieldsMap.put(MenuItemDishIdTo.class, new String[]{"dishId"});
         ignoreFieldsMap.put(MenuItemDishNameTo.class, new String[]{"dishName"});
         ignoreFieldsMap.put(Dish.class, new String[]{"restaurant"});
